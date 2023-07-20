@@ -8,14 +8,22 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-class RobotContainer {
- public:
-  RobotContainer();
+#include "subsystems/Chassis/Chassis.h"
+#include "subsystems/Vision/Vision.h"
 
+class RobotContainer {
+public:
+  RobotContainer();
+  void setAllianceColor();
   frc2::Command* GetAutonomousCommand();
 
- private:
+private:
   void ConfigureBindings();
 
+  // Subsystems
+  Chassis chassis;
+  Vision vision{ &chassis };
+
+  // Auto
   frc::SendableChooser<frc2::Command*> pathChooser;
 };

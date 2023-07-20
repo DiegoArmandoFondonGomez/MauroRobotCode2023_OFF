@@ -11,6 +11,10 @@ RobotContainer::RobotContainer() {
   ConfigureBindings();
 }
 
+void RobotContainer::setAllianceColor() {
+  vision.setAlliancesColor();
+}
+
 void RobotContainer::ConfigureBindings() {}
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
