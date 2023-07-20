@@ -7,7 +7,7 @@
 #include "OvertureLib/subsystems/VisionManager/VisionManager.h"
 #include "main/subsystems/Chassis/Chassis.h"
 
-class Vision {
+class Vision: public VisionManager {
 public:
   Vision(Chassis* chassis);
 private:
