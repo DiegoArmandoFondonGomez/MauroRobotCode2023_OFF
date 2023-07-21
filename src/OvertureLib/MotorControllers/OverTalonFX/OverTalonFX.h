@@ -39,6 +39,7 @@ public:
 
   double getDistance(double _wheelDiameter);
   double getVelocity(double _wheelDiameter);
+  double getRotorPosition();
   double getPosition();
 
   void setVoltage(units::volt_t _voltage, bool enableFOC);

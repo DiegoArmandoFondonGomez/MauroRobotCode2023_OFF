@@ -180,6 +180,15 @@ double OverTalonFX::getVelocity(double _wheelDiameter) {
  * @return Posicion del TalonFX
  */
 double OverTalonFX::getPosition() {
+    motorController->GetPosition().SetUpdateFrequency(50_Hz);
+    return motorController->GetPosition().GetValue().value();
+}
+
+/**
+ * @brief Se obtiene la posicion absoluta del TalonFX
+ * @return Posicion del TalonFX
+ */
+double OverTalonFX::getRotorPosition() {
     motorController->GetRotorPosition().SetUpdateFrequency(50_Hz);
     return motorController->GetRotorPosition().GetValue().value();
 }
