@@ -17,8 +17,8 @@ public:
   void Periodic() override;
 
 private:
-  SwerveModule backRightModule{ 8, 7, 14, -155.7421875, "BackRightModule", "OverCANivore" };
-  SwerveModule backLeftModule{ 6, 5, 13, 118.916015625, "BackLeftModule", "OverCANivore" };
+  SwerveModule backRightModule{ 8, 7, 14, 118.916015625, "BackRightModule", "OverCANivore" };
+  SwerveModule backLeftModule{ 6, 5, 13, -155.7421875, "BackLeftModule", "OverCANivore" };
   SwerveModule frontLeftModule{ 4, 3, 12, 106.611328125, "FrontLeftModule", "OverCANivore" };
   SwerveModule frontRightModule{ 2, 1, 11, 132.978515625, "FrontRightModule", "OverCANivore" };
 
