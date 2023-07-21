@@ -237,8 +237,9 @@ void OverTalonFX::setPositionVoltage(double _position, bool enableFOC) {
  * @param _position La posicion del robot
  * @param enableFOC Activar o desactivar la potencia extra del TalonFX
  */
-void OverTalonFX::setMotionMagicPosition(double _position, bool enableFOC) {
+void OverTalonFX::setMotionMagicPosition(double _position, double feedForward, bool enableFOC) {
     MotionMagicVoltage motionMagicVoltage = MotionMagicVoltage{ 0_tr }.WithSlot(0);
+    motionMagicVoltage.FeedForward = units::volt_t{ feedForward };
     motionMagicVoltage.UpdateFreqHz = 200_Hz;
     motionMagicVoltage.EnableFOC = enableFOC;
     motorController->SetControl(motionMagicVoltage.WithPosition(units::turn_t{ _position }));

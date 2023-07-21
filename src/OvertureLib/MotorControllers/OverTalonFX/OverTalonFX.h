@@ -45,7 +45,7 @@ public:
   void setVelocityVoltage(double _velocity, bool enableFOC);
   void setDutyCycle(double _dutyCycle, bool enableFOC);
   void setPositionVoltage(double _position, bool enableFOC);
-  void setMotionMagicPosition(double _position, bool enableFOC);
+  void setMotionMagicPosition(double _position, double feedForward, bool enableFOC);
   void setVelocityTorqueCurrentFOC(double _velocity);
 
   void setPIDValues(double _kP, double _kI, double _kD, double _kS, double _kV);
