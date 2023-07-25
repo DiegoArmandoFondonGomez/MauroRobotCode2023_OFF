@@ -8,21 +8,21 @@
  * @brief Construye un módulo de Swerve
 */
 SwerveModule::SwerveModule(int rotatorID, int wheelID, int canCoderID, double offset, std::string moduleName, std::string canBus): m_name(moduleName) {
-    m_driveMotor = new OverTalonFX(wheelID, ControllerNeutralMode::Brake, true, 1, canBus);
-    m_turningMotor = new OverTalonFX(rotatorID, ControllerNeutralMode::Coast, true, 1, canBus);
-    m_canCoder = new OverCANCoder(canCoderID, offset, canBus);
+	m_driveMotor = new OverTalonFX(wheelID, ControllerNeutralMode::Brake, true, 1, canBus);
+	m_turningMotor = new OverTalonFX(rotatorID, ControllerNeutralMode::Coast, true, 1, canBus);
+	m_canCoder = new OverCANCoder(canCoderID, offset, canBus);
 
-    m_turningMotor->setContinuousWrap();
-    m_turningMotor->setFusedCANCoder(canCoderID);
-    m_turningMotor->setClosedLoopVoltageRamp(0.1);
-    m_turningMotor->setSupplyCurrentLimit(true, 20, 30, 0.5);
-    m_turningMotor->setPositionVoltage(0, false);
+	m_turningMotor->setContinuousWrap();
+	m_turningMotor->setFusedCANCoder(canCoderID);
+	m_turningMotor->setClosedLoopVoltageRamp(0.1);
+	m_turningMotor->setSupplyCurrentLimit(true, 20, 30, 0.5);
+	m_turningMotor->setPositionVoltage(0, false);
 
-    m_driveMotor->zeroPosition();
-    m_driveMotor->setClosedLoopTorqueRamp(0.1);
-    m_driveMotor->setTorqueCurrentLimit(40, -40, 0.1);
-    // m_driveMotor->setClosedLoopVoltageRamp(0.1);
-    // m_driveMotor->setSupplyCurrentLimit(true, 20, 30, 0.5);
+	m_driveMotor->zeroPosition();
+	m_driveMotor->setClosedLoopTorqueRamp(0.1);
+	m_driveMotor->setTorqueCurrentLimit(40, -40, 0.1);
+	// m_driveMotor->setClosedLoopVoltageRamp(0.1);
+	// m_driveMotor->setSupplyCurrentLimit(true, 20, 30, 0.5);
 }
 
 /**
@@ -32,7 +32,7 @@ SwerveModule::SwerveModule(int rotatorID, int wheelID, int canCoderID, double of
  * @param kD Constante derivativa
  */
 void SwerveModule::setRotatorPIDValues(double kP, double kI, double kD) {
-    m_turningMotor->setPIDValues(kP, kI, kD, 0, 0);
+	m_turningMotor->setPIDValues(kP, kI, kD, 0, 0);
 }
 
 /**
@@ -44,7 +44,7 @@ void SwerveModule::setRotatorPIDValues(double kP, double kI, double kD) {
  * @param kV Constante de feedforward dinámico
  */
 void SwerveModule::setDrivePIDValues(double kP, double kI, double kD) {
-    m_driveMotor->setPIDValues(kP, kI, kD, 0, 0);
+	m_driveMotor->setPIDValues(kP, kI, kD, 0, 0);
 }
 
 /**
@@ -54,7 +54,7 @@ void SwerveModule::setDrivePIDValues(double kP, double kI, double kD) {
  * @param ka Constante de feedforward de aceleración
  */
 void SwerveModule::setFFConstants(units::volt_t ks, units::volt_t kv, units::volt_t ka) {
-    m_feedForward = frc::SimpleMotorFeedforward<units::meters>(ks, kv / 1_mps, ka / 1_mps_sq);
+	m_feedForward = frc::SimpleMotorFeedforward<units::meters>(ks, kv / 1_mps, ka / 1_mps_sq);
 }
 
 /**
@@ -62,8 +62,8 @@ void SwerveModule::setFFConstants(units::volt_t ks, units::volt_t kv, units::vol
  * @param _gearRatio Relación de engranajes
  */
 void SwerveModule::setGearRatio(double _turn, double _wheel) {
-    m_turningMotor->setRotorToSensorRatio(_turn);
-    m_driveMotor->setSensorToMechanism(_wheel);
+	m_turningMotor->setRotorToSensorRatio(_turn);
+	m_driveMotor->setSensorToMechanism(_wheel);
 }
 
 /**
@@ -71,7 +71,7 @@ void SwerveModule::setGearRatio(double _turn, double _wheel) {
  * @param _wheelDiameter Diámetro de la rueda en metros
  */
 void SwerveModule::setWheelDiameter(double _wheelDiameter) {
-    this->m_wheelDiameter = _wheelDiameter;
+	this->m_wheelDiameter = _wheelDiameter;
 }
 
 /**
@@ -79,15 +79,15 @@ void SwerveModule::setWheelDiameter(double _wheelDiameter) {
  * @return Velocidad del módulo
  */
 double SwerveModule::getSpeed() {
-    return m_driveMotor->getVelocity(m_wheelDiameter);
+	return m_driveMotor->getVelocity(m_wheelDiameter);
 }
 
 /**
  * @brief Pendiente a escribir
  */
 double SwerveModule::setSpeed(double speed) {
-    // return ((speed / (m_wheelDiameter * M_PI)));
-    return 2.4 * speed;
+	// return ((speed / (m_wheelDiameter * M_PI)));
+	return 2.4 * speed;
 }
 
 /**
@@ -95,7 +95,7 @@ double SwerveModule::setSpeed(double speed) {
  * @return Distancia recorrida por el módulo
  */
 double SwerveModule::getDistance() {
-    return m_driveMotor->getDistance(m_wheelDiameter);
+	return m_driveMotor->getDistance(m_wheelDiameter);
 }
 
 /**
@@ -103,7 +103,7 @@ double SwerveModule::getDistance() {
  * @return Ángulo del módulo
  */
 double SwerveModule::getAngle() {
-    return m_canCoder->getAbsolutePosition() * 360;
+	return m_canCoder->getAbsolutePosition() * 360;
 }
 
 /**
@@ -111,12 +111,12 @@ double SwerveModule::getAngle() {
  * @return Estado del módulo
  */
 frc::SwerveModuleState SwerveModule::getState() {
-    frc::SwerveModuleState state;
+	frc::SwerveModuleState state;
 
-    state.speed = units::meters_per_second_t(getSpeed());
-    state.angle = units::degree_t(getAngle());
+	state.speed = units::meters_per_second_t(getSpeed());
+	state.angle = units::degree_t(getAngle());
 
-    return state;
+	return state;
 }
 
 /**
@@ -124,7 +124,7 @@ frc::SwerveModuleState SwerveModule::getState() {
  * @param state Estado del módulo
  */
 void SwerveModule::setState(frc::SwerveModuleState state) {
-    m_state = frc::SwerveModuleState::Optimize(state, m_state.angle);
+	m_state = frc::SwerveModuleState::Optimize(state, m_state.angle);
 }
 
 /**
@@ -132,7 +132,7 @@ void SwerveModule::setState(frc::SwerveModuleState state) {
  * @return Posición del módulo
  */
 frc::SwerveModulePosition SwerveModule::getPosition() {
-    return { units::meter_t{getDistance()}, units::degree_t{getAngle()} };
+	return { units::meter_t{getDistance()}, units::degree_t{getAngle()} };
 }
 
 /**
@@ -140,7 +140,7 @@ frc::SwerveModulePosition SwerveModule::getPosition() {
  * @param wheelVoltage Voltaje del motor
  */
 void SwerveModule::setWheelVoltage(double wheelVoltage) {
-    this->wheelVoltage = units::volt_t{ wheelVoltage };
+	this->wheelVoltage = units::volt_t{ wheelVoltage };
 }
 
 /**
@@ -148,26 +148,26 @@ void SwerveModule::setWheelVoltage(double wheelVoltage) {
  * @param set Valor Booleano
  */
 void SwerveModule::setUseRawVoltageSpeed(bool set) {
-    useRawVoltageSpeed = set;
+	useRawVoltageSpeed = set;
 }
 
 /**
  * @brief Le da valores a los dos motores
  */
 void SwerveModule::setVoltages() {
-    m_turningMotor->setPositionVoltage(m_state.angle.Degrees().value() / 360.0, true);
+	m_turningMotor->setPositionVoltage(m_state.angle.Degrees().value() / 360.0, false);
 
-    if (useRawVoltageSpeed) {
-        m_driveMotor->setVoltage(wheelVoltage, true);
-    } else {
-        // m_driveMotor->setVoltage(m_feedForward.Calculate(m_state.speed), true);
-        m_driveMotor->setVoltage(units::volt_t{ setSpeed(m_state.speed.value()) }, true);
-        // m_driveMotor->setVelocityTorqueCurrentFOC(setSpeed(m_state.speed.vale()));
-    }
+	if (useRawVoltageSpeed) {
+		m_driveMotor->setVoltage(wheelVoltage, true);
+	} else {
+		m_driveMotor->setVoltage(m_feedForward.Calculate(m_state.speed), false);
+		// m_driveMotor->setVoltage(units::volt_t{ setSpeed(m_state.speed.value()) }, true);
+		// m_driveMotor->setVelocityTorqueCurrentFOC(setSpeed(m_state.speed.vale()));
+	}
 }
 // This method will be called once per scheduler run
 void SwerveModule::Periodic() {
-    frc::SmartDashboard::PutNumber(m_name + "/Speed", getSpeed());
-    frc::SmartDashboard::PutNumber(m_name + "/Target", m_state.angle.Degrees().value());
-    frc::SmartDashboard::PutNumber(m_name + "/Angle", getAngle());
+	frc::SmartDashboard::PutNumber(m_name + "/Speed", getSpeed());
+	frc::SmartDashboard::PutNumber(m_name + "/Target", m_state.angle.Degrees().value());
+	frc::SmartDashboard::PutNumber(m_name + "/Angle", getAngle());
 }
