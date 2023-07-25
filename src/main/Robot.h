@@ -8,11 +8,13 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include <frc/AddressableLED.h>
+#include <frc/PWM.h>
 
 #include "RobotContainer.h"
 
-class Robot : public frc::TimedRobot {
- public:
+class Robot: public frc::TimedRobot {
+public:
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
@@ -28,8 +30,14 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
   void TestExit() override;
 
- private:
+private:
   frc2::Command* m_autonomousCommand;
+  static constexpr int kLength = 620;
 
+  frc::AddressableLED m_led{ 0 };
+  std::array<frc::AddressableLED::LEDData, kLength>
+    m_ledBuffer;
+
+  int firstPixelHue = 0;
   RobotContainer m_container;
 };
