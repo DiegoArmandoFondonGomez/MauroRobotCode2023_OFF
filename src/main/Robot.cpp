@@ -8,10 +8,6 @@
 
 void Robot::RobotInit() {
   m_container.setAllianceColor();
-
-  m_led.SetLength(kLength);
-  m_led.SetData(m_ledBuffer);
-  m_led.Start();
 }
 
 void Robot::RobotPeriodic() {
@@ -21,27 +17,9 @@ void Robot::RobotPeriodic() {
 
 void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {
-  frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
+void Robot::DisabledPeriodic() {}
 
-  if (allianceColor == frc::DriverStation::Alliance::kBlue) {
-    for (int i = 0; i < kLength; i++) {
-      m_ledBuffer[i].SetRGB(0, 0, 255);
-    }
-  } else if (allianceColor == frc::DriverStation::Alliance::kRed) {
-    for (int i = 0; i < kLength; i++) {
-      m_ledBuffer[i].SetRGB(255, 0, 0);
-    }
-  }
-  m_led.SetData(m_ledBuffer);
-}
-
-void Robot::DisabledExit() {
-  for (int i = 0; i < kLength; i++) {
-    m_ledBuffer[i].SetRGB(255, 0, 255);
-  }
-  m_led.SetData(m_ledBuffer);
-}
+void Robot::DisabledExit() {}
 
 
 void Robot::AutonomousInit() {
@@ -53,12 +31,7 @@ void Robot::AutonomousInit() {
   }
 }
 
-void Robot::AutonomousPeriodic() {
-  for (int i = 0; i < kLength; i++) {
-    m_ledBuffer[i].SetRGB(255, 0, 255);
-  }
-  m_led.SetData(m_ledBuffer);
-}
+void Robot::AutonomousPeriodic() {}
 
 void Robot::AutonomousExit() {}
 
@@ -70,19 +43,9 @@ void Robot::TeleopInit() {
   }
 }
 
-void Robot::TeleopPeriodic() {
-  for (int i = 0; i < kLength; i++) {
-    m_ledBuffer[i].SetRGB(255, 0, 255);
-  }
-  m_led.SetData(m_ledBuffer);
-}
+void Robot::TeleopPeriodic() {}
 
-void Robot::TeleopExit() {
-  for (int i = 0; i < kLength; i++) {
-    m_ledBuffer[i].SetRGB(255, 0, 255);
-  }
-  m_led.SetData(m_ledBuffer);
-}
+void Robot::TeleopExit() {}
 
 void Robot::TestInit() {
   frc2::CommandScheduler::GetInstance().CancelAll();
