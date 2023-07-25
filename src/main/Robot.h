@@ -32,12 +32,5 @@ public:
 
 private:
   frc2::Command* m_autonomousCommand;
-  static constexpr int kLength = 620;
-
-  frc::AddressableLED m_led{ 0 };
-  std::array<frc::AddressableLED::LEDData, kLength>
-    m_ledBuffer;
-
-  int firstPixelHue = 0;
   RobotContainer m_container;
 };
