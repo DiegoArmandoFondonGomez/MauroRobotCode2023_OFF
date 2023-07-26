@@ -24,5 +24,6 @@
     "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "sameLine",
     "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": true,
     "editor.formatOnSave": true,
-    "C_Cpp.default.configurationProvider": "vscode-wpilib"
+    "C_Cpp.default.configurationProvider": "vscode-wpilib",
+    "editor.tabSize": 4
 }
