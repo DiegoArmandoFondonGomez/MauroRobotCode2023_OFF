@@ -12,10 +12,41 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::setAllianceColor() {
-  vision.setAlliancesColor();
+  // vision.setAlliancesColor();
 }
 
-void RobotContainer::ConfigureBindings() {}
+void RobotContainer::ConfigureBindings() {
+  chassis.SetDefaultCommand(Drive(&chassis, &driver));
+
+
+  // Configure the button bindings
+  resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
+  setConeLED.OnTrue(SetConeLED(&ledManager));
+  setCubeLED.OnTrue(SetCubeLED(&ledManager));
+  setLEDOff.OnTrue(SetLEDOff(&ledManager));
+
+
+  // closedPosition.OnTrue(ClosedCommand(&superStructure));
+  // openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
+
+  // lowerPosition.OnTrue(LowerCommand(&superStructure));
+  // lowerPosition.OnFalse(ClosedCommand(&superStructure));
+
+  // middlePosition.OnTrue(MiddleCommand(&superStructure));
+  // middlePosition.OnFalse(LongClosedCommand(&superStructure));
+
+  // upperPosition.OnTrue(UpperCommand(&superStructure));
+  // upperPosition.OnFalse(LongClosedCommand(&superStructure));
+
+  // loadingPosition.OnTrue(LoadingCommand(&superStructure));
+  // loadingPosition.OnFalse(LongClosedCommand(&superStructure));
+
+  // groundIntake.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake));
+  // groundIntake.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
+
+  // setGamePiece.OnTrue(SetGamePieceTrueCommand(&intake));
+  // setGamePiece.OnFalse(SetGamePieceFalseCommand(&intake));
+}
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   return pathChooser.GetSelected();
