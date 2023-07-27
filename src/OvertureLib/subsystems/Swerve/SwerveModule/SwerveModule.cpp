@@ -86,8 +86,8 @@ double SwerveModule::getSpeed() {
  * @brief Pendiente a escribir
  */
 double SwerveModule::setSpeed(double speed) {
-	// return ((speed / (m_wheelDiameter * M_PI)));
-	return 2.4 * speed;
+	return ((speed / (m_wheelDiameter * M_PI)));
+	// return 2.4 * speed;
 }
 
 /**
@@ -160,8 +160,8 @@ void SwerveModule::setVoltages() {
 	if (useRawVoltageSpeed) {
 		m_driveMotor->setVoltage(wheelVoltage, true);
 	} else {
-		m_driveMotor->setVoltage(m_feedForward.Calculate(m_state.speed), false);
-		// m_driveMotor->setVoltage(units::volt_t{ setSpeed(m_state.speed.value()) }, true);
+		// m_driveMotor->setVoltage(m_feedForward.Calculate(m_state.speed), false);
+		m_driveMotor->setVoltage(units::volt_t{ setSpeed(m_state.speed.value()) }, false);
 		// m_driveMotor->setVelocityTorqueCurrentFOC(setSpeed(m_state.speed.vale()));
 	}
 }

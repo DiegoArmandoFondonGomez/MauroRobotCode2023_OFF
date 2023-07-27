@@ -9,8 +9,8 @@ Chassis::Chassis() {
 	setModules(&frontLeftModule, &frontRightModule, &backLeftModule, &backRightModule);
 	setModulesRatios(turnRatio, driveRatio, wheelDiameter);
 	setRotatorPID(58, 0, 0);
-	// setDrivePID(5, 0, 0);
-	setFeedForward(0.74656_V, 2.1143_V, 0.80794_V);
+	setDrivePID(5, 0, 0);
+	// setFeedForward(0.74656_V, 2.1143_V, 0.80794_V);
 }
 
 //This method will be called once per schedule run
