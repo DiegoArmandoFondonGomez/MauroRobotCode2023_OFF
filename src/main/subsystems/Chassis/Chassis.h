@@ -17,10 +17,10 @@ public:
 	void Periodic() override;
 
 private:
-	SwerveModule backRightModule{ 8, 7, 14, 44.296875, "BackRightModule", "OverCANivore" };
-	SwerveModule backLeftModule{ 6, 5, 13, 113.994140625, "BackLeftModule", "OverCANivore" };
-	SwerveModule frontLeftModule{ 4, 3, 12, 29.267578125, "FrontLeftModule", "OverCANivore" };
-	SwerveModule frontRightModule{ 2, 1, 11, 17.05078125, "FrontRightModule", "OverCANivore" };
+	SwerveModule backRightModule{ 8, 7, 14, 44.208984375, "BackRightModule", "OverCANivore" };
+	SwerveModule backLeftModule{ 6, 5, 13, 113.90625, "BackLeftModule", "OverCANivore" };
+	SwerveModule frontLeftModule{ 4, 3, 12, 29.794921875, "FrontLeftModule", "OverCANivore" };
+	SwerveModule frontRightModule{ 2, 1, 11, 17.314453125, "FrontRightModule", "OverCANivore" };
 
 	std::array<frc::Translation2d, 4> modulePos{
 	 frc::Translation2d(10.36_in, 10.36_in),   //Front Left
