@@ -56,7 +56,7 @@ double SuperStructure::getUpperAngle() {
 }
 
 double SuperStructure::getElevatorDistance() {
-    return m_elevatorRight.getPosition();
+    return m_elevatorRight.getPosition() * M_PI;
 }
 
 SuperStructureState SuperStructure::getTargetState() {
@@ -68,9 +68,9 @@ SuperStructureState SuperStructure::getTargetState() {
 }
 
 void SuperStructure::setFalconTargetPos(SuperStructureState targetState) {
-    m_lowerRight.setMotionMagicPosition(convertAngleToFalconPos(targetState.lowerAngle), lowerFF, true);
-    m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF, true);
-    m_upperMotor.setMotionMagicPosition(convertAngleToFalconPos(targetState.upperAngle), upperFF, true);
+    m_lowerRight.setMotionMagicPosition(convertAngleToFalconPos(targetState.lowerAngle), lowerFF, false);
+    m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF, false);
+    m_upperMotor.setMotionMagicPosition(convertAngleToFalconPos(targetState.upperAngle), upperFF, false);
 }
 
 double SuperStructure::convertAngleToFalconPos(double angle) {
