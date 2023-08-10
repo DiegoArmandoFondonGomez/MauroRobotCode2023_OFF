@@ -19,7 +19,7 @@
 #include "OvertureLib/Commands/Teleop/Drive/Drive.h"
 #include "Commands/Common/SuperStructureCommon/SuperStructureCommon.h"
 #include "Commands/Teleop/LEDCommands/LEDCommands.h"
-//#include "Commands/Autonomous/Autonomous.h"
+#include "Commands/Autonomous/Autonomous.h"
 
 class RobotContainer {
 public:
@@ -59,4 +59,5 @@ private:
 
 	// Auto
 	frc::SendableChooser<frc2::Command*> pathChooser;
+	frc2::CommandPtr loadingScore = LoadingScore(nullptr, nullptr, &chassis);
 };
