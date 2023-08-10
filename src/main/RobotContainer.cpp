@@ -7,47 +7,47 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
-  frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
-  ConfigureBindings();
+	frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
+	ConfigureBindings();
 }
 
 void RobotContainer::setAllianceColor() {
-  // vision.setAlliancesColor();
+	// vision.setAlliancesColor();
 }
 
 void RobotContainer::ConfigureBindings() {
-  chassis.SetDefaultCommand(Drive(&chassis, &driver));
+	chassis.SetDefaultCommand(Drive(&chassis, &driver));
 
 
-  // Configure the button bindings
-  resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
-  setConeLED.OnTrue(SetConeLED(&ledManager));
-  setCubeLED.OnTrue(SetCubeLED(&ledManager));
-  setLEDOff.OnTrue(SetLEDOff(&ledManager));
+	// Configure the button bindings
+	resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
+	setConeLED.OnTrue(SetConeLED(&ledManager));
+	setCubeLED.OnTrue(SetCubeLED(&ledManager));
+	setLEDOff.OnTrue(SetLEDOff(&ledManager));
 
 
-  // closedPosition.OnTrue(ClosedCommand(&superStructure));
-  // openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
+	// closedPosition.OnTrue(ClosedCommand(&superStructure));
+	// openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
 
-  // lowerPosition.OnTrue(LowerCommand(&superStructure));
-  // lowerPosition.OnFalse(ClosedCommand(&superStructure));
+	// lowerPosition.OnTrue(LowerCommand(&superStructure));
+	// lowerPosition.OnFalse(ClosedCommand(&superStructure));
 
-  // middlePosition.OnTrue(MiddleCommand(&superStructure));
-  // middlePosition.OnFalse(LongClosedCommand(&superStructure));
+	// middlePosition.OnTrue(MiddleCommand(&superStructure));
+	// middlePosition.OnFalse(LongClosedCommand(&superStructure));
 
-  // upperPosition.OnTrue(UpperCommand(&superStructure));
-  // upperPosition.OnFalse(LongClosedCommand(&superStructure));
+	// upperPosition.OnTrue(UpperCommand(&superStructure));
+	// upperPosition.OnFalse(LongClosedCommand(&superStructure));
 
-  // loadingPosition.OnTrue(LoadingCommand(&superStructure));
-  // loadingPosition.OnFalse(LongClosedCommand(&superStructure));
+	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
+	// loadingPosition.OnFalse(LongClosedCommand(&superStructure));
 
-  // groundIntake.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake));
-  // groundIntake.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
+	groundIntake.OnTrue(GroundIntakeTrueCommand(nullptr, &intake));
+	groundIntake.OnFalse(GroundIntakeFalseCommand(nullptr, &intake));
 
-  // setGamePiece.OnTrue(SetGamePieceTrueCommand(&intake));
-  // setGamePiece.OnFalse(SetGamePieceFalseCommand(&intake));
+	setGamePiece.OnTrue(SetGamePieceTrueCommand(&intake));
+	setGamePiece.OnFalse(SetGamePieceFalseCommand(&intake));
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-  return pathChooser.GetSelected();
+	return pathChooser.GetSelected();
 }

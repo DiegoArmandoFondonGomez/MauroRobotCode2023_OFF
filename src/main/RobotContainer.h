@@ -34,7 +34,7 @@ private:
 	Chassis chassis;
 	//Vision vision{ &chassis };
 	// SuperStructure superStructure;
-	//Intake intake;
+	Intake intake;
 	LEDManager ledManager;
 
 	//controllers
