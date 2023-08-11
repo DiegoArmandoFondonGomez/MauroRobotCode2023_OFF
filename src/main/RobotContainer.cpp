@@ -7,6 +7,7 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
+	pathChooser.AddOption("LoadingScore", loadingScore.get());
 	frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
 	ConfigureBindings();
 }
