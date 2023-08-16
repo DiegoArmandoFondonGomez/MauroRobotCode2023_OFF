@@ -25,26 +25,23 @@ private:
   double convertAngleToFalconPos(double angle);
   double convertDistanceToFalconPos(double distance);
 
-  //constrant
-  // const double LOWER_GEAR_BOX_REDUCTION = 230.4;
-  // const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
-  //const double UPPER_GEAR_BOX_REDUCTION = 50.4;
+  //constant
 
   const double LOWER_GEAR_BOX_REDUCTION = 230.4;
   const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
   const double UPPER_GEAR_BOX_REDUCTION = 50.4;
 
 
-  // LowerMotors modificar el ID, Coast -> Brake y OverCANivore a Roborio
-  OverTalonFX m_lowerRight{ 8, ControllerNeutralMode::Coast, false, LOWER_GEAR_BOX_REDUCTION, "OverCANivore" };
-  OverTalonFX m_lowerLeft{ 6, ControllerNeutralMode::Coast, false, LOWER_GEAR_BOX_REDUCTION, "OverCANivore" };
+  // LowerMotors
+  OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Brake, false, LOWER_GEAR_BOX_REDUCTION, "rio" };
+  OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Brake, false, LOWER_GEAR_BOX_REDUCTION, "rio" };
 
   // Elevator Motors
-  OverTalonFX m_elevatorRight{ 7, ControllerNeutralMode::Coast, false, ELEVATOR_GEAR_BOX_REDUCTION, "OverCANivore" };
-  OverTalonFX m_elevatorLeft{ 5, ControllerNeutralMode::Coast, false, ELEVATOR_GEAR_BOX_REDUCTION, "OverCANivore" };
+  OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+  OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
 
   // Upper Motors
-  OverTalonFX m_upperMotor{ 4, ControllerNeutralMode::Coast, false, UPPER_GEAR_BOX_REDUCTION, "OverCANivore" };
+  OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Brake, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
 
   // State
   SuperStructureState m_TargetState{ 0.0, 0.0, 0.0 };

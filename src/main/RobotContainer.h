@@ -32,8 +32,8 @@ private:
 
 	// Subsystems
 	Chassis chassis;
-	//Vision vision{ &chassis };
-	// SuperStructure superStructure;
+	Vision vision{ &chassis };
+	SuperStructure superStructure;
 	Intake intake;
 	LEDManager ledManager;
 
@@ -46,18 +46,21 @@ private:
 	frc2::Trigger setConeLED{ [this] {return driver.GetLeftBumper();} };
 	frc2::Trigger setCubeLED{ [this] {return driver.GetRightBumper();} };
 	frc2::Trigger setLEDOff{ [this] {return driver.GetBButton();} };
+	frc2::Trigger dropCube{ [this] {return driver.GetLeftTriggerAxis();} };
+	frc2::Trigger dropCone{ [this] {return driver.GetRightTriggerAxis();} };
 
 	// Mechanisms commands
-	frc2::Trigger closedPosition{ [this] {return mechanisms.GetPOV(0.25);} };
-	frc2::Trigger openLowerWrists{ [this] {return mechanisms.GetPOV(0);} };
+	frc2::Trigger closedPosition{ [this] {return mechanisms.GetRightBumper();} };
+	frc2::Trigger openLowerWrists{ [this] {return mechanisms.GetLeftBumper();} };
 	frc2::Trigger lowerPosition{ [this] {return mechanisms.GetAButton();} };
 	frc2::Trigger middlePosition{ [this] {return mechanisms.GetBButton();} };
 	frc2::Trigger upperPosition{ [this] {return mechanisms.GetYButton();} };
 	frc2::Trigger loadingPosition{ [this] {return mechanisms.GetXButton();} };
-	frc2::Trigger groundIntake{ [this] {return mechanisms.GetRightTriggerAxis();} };
-	frc2::Trigger setGamePiece{ [this] {return mechanisms.GetLeftTriggerAxis();} };
+	frc2::Trigger intakeCone{ [this] {return mechanisms.GetRightTriggerAxis();} };
+	frc2::Trigger intakeCube{ [this] {return mechanisms.GetLeftTriggerAxis();} };
+
 
 	// Auto
 	frc::SendableChooser<frc2::Command*> pathChooser;
-	frc2::CommandPtr loadingScore = LoadingScore(nullptr, nullptr, &chassis);
+	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis);
 };

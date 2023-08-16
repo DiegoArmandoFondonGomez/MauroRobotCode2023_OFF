@@ -26,27 +26,30 @@ void RobotContainer::ConfigureBindings() {
 	setCubeLED.OnTrue(SetCubeLED(&ledManager));
 	setLEDOff.OnTrue(SetLEDOff(&ledManager));
 
+	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -8_V));
+	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
-	// closedPosition.OnTrue(ClosedCommand(&superStructure));
-	// openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
+	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 8_V));
+	dropCube.OnFalse(SetGamePieceFalseCommand(&intake));
 
-	// lowerPosition.OnTrue(LowerCommand(&superStructure));
-	// lowerPosition.OnFalse(ClosedCommand(&superStructure));
 
-	// middlePosition.OnTrue(MiddleCommand(&superStructure));
-	// middlePosition.OnFalse(LongClosedCommand(&superStructure));
 
-	// upperPosition.OnTrue(UpperCommand(&superStructure));
-	// upperPosition.OnFalse(LongClosedCommand(&superStructure));
+	closedPosition.OnTrue(ClosedCommand(&superStructure));
+	openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
 
-	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
-	// loadingPosition.OnFalse(LongClosedCommand(&superStructure));
+	lowerPosition.OnTrue(LowerCommand(&superStructure));
 
-	groundIntake.OnTrue(GroundIntakeTrueCommand(nullptr, &intake));
-	groundIntake.OnFalse(GroundIntakeFalseCommand(nullptr, &intake));
+	middlePosition.OnTrue(MiddleCommand(&superStructure));
 
-	setGamePiece.OnTrue(SetGamePieceTrueCommand(&intake));
-	setGamePiece.OnFalse(SetGamePieceFalseCommand(&intake));
+	upperPosition.OnTrue(UpperCommand(&superStructure));
+
+	loadingPosition.OnTrue(LoadingCommand(&superStructure));
+
+	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 8_V));
+	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
+
+	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -8_V));
+	intakeCube.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
