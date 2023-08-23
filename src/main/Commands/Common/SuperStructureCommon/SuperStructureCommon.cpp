@@ -17,7 +17,11 @@ frc2::CommandPtr LowerCommand(SuperStructure* m_SuperStructure) {
 }
 
 frc2::CommandPtr MiddleCommand(SuperStructure* m_SuperStructure) {
-	return SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)).ToPtr();
+	return frc2::SequentialCommandGroup(
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)),
+		frc2::WaitCommand(0.5_s),
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0))
+	).ToPtr();
 }
 
 frc2::CommandPtr UpperCommand(SuperStructure* m_SuperStructure) {
@@ -29,7 +33,11 @@ frc2::CommandPtr UpperCommand(SuperStructure* m_SuperStructure) {
 }
 
 frc2::CommandPtr LoadingCommand(SuperStructure* m_SuperStructure) {
-	return SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)).ToPtr();
+	return frc2::SequentialCommandGroup(
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)),
+		frc2::WaitCommand(0.5_s),
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0))
+	).ToPtr();
 }
 
 frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
