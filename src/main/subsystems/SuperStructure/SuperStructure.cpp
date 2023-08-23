@@ -4,6 +4,7 @@
 
 #include "SuperStructure.h"
 #include <frc/MathUtil.h>
+#include <frc/DriverStation.h>
 
 SuperStructure::SuperStructure() {
     // Configure Motors
@@ -37,6 +38,7 @@ SuperStructure::SuperStructure() {
     m_upperMotor.setPIDValues(0.0, 0.0, 0.0, 0.0, 0.0);
     m_upperMotor.configureMotionMagic(0.0, 0.0, 3.0);
 
+    setTargetCoord(getTargetState());
 }
 
 void SuperStructure::setTargetCoord(SuperStructureState targetCoord) {
@@ -83,7 +85,6 @@ double SuperStructure::convertDistanceToFalconPos(double distance) {
 
 // This method will be called once per scheduler run
 void SuperStructure::Periodic() {
-
     setFalconTargetPos(m_TargetState);
 
     // Debugging
