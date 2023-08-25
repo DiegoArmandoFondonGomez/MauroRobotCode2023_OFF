@@ -10,46 +10,46 @@
 #include <OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h>
 #include <OvertureLib/MotorControllers/ControllerNeutralMode/ControllerNeutralMode.h>
 
-class SuperStructure: public frc2::SubsystemBase {
+class SuperStructure : public frc2::SubsystemBase {
 public:
-  SuperStructure();
-  void setTargetCoord(SuperStructureState TargetCoord);
-  double getLowerAngle();
-  double getUpperAngle();
-  double getElevatorDistance();
-  SuperStructureState getTargetState();
-  void Periodic() override;
+	SuperStructure();
+	void setTargetCoord(SuperStructureState TargetCoord);
+	double getLowerAngle();
+	double getUpperAngle();
+	double getElevatorDistance();
+	SuperStructureState getCurrentState();
+	void Periodic() override;
 
 private:
-  void setFalconTargetPos(SuperStructureState targetState);
-  double convertAngleToFalconPos(double angle);
-  double convertDistanceToFalconPos(double distance);
+	void setFalconTargetPos(SuperStructureState targetState);
+	double convertAngleToFalconPos(double angle);
+	double convertDistanceToFalconPos(double distance);
 
-  //constant
+	//constant
 
-  const double LOWER_GEAR_BOX_REDUCTION = 230.4;
-  const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
-  const double UPPER_GEAR_BOX_REDUCTION = 50.4;
+	const double LOWER_GEAR_BOX_REDUCTION = 230.4;
+	const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
+	const double UPPER_GEAR_BOX_REDUCTION = 50.4;
 
 
-  // LowerMotors
-  OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Brake, false, LOWER_GEAR_BOX_REDUCTION, "rio" };
-  OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Brake, false, LOWER_GEAR_BOX_REDUCTION, "rio" };
+	// LowerMotors
+	OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Coast, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Coast, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
 
-  // Elevator Motors
-  OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
-  OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+	// Elevator Motors
+	OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
 
-  // Upper Motors
-  OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Brake, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
+	// Upper Motors
+	OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Coast, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
 
-  // State
-  SuperStructureState m_TargetState{ 0.0, 0.0, 0.0 };
+	// State
+	SuperStructureState m_TargetState{ getCurrentState() };
 
-  //Motion Magic Feed Forward
-  double lowerFF = 0.0;
-  double elevatorFF = 0.0;
-  double upperFF = 0.0;
+	//Motion Magic Feed Forward
+	double lowerFF = 0.0;
+	double elevatorFF = 0.0;
+	double upperFF = 0.0;
 
 
 };

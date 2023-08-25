@@ -42,14 +42,14 @@ frc2::CommandPtr LoadingCommand(SuperStructure* m_SuperStructure) {
 
 frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
 	return frc2::ParallelCommandGroup(
-		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)),
-		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 90))
+		// frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 	).ToPtr();
 }
 
 frc2::CommandPtr GroundIntakeFalseCommand(SuperStructure* m_SuperStructure, Intake* m_Intake) {
 	return frc2::ParallelCommandGroup(
-		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 0.0)),
+		SetSuperStructure(m_SuperStructure, SuperStructureState(0.0, 0.0, 100)),
 		frc2::InstantCommand([m_Intake] {m_Intake->setVoltage(0_V);}, { m_Intake })
 	).ToPtr();
 }
