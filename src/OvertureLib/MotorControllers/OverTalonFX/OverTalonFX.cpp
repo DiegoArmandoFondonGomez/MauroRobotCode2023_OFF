@@ -4,7 +4,7 @@
 
 #include "OverTalonFX.h"
 
-OverTalonFX::OverTalonFX(int _id, ControllerNeutralMode _neutralMode, bool _inverted, double _gearRatio, std::string _bus):
+OverTalonFX::OverTalonFX(int _id, ControllerNeutralMode _neutralMode, bool _inverted, double _gearRatio, std::string _bus) :
 	OverController(new TalonFX(_id, _bus), _neutralMode, _inverted, _gearRatio) {
 	init();
 }
@@ -152,6 +152,14 @@ void OverTalonFX::setFollow(int _id, bool _inverted) {
 void OverTalonFX::zeroPosition() {
 	motorController->SetRotorPosition(0_tr);
 }
+
+/**
+ * @brief Pendiente...
+ */
+void OverTalonFX::setSensorPosition(double _position) {
+	motorController->SetRotorPosition(units::turn_t{ _position });
+}
+
 
 /**
  * @brief Se obtiene las revoluciones en metros del TalonFX

@@ -18,43 +18,44 @@ using namespace ctre::phoenix6::configs;
 using namespace ctre::phoenix6::signals;
 using namespace ctre::phoenix6::controls;
 
-class OverTalonFX: public OverController<TalonFX> {
+class OverTalonFX : public OverController<TalonFX> {
 public:
-  OverTalonFX(int _id, ControllerNeutralMode _neutralMode, bool _inverted, double _gearRatio, std::string _bus);
+	OverTalonFX(int _id, ControllerNeutralMode _neutralMode, bool _inverted, double _gearRatio, std::string _bus);
 
-  void init();
-  void reset();
+	void init();
+	void reset();
 
-  void setNeutralMode(ControllerNeutralMode _neutralMode);
-  void setSensorToMechanism(double _gearRatio);
-  void setRotorToSensorRatio(double _gearRatio);
-  void setRemoteCANCoder(int _id);
-  void setFusedCANCoder(int _id);
-  void setClosedLoopVoltageRamp(double _ramp);
-  void setClosedLoopTorqueRamp(double _ramp);
-  void setSupplyCurrentLimit(bool _enable, double _currentLimit, double _triggerThresholdCurrent, double _triggerThresholdTime);
-  void setTorqueCurrentLimit(double peakForward, double peakBackward, double deadband);
-  void setFollow(int _id, bool _inverted);
-  void zeroPosition();
+	void setNeutralMode(ControllerNeutralMode _neutralMode);
+	void setSensorToMechanism(double _gearRatio);
+	void setRotorToSensorRatio(double _gearRatio);
+	void setRemoteCANCoder(int _id);
+	void setFusedCANCoder(int _id);
+	void setClosedLoopVoltageRamp(double _ramp);
+	void setClosedLoopTorqueRamp(double _ramp);
+	void setSupplyCurrentLimit(bool _enable, double _currentLimit, double _triggerThresholdCurrent, double _triggerThresholdTime);
+	void setTorqueCurrentLimit(double peakForward, double peakBackward, double deadband);
+	void setFollow(int _id, bool _inverted);
+	void zeroPosition();
+	void setSensorPosition(double _position);
 
-  double getDistance(double _wheelDiameter);
-  double getVelocity(double _wheelDiameter);
-  double getRotorPosition();
-  double getPosition();
+	double getDistance(double _wheelDiameter);
+	double getVelocity(double _wheelDiameter);
+	double getRotorPosition();
+	double getPosition();
 
-  void setVoltage(units::volt_t _voltage, bool enableFOC);
-  void setVelocityVoltage(double _velocity, bool enableFOC);
-  void setDutyCycle(double _dutyCycle, bool enableFOC);
-  void setPositionVoltage(double _position, bool enableFOC);
-  void setMotionMagicPosition(double _position, double feedForward, bool enableFOC);
-  void setVelocityTorqueCurrentFOC(double _velocity);
+	void setVoltage(units::volt_t _voltage, bool enableFOC);
+	void setVelocityVoltage(double _velocity, bool enableFOC);
+	void setDutyCycle(double _dutyCycle, bool enableFOC);
+	void setPositionVoltage(double _position, bool enableFOC);
+	void setMotionMagicPosition(double _position, double feedForward, bool enableFOC);
+	void setVelocityTorqueCurrentFOC(double _velocity);
 
-  void setPIDValues(double _kP, double _kI, double _kD, double _kS, double _kV);
-  void configureMotionMagic(double _cruiseVelocity, double _acceleration, double _jerk);
-  void setContinuousWrap();
+	void setPIDValues(double _kP, double _kI, double _kD, double _kS, double _kV);
+	void configureMotionMagic(double _cruiseVelocity, double _acceleration, double _jerk);
+	void setContinuousWrap();
 
-  TalonFX* getMotorController();
+	TalonFX* getMotorController();
 
 private:
-  TalonFXConfiguration talonFXConfiguration;
+	TalonFXConfiguration talonFXConfiguration;
 };
