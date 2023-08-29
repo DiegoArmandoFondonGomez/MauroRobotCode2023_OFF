@@ -38,6 +38,7 @@ void RobotContainer::ConfigureBindings() {
 	openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
 
 	lowerPosition.OnTrue(LowerCommand(&superStructure));
+	lowerPosition.OnFalse(LowerCommandClosed(&superStructure));
 
 	middlePosition.OnTrue(MiddleCommand(&superStructure));
 

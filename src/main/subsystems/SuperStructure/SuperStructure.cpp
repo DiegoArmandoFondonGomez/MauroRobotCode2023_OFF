@@ -25,20 +25,20 @@ SuperStructure::SuperStructure() {
 	m_elevatorLeft.setFollow(m_elevatorRight.getMotorController()->GetDeviceID(), true);
 
 	m_upperMotor.setSupplyCurrentLimit(true, 20, 30, 0.5);
-	m_upperMotor.setSensorPosition(14.0);
+	m_upperMotor.setSensorPosition(14.4);
 	m_upperMotor.setSensorToMechanism(UPPER_GEAR_BOX_REDUCTION);
 
 	// COnfigure Motion Magic and PID
-	m_lowerRight.setPIDValues(0.0, 0.0, 0.0, 0.0, 0.0);
-	m_lowerRight.configureMotionMagic(0.0, 0.0, 3.0);
+	m_lowerRight.setPIDValues(300.0, 0.0, 0.0, 0.0, 0.0);
+	m_lowerRight.configureMotionMagic(2000.0, 2000.0, 0.0);
 
-	m_elevatorRight.setPIDValues(0.0, 0.0, 0.0, 0.0, 0.0);
-	m_elevatorRight.configureMotionMagic(0.0, 0.0, 3.0);
+	m_elevatorRight.setPIDValues(5.0, 0.0, 0.0, 0.0, 0.0);
+	m_elevatorRight.configureMotionMagic(30.0, 20.0, 0);
 
-	m_upperMotor.setPIDValues(8, 0.0, 0.0, 0.0, 0.0);
-	m_upperMotor.configureMotionMagic(10.0, 15.0, 3.0);
+	m_upperMotor.setPIDValues(40, 0.0, 0.0, 0.0, 0.0);
+	m_upperMotor.configureMotionMagic(300.0, 300, 0.0);
 
-	setTargetCoord({ getLowerAngle(), getElevatorDistance(), getUpperAngle() });
+	setTargetCoord({ -8, 0, 100 });
 }
 
 void SuperStructure::setTargetCoord(SuperStructureState targetCoord) {
@@ -50,12 +50,6 @@ double SuperStructure::getLowerAngle() {
 }
 
 double SuperStructure::getUpperAngle() {
-	// double rawVal = (-m_upperMotor.getPosition()) * 360.0;
-	// rawVal = frc::InputModulus(rawVal, -180.0, 180.0);
-	// double angleToLower = rawVal;
-
-	// return angleToLower + getLowerAngle();
-
 	return m_upperMotor.getPosition() * 360;
 }
 
@@ -72,9 +66,9 @@ SuperStructureState SuperStructure::getCurrentState() {
 }
 
 void SuperStructure::setFalconTargetPos(SuperStructureState targetState) {
-	m_lowerRight.setMotionMagicPosition(convertAngleToFalconPos(targetState.lowerAngle), lowerFF, false);
-	m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF, false);
-	m_upperMotor.setMotionMagicPosition(convertAngleToFalconPos(targetState.upperAngle), upperFF, false);
+	m_lowerRight.setMotionMagicPosition(convertAngleToFalconPos(targetState.lowerAngle), lowerFF * cos(targetState.lowerAngle), false);
+	m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF * cos(targetState.lowerAngle), false);
+	m_upperMotor.setMotionMagicPosition(convertAngleToFalconPos(targetState.upperAngle), upperFF * cos(upperAngleFFCalculation(targetState.upperAngle)), false);
 }
 
 double SuperStructure::convertAngleToFalconPos(double angle) {
@@ -83,6 +77,14 @@ double SuperStructure::convertAngleToFalconPos(double angle) {
 
 double SuperStructure::convertDistanceToFalconPos(double distance) {
 	return distance / M_PI;
+}
+
+double SuperStructure::upperAngleFFCalculation(double angle) {
+	double rawVal = angle;
+	rawVal = frc::InputModulus(rawVal, -180.0, 180.0);
+	double angleToLower = rawVal;
+
+	return angleToLower + getLowerAngle();
 }
 
 // This method will be called once per scheduler run

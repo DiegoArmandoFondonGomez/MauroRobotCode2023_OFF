@@ -24,32 +24,33 @@ private:
 	void setFalconTargetPos(SuperStructureState targetState);
 	double convertAngleToFalconPos(double angle);
 	double convertDistanceToFalconPos(double distance);
+	double upperAngleFFCalculation(double angle);
 
 	//constant
 
 	const double LOWER_GEAR_BOX_REDUCTION = 230.4;
 	const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
-	const double UPPER_GEAR_BOX_REDUCTION = 50.4;
+	const double UPPER_GEAR_BOX_REDUCTION = 51.84;
 
 
 	// LowerMotors
-	OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Coast, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
-	OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Coast, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Brake, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Brake, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
 
 	// Elevator Motors
-	OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
-	OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, false, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, true, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, true, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
 
 	// Upper Motors
-	OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Coast, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Brake, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
 
 	// State
 	SuperStructureState m_TargetState{ getCurrentState() };
 
 	//Motion Magic Feed Forward
-	double lowerFF = 0.0;
-	double elevatorFF = 0.0;
-	double upperFF = 0.0;
+	double lowerFF = 0.1;
+	double elevatorFF = 0.9;
+	double upperFF = 0.27;
 
 
 };

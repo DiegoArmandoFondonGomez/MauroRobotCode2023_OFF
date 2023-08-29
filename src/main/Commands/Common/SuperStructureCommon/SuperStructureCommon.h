@@ -5,6 +5,7 @@
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/WaitCommand.h>
 #include <frc2/command/CommandPtr.h>
+#include <frc2/command/Commands.h>
 
 #include "main/subsystems/SuperStructure/SuperStructure.h"
 #include "main/Commands/Common/SetSuperStructure/SetSuperStructure.h"
@@ -13,6 +14,7 @@
 frc2::CommandPtr ClosedCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr OpenLowerWristsCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr LowerCommand(SuperStructure* m_superStructure);
+frc2::CommandPtr LowerCommandClosed(SuperStructure* m_superStructure);
 frc2::CommandPtr MiddleCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr UpperCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr LoadingCommand(SuperStructure* m_superStructure);
