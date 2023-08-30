@@ -2,14 +2,14 @@
 
 frc2::CommandPtr ClosedCommand(SuperStructure* m_SuperStructure) {
 	return frc2::cmd::Sequence(
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 0.0, 100 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 0.0, 100 });}, { m_SuperStructure }),
 		frc2::cmd::Wait(1_s),
 		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -6, 0.0, 100 });}, { m_SuperStructure })
 	);
 }
 
 frc2::CommandPtr OpenLowerWristsCommand(SuperStructure* m_SuperStructure) {
-	return frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 0.0, 100.0 });}, { m_SuperStructure }).ToPtr();
+	return frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 0.0, 100.0 });}, { m_SuperStructure }).ToPtr();
 }
 
 frc2::CommandPtr LowerCommand(SuperStructure* m_SuperStructure) {
@@ -26,19 +26,19 @@ frc2::CommandPtr LowerCommandClosed(SuperStructure* m_SuperStructure) {
 
 frc2::CommandPtr MiddleCommand(SuperStructure* m_SuperStructure) {
 	return frc2::cmd::Sequence(
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 0.0, 100 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 0.0, 100 });}, { m_SuperStructure }),
 		frc2::cmd::Wait(0.8_s),
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 18, -30.0 });}, { m_SuperStructure })
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 11, -43.0 });}, { m_SuperStructure })
 	);
 }
 
 frc2::CommandPtr UpperCommand(SuperStructure* m_SuperStructure) {
 	return frc2::cmd::Sequence(
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 0.0, 100 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 0.0, 100 });}, { m_SuperStructure }),
 		frc2::cmd::Wait(0.8_s),
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 24.0, 30.0 });}, { m_SuperStructure }),
-		frc2::cmd::Wait(0.5_s),
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 45.0, 24.0, -30.0 });}, { m_SuperStructure })
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 42.0, 0.0 });}, { m_SuperStructure }),
+		frc2::cmd::Wait(1_s),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 42.0, -43.0 });}, { m_SuperStructure })
 
 	);
 }
@@ -53,7 +53,7 @@ frc2::CommandPtr LoadingCommand(SuperStructure* m_SuperStructure) {
 
 frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
 	return frc2::cmd::Parallel(
-		SetSuperStructure(m_SuperStructure, SuperStructureState(-5.0, 0.0, -16.0)),
+		SetSuperStructure(m_SuperStructure, SuperStructureState(-1.8, 0.0, -26.0)),
 		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 	);
 }

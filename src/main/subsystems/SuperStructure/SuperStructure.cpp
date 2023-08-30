@@ -29,14 +29,14 @@ SuperStructure::SuperStructure() {
 	m_upperMotor.setSensorToMechanism(UPPER_GEAR_BOX_REDUCTION);
 
 	// COnfigure Motion Magic and PID
-	m_lowerRight.setPIDValues(300.0, 0.0, 0.0, 0.0, 0.0);
+	m_lowerRight.setPIDValues(300.0, 0.0, 1.0, 0.0, 0.0);
 	m_lowerRight.configureMotionMagic(2000.0, 2000.0, 0.0);
 
-	m_elevatorRight.setPIDValues(5.0, 0.0, 0.0, 0.0, 0.0);
+	m_elevatorRight.setPIDValues(4.8, 0.0, 0, 0.0, 0.0);
 	m_elevatorRight.configureMotionMagic(30.0, 20.0, 0);
 
-	m_upperMotor.setPIDValues(40, 0.0, 0.0, 0.0, 0.0);
-	m_upperMotor.configureMotionMagic(300.0, 300, 0.0);
+	m_upperMotor.setPIDValues(38, 0.0, 0.0, 0.0, 0.0);
+	m_upperMotor.configureMotionMagic(200.0, 200, 0.0);
 
 	setTargetCoord({ -8, 0, 100 });
 }
