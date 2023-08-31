@@ -49,7 +49,7 @@ private:
 
 	//Motion Magic Feed Forward
 	double lowerFF = 0.1;
-	double elevatorFF = 0.9;
+	double elevatorFF = 1.0;
 	double upperFF = 0.27;
 
 

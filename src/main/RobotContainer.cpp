@@ -26,10 +26,10 @@ void RobotContainer::ConfigureBindings() {
 	setCubeLED.OnTrue(SetCubeLED(&ledManager));
 	setLEDOff.OnTrue(SetLEDOff(&ledManager));
 
-	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -8_V));
+	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -4_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
-	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 8_V));
+	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 4_V));
 	dropCube.OnFalse(SetGamePieceFalseCommand(&intake));
 
 
@@ -49,10 +49,10 @@ void RobotContainer::ConfigureBindings() {
 	loadingPosition.OnTrue(LoadingCommand(&superStructure));
 	loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
-	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 8_V));
+	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 4_V));
 	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 
-	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -8_V));
+	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
 	intakeCube.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 }
 
