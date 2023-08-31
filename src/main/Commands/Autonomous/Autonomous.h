@@ -19,8 +19,6 @@
 #include "OvertureLib/Commands/Autonomous/AutoBalance/AutoBalance.h"
 #include "OvertureLib/Commands/Autonomous/SwerveTrajectories/SwerveTrajectories.h"
 
-frc2::CommandPtr LoadingBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
 frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
 frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
-frc2::CommandPtr BarrierBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
-frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
+frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
