@@ -9,6 +9,7 @@ CharacterizationChassis::CharacterizationChassis() {
 	setModulesRatios(turnRatio, driveRatio, wheelDiameter);
 	setModules(&frontLeftModule, &frontRightModule, &backLeftModule, &backRightModule);
 	setRotatorPID(53, 0, 0);
+	setUseRawVoltageSpeed(true);
 	setFeedForward(0.74656_V, 2.1143_V, 0.80794_V);
 }
 
