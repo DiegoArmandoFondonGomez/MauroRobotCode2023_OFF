@@ -7,13 +7,14 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
+	pathChooser.AddOption("Null-None", nullptr);
 	pathChooser.AddOption("LoadingScore", loadingScore.get());
 	frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
 	ConfigureBindings();
 }
 
 void RobotContainer::setAllianceColor() {
-	// vision.setAlliancesColor();
+	vision.setAlliancesColor();
 }
 
 void RobotContainer::ConfigureBindings() {
@@ -32,24 +33,22 @@ void RobotContainer::ConfigureBindings() {
 	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 4_V));
 	dropCube.OnFalse(SetGamePieceFalseCommand(&intake));
 
-
-
-	closedPosition.OnTrue(ClosedCommand(&superStructure));
-	openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
+	// closedPosition.OnTrue(ClosedCommand(&superStructure));
+	// openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
 
 	lowerPosition.OnTrue(LowerCommand(&superStructure));
 	lowerPosition.OnFalse(LowerCommandClosed(&superStructure));
 
-	middlePosition.OnTrue(MiddleCommand(&superStructure));
-	middlePosition.OnFalse(ClosedCommand(&superStructure));
+	// middlePosition.OnTrue(MiddleCommand(&superStructure));
+	// middlePosition.OnFalse(ClosedCommand(&superStructure));
 
-	upperPosition.OnTrue(UpperCommand(&superStructure));
-	upperPosition.OnFalse(ClosedCommand(&superStructure));
+	// upperPosition.OnTrue(UpperCommand(&superStructure));
+	// upperPosition.OnFalse(ClosedCommand(&superStructure));
 
-	loadingPosition.OnTrue(LoadingCommand(&superStructure));
-	loadingPosition.OnFalse(ClosedCommand(&superStructure));
+	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
+	// loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
-	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 4_V));
+	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 6_V));
 	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 
 	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
