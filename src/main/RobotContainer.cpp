@@ -26,7 +26,7 @@ void RobotContainer::ConfigureBindings() {
 	setCubeLED.OnTrue(SetCubeLED(&ledManager));
 	setLEDOff.OnTrue(SetLEDOff(&ledManager));
 
-	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -4_V));
+	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -2_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
 	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 4_V));
