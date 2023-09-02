@@ -4,10 +4,10 @@
 
 #include "Drive.h"
 
-Drive::Drive(SwerveChassis* swerveChassis, frc::XboxController* controller):
-  m_swerveChassis(swerveChassis), joystick(controller) {
-  // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(m_swerveChassis);
+Drive::Drive(SwerveChassis* swerveChassis, frc::XboxController* controller) :
+	m_swerveChassis(swerveChassis), joystick(controller) {
+	// Use addRequirements() here to declare subsystem dependencies.
+	AddRequirements(m_swerveChassis);
 }
 
 // Called when the command is initially scheduled.
@@ -15,17 +15,26 @@ void Drive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
-  units::meters_per_second_t xInput{ Utils::ApplyAxisFilter(-joystick->GetLeftY()) * 5 };
-  units::meters_per_second_t yInput{ Utils::ApplyAxisFilter(-joystick->GetLeftX()) * 5 };
-  units::radians_per_second_t rInput{ Utils::ApplyAxisFilter(-joystick->GetRightX()) * 9 };
 
-  frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(
-    xLimiter.Calculate(xInput),
-    yLimiter.Calculate(yInput),
-    rLimiter.Calculate(rInput),
-    m_swerveChassis->getOdometry().Rotation());
+	if (joystick->GetAButton()) {
+		kMaxSpeed = 2.5;
+		kMaxAngularSpeed = 4.5;
+	} else {
+		kMaxSpeed = 5.0;
+		kMaxAngularSpeed = 9.0;
+	}
 
-  m_swerveChassis->setSpeed(chassisSpeeds);
+	units::meters_per_second_t xInput{ Utils::ApplyAxisFilter(-joystick->GetLeftY()) * kMaxSpeed };
+	units::meters_per_second_t yInput{ Utils::ApplyAxisFilter(-joystick->GetLeftX()) * kMaxSpeed };
+	units::radians_per_second_t rInput{ Utils::ApplyAxisFilter(-joystick->GetRightX()) * kMaxAngularSpeed };
+
+	frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(
+		xLimiter.Calculate(xInput),
+		yLimiter.Calculate(yInput),
+		rLimiter.Calculate(rInput),
+		m_swerveChassis->getOdometry().Rotation());
+
+	m_swerveChassis->setSpeed(chassisSpeeds);
 }
 
 // Called once the command ends or is interrupted.
@@ -33,5 +42,5 @@ void Drive::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool Drive::IsFinished() {
-  return false;
+	return false;
 }
