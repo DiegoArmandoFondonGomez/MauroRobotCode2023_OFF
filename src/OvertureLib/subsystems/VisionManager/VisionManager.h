@@ -15,29 +15,30 @@
 
 #include "OvertureLib/subsystems/Swerve/SwerveChassis/SwerveChassis.h"
 
-class VisionManager: public frc2::SubsystemBase {
+class VisionManager : public frc2::SubsystemBase {
 public:
-  VisionManager();
-  void setCameraAndLayout(photonlib::PhotonCamera* camera, frc::AprilTagFieldLayout* tagLayout, frc::Transform3d* cameraToRobot);
-  void setAlliancesColor();
-  bool checkTagDistance(size_t numberOfTags, double distance);
-  void addMeasurementToChassis();
-  void updateOdometry();
-  std::optional<photonlib::EstimatedRobotPose> update(frc::Pose2d estimatedPose);
-  std::optional<photonlib::PhotonPipelineResult> getCameraResult();
-  bool isPoseEstimatorSet();
-  void Periodic() override;
+	VisionManager();
+	void setCameraAndLayout(photonlib::PhotonCamera* camera, frc::AprilTagFieldLayout* tagLayout, frc::Transform3d* cameraToRobot);
+	void setAlliancesColor();
+	bool checkTagDistance(size_t numberOfTags, double distance);
+	void addMeasurementToChassis();
+	void updateOdometry();
+	std::optional<photonlib::EstimatedRobotPose> update(frc::Pose2d estimatedPose);
+	std::optional<photonlib::PhotonPipelineResult> getCameraResult();
+	bool isPoseEstimatorSet();
+	void setPoseEstimator(bool set);
+	void Periodic() override;
 
 private:
-  /* PhotonVision */
-  photonlib::PhotonCamera* m_Camera;
-  frc::AprilTagFieldLayout* m_TagLayout;
-  frc::Transform3d* m_CameraToRobot;
+	/* PhotonVision */
+	photonlib::PhotonCamera* m_Camera;
+	frc::AprilTagFieldLayout* m_TagLayout;
+	frc::Transform3d* m_CameraToRobot;
 
-  photonlib::PhotonPoseEstimator* poseEstimator;
-  bool poseEstimatorSet = false;
+	photonlib::PhotonPoseEstimator* poseEstimator;
+	bool poseEstimatorSet = false;
 
 protected:
-  /* subsytem */
-  SwerveChassis* swerveChassis;
+	/* subsytem */
+	SwerveChassis* swerveChassis;
 };

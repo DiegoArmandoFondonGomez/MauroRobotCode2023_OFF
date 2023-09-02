@@ -30,13 +30,13 @@ SuperStructure::SuperStructure() {
 
 	// COnfigure Motion Magic and PID
 	m_lowerRight.setPIDValues(300.0, 0.0, 1.0, 0.0, 0.0);
-	m_lowerRight.configureMotionMagic(2000.0, 2000.0, 0.0);
+	m_lowerRight.configureMotionMagic(2000.0, 1800.0, 0.0);
 
-	m_elevatorRight.setPIDValues(10, 1.0, 0, 0.0, 0.0);
-	m_elevatorRight.configureMotionMagic(20.0, 30.0, 0);
+	m_elevatorRight.setPIDValues(12, 1.0, 0, 0.0, 0.0);
+	m_elevatorRight.configureMotionMagic(20.0, 20.0, 0);
 
 	m_upperMotor.setPIDValues(38, 0.0, 0.0, 0.0, 0.0);
-	m_upperMotor.configureMotionMagic(100.0, 100, 0.0);
+	m_upperMotor.configureMotionMagic(100.0, 150, 0.0);
 
 	setTargetCoord({ -8, 0, 100 });
 }

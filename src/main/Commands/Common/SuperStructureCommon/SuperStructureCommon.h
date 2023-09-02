@@ -22,3 +22,6 @@ frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_superStructure, Intak
 frc2::CommandPtr GroundIntakeFalseCommand(SuperStructure* m_superStructure, Intake* m_Intake);
 frc2::CommandPtr SetGamePieceTrueCommand(Intake* m_Intake, units::volt_t voltage);
 frc2::CommandPtr SetGamePieceFalseCommand(Intake* m_Intake);
+
+frc2::CommandPtr GroundIntakeAuto(SuperStructure* m_superStructure, Intake* m_Intake, units::volt_t voltage);
+

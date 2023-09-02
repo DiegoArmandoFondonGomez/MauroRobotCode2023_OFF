@@ -62,5 +62,5 @@ private:
 
 	// Auto
 	frc::SendableChooser<frc2::Command*> pathChooser;
-	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis);
+	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis, &vision);
 };

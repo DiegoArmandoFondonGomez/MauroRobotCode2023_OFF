@@ -13,5 +13,5 @@ public:
 private:
 	photonlib::PhotonCamera camera{ "IMX219" };
 	frc::AprilTagFieldLayout tagLayout{ frc::LoadAprilTagLayoutField(frc::AprilTagField::k2023ChargedUp) };
-	frc::Transform3d cameraToRobot{ {-8.5_in, 12.5_in, 7.5_in}, {0_deg, 0_deg, 70_deg} };
+	frc::Transform3d cameraToRobot{ {-21.59_cm, -31.75_cm, 19.05_cm}, {0_deg, 0_deg, -70_deg} };
 };

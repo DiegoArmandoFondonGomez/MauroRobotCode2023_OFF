@@ -48,7 +48,7 @@ frc2::CommandPtr LoadingCommand(SuperStructure* m_SuperStructure) {
 
 frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
 	return frc2::cmd::Parallel(
-		SetSuperStructure(m_SuperStructure, SuperStructureState(-2.5, 0.0, -32.0)),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, -32.0 });}, { m_SuperStructure }),
 		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 	);
 }
@@ -56,7 +56,7 @@ frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intak
 frc2::CommandPtr GroundIntakeFalseCommand(SuperStructure* m_SuperStructure, Intake* m_Intake) {
 	return frc2::cmd::Sequence(
 		frc2::InstantCommand([m_Intake] {m_Intake->setVoltage(0_V);}, { m_Intake }),
-		SetSuperStructure(m_SuperStructure, SuperStructureState(-2.5, 0.0, 100))
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, 100 });}, { m_SuperStructure })
 	);
 }
 
@@ -66,4 +66,11 @@ frc2::CommandPtr SetGamePieceTrueCommand(Intake* m_Intake, units::volt_t voltage
 
 frc2::CommandPtr SetGamePieceFalseCommand(Intake* m_Intake) {
 	return frc2::InstantCommand([m_Intake] {m_Intake->setVoltage(0_V);}, { m_Intake }).ToPtr();
+}
+
+frc2::CommandPtr GroundIntakeAuto(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
+	return frc2::cmd::Parallel(
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, -18.0 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
+	);
 }

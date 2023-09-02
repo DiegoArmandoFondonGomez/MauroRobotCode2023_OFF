@@ -1,6 +1,6 @@
 #include "Autonomous.h"
 
-frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis) {
+frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_vision) {
 	//Get Alliance Color
 	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
 
@@ -16,6 +16,7 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 		//Putting Pre-loaded Piece
 		frc2::InstantCommand([m_Chassis, initialPose]() {m_Chassis->resetOdometry({ initialPose.X(), initialPose.Y(), 180_deg });}).ToPtr(),
 		UpperCommand(m_SuperStructure),
+		frc2::WaitCommand(0.5_s),
 		SetGamePieceTrueCommand(m_Intake, -6.0_V),
 		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
@@ -23,14 +24,17 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 		//LoadingFirstPiece
 		frc2::cmd::Parallel(
-			SwerveTrajectories(m_Chassis, loadingfirstpiece, { 1,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy(),
+			SwerveTrajectories(m_Chassis, loadingfirstpiece, { 0,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy(),
 
 			// Eat piece while moving
 			frc2::cmd::Sequence(
 				frc2::WaitCommand(2.0_s),
-				GroundIntakeTrueCommand(m_SuperStructure, m_Intake, -6.0_V),
+				frc2::InstantCommand([m_vision]() {m_vision->setPoseEstimator(false);}),
+				GroundIntakeAuto(m_SuperStructure, m_Intake, -4.0_V),
 				frc2::WaitCommand(1.5_s),
-				GroundIntakeFalseCommand(m_SuperStructure, m_Intake)
+				GroundIntakeFalseCommand(m_SuperStructure, m_Intake),
+				frc2::WaitCommand(1_s),
+				frc2::InstantCommand([m_vision]() {m_vision->setPoseEstimator(true);})
 			)
 		),
 
@@ -43,15 +47,16 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 		//LoadingSecondPiece
 		frc2::cmd::Parallel(
-			SwerveTrajectories(m_Chassis, loadingsecondpiece, { 1,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy(),
+			SwerveTrajectories(m_Chassis, loadingsecondpiece, { 1,0,0 }, { 0,0,0 }, { 1.27,0,0 }).AsProxy(),
 
 			// Eat piece while moving
 			frc2::cmd::Sequence(
 				frc2::WaitCommand(2.0_s),
-				GroundIntakeTrueCommand(m_SuperStructure, m_Intake, 6.0_V),
+				frc2::InstantCommand([m_vision]() {m_vision->setPoseEstimator(false);}),
+				GroundIntakeAuto(m_SuperStructure, m_Intake, 6.0_V),
 				frc2::WaitCommand(2.0_s),
-				GroundIntakeFalseCommand(m_SuperStructure, m_Intake)
-
+				GroundIntakeFalseCommand(m_SuperStructure, m_Intake),
+				frc2::InstantCommand([m_vision]() {m_vision->setPoseEstimator(true);})
 			)
 		),
 

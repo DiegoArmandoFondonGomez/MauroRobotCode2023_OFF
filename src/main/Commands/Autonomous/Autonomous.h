@@ -12,13 +12,13 @@
 #include "main/subsystems/Chassis/Chassis.h"
 #include "main/subsystems/Intake/Intake.h"
 #include "main/subsystems/SuperStructure/SuperStructure.h"
-#include "main/subsystems/LEDManager/LEDManager.h"
+#include "main/subsystems/Vision/Vision.h"
 
 #include "main/Commands/Common/SuperStructureCommon/SuperStructureCommon.h"
 #include "main/Commands/Teleop/LEDCommands/LEDCommands.h"
 #include "OvertureLib/Commands/Autonomous/AutoBalance/AutoBalance.h"
 #include "OvertureLib/Commands/Autonomous/SwerveTrajectories/SwerveTrajectories.h"
 
-frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
-frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
-frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis);
+frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_Vision);
+frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_Vision);
+frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_Vision);

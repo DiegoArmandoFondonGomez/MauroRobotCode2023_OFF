@@ -24,7 +24,7 @@ void VisionManager::setAlliancesColor() {
 	poseEstimatorSet = true;
 	poseEstimator = new photonlib::PhotonPoseEstimator{
 		*m_TagLayout,
-		photonlib::PoseStrategy::MULTI_TAG_PNP,
+		photonlib::PoseStrategy::LOWEST_AMBIGUITY,
 		std::move(photonlib::PhotonCamera{ "IMX219" }),
 		*m_CameraToRobot
 	};
@@ -63,7 +63,7 @@ void VisionManager::addMeasurementToChassis() {
 //Update odometry with vision
 
 void VisionManager::updateOdometry() {
-	if (checkTagDistance(1, 2.00) || checkTagDistance(2, 5.00)) {
+	if (checkTagDistance(1, 4.00) || checkTagDistance(2, 6.00)) {
 		addMeasurementToChassis();
 	}
 }
@@ -81,6 +81,10 @@ std::optional<photonlib::PhotonPipelineResult> VisionManager::getCameraResult() 
 //Check if poseEstimator is set
 bool VisionManager::isPoseEstimatorSet() {
 	return poseEstimatorSet;
+}
+
+void VisionManager::setPoseEstimator(bool set) {
+	poseEstimatorSet = set;
 }
 
 void VisionManager::Periodic() {
