@@ -7,6 +7,9 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 	//Get Trajectories
 	pathplanner::PathPlannerTrajectory CenterBalance = pathplanner::PathPlanner::loadPath("CenterBalance", { 3.5_mps, 3.5_mps_sq });
 
+	// Transform Trajectories for Alliance Color
+	CenterBalance = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(CenterBalance, allianceColor);
+
 	//Get Initial Pose
 	frc::Pose2d initialPose = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(CenterBalance, allianceColor).getInitialPose();
 

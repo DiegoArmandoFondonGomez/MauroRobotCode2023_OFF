@@ -8,8 +8,12 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 	pathplanner::PathPlannerTrajectory loadingfirstpiece = pathplanner::PathPlanner::loadPath("LoadingFirstPiece", { 3.5_mps, 3.5_mps_sq });
 	pathplanner::PathPlannerTrajectory loadingsecondpiece = pathplanner::PathPlanner::loadPath("LoadingSecondPiece", { 3.5_mps, 3.5_mps_sq });
 
+	// Transform Trajectories for Alliance Color
+	loadingfirstpiece = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(loadingfirstpiece, allianceColor);
+	loadingsecondpiece = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(loadingsecondpiece, allianceColor);
+
 	//Get Initial Pose
-	frc::Pose2d initialPose = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(loadingfirstpiece, allianceColor).getInitialPose();
+	frc::Pose2d initialPose = loadingfirstpiece.getInitialPose();
 
 	return frc2::cmd::Sequence(
 
