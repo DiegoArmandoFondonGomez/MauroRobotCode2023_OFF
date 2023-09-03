@@ -1,6 +1,6 @@
 #include "Autonomous.h"
 
-frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis) {
+frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_Vision) {
 	//Get Alliance Color
 	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
 

@@ -70,7 +70,7 @@ frc2::CommandPtr SetGamePieceFalseCommand(Intake* m_Intake) {
 
 frc2::CommandPtr GroundIntakeAuto(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
 	return frc2::cmd::Parallel(
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, -18.0 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, -22.0 });}, { m_SuperStructure }),
 		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 	);
 }

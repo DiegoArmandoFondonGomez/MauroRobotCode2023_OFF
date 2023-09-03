@@ -43,9 +43,9 @@ private:
 
 	// Driver commands
 	frc2::Trigger resetNavxButton{ [this] {return driver.GetBackButton();} };
-	frc2::Trigger setConeLED{ [this] {return driver.GetLeftBumper();} };
-	frc2::Trigger setCubeLED{ [this] {return driver.GetRightBumper();} };
-	frc2::Trigger setLEDOff{ [this] {return driver.GetBButton();} };
+	// frc2::Trigger setConeLED{ [this] {return driver.GetLeftBumper();} };
+	// frc2::Trigger setCubeLED{ [this] {return driver.GetRightBumper();} };
+	// frc2::Trigger setLEDOff{ [this] {return driver.GetBButton();} };
 	frc2::Trigger dropCube{ [this] {return driver.GetLeftTriggerAxis();} };
 	frc2::Trigger dropCone{ [this] {return driver.GetRightTriggerAxis();} };
 
@@ -63,4 +63,7 @@ private:
 	// Auto
 	frc::SendableChooser<frc2::Command*> pathChooser;
 	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis, &vision);
+	frc2::CommandPtr centerBalance = CenterBalance(&superStructure, &intake, &chassis, &vision);
+	frc2::CommandPtr barrierScore = BarrierScore(&superStructure, &intake, &chassis, &vision);
+
 };

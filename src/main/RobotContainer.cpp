@@ -7,13 +7,16 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
-	pathChooser.AddOption("Null-None", nullptr);
+	pathChooser.SetDefaultOption("Null-None", nullptr);
 	pathChooser.AddOption("LoadingScore", loadingScore.get());
+	pathChooser.AddOption("CenterBalance", centerBalance.get());
+	pathChooser.AddOption("BarrierScore", barrierScore.get());
 	frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
 	ConfigureBindings();
 }
 
 void RobotContainer::setAllianceColor() {
+	ledManager.setLEDAllianceColor();
 	vision.setAlliancesColor();
 }
 
@@ -23,9 +26,9 @@ void RobotContainer::ConfigureBindings() {
 
 	// Configure the button bindings
 	resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
-	setConeLED.OnTrue(SetConeLED(&ledManager));
-	setCubeLED.OnTrue(SetCubeLED(&ledManager));
-	setLEDOff.OnTrue(SetLEDOff(&ledManager));
+	// setConeLED.OnTrue(SetConeLED(&ledManager));
+	// setCubeLED.OnTrue(SetCubeLED(&ledManager));
+	// setLEDOff.OnTrue(SetLEDOff(&ledManager));
 
 	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -2_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));

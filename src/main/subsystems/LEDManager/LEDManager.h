@@ -8,14 +8,16 @@
 #include <frc/AddressableLED.h>
 #include <frc/PWM.h>
 #include <frc/Timer.h>
+#include <frc/DriverStation.h>
 
 #include "LEDState.h"
 
-class LEDManager: public frc2::SubsystemBase {
+class LEDManager : public frc2::SubsystemBase {
 public:
 	LEDManager();
 
 	void setColor(frc::Color color);
+	void setLEDAllianceColor();
 	void setLEDStripState(LEDState state);
 	void Periodic() override;
 
@@ -29,6 +31,6 @@ private:
 	frc::AddressableLED m_led{ 0 };
 	std::array<frc::AddressableLED::LEDData, kLength> m_ledBuffer;
 
-	LEDState ledState = LEDState::Overture;
+	LEDState ledState = LEDState::AllianceColor;
 	frc::Color color = frc::Color::kWhite;
 };

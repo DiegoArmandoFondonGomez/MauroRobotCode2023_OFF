@@ -88,6 +88,7 @@ void VisionManager::setPoseEstimator(bool set) {
 }
 
 void VisionManager::Periodic() {
+	frc::SmartDashboard::PutBoolean("Set Camara", isPoseEstimatorSet());
 	if (isPoseEstimatorSet()) {
 		updateOdometry();
 	}

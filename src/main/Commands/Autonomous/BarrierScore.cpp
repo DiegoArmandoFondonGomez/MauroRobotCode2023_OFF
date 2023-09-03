@@ -1,6 +1,6 @@
 #include "Autonomous.h"
 
-frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis) {
+frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake, Chassis* m_Chassis, Vision* m_Vision) {
 	//Get Alliance Color
 	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
 
@@ -15,21 +15,16 @@ frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 	return frc2::cmd::Sequence(
 
+		frc2::InstantCommand([m_Chassis, initialPose]() {m_Chassis->resetOdometry({ initialPose.X(), initialPose.Y(), 180_deg });}).ToPtr(),
 		UpperCommand(m_SuperStructure),
-		SetGamePieceTrueCommand(m_Intake, 6.0_V),
 		frc2::WaitCommand(0.5_s),
+		SetGamePieceTrueCommand(m_Intake, -6.0_V),
+		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
 		ClosedCommand(m_SuperStructure),
 
 		frc2::cmd::Parallel(
-			SwerveTrajectories(m_Chassis, barrierFirstPiece, { 1,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy(),
-
-			frc2::cmd::Sequence(
-				frc2::WaitCommand(2.35_s),
-				GroundIntakeTrueCommand(m_SuperStructure, m_Intake, -6.0_V),
-				frc2::WaitCommand(1.5_s),
-				GroundIntakeFalseCommand(m_SuperStructure, m_Intake)
-			)
+			SwerveTrajectories(m_Chassis, barrierFirstPiece, { 1,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy()
 		)
 
 	);
