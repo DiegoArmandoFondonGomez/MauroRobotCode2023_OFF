@@ -19,20 +19,20 @@
  * Command will *not* work!
  */
 class AutoBalance
-  : public frc2::CommandHelper<frc2::CommandBase, AutoBalance> {
+	: public frc2::CommandHelper<frc2::CommandBase, AutoBalance> {
 public:
-  AutoBalance(SwerveChassis* swerveChassis);
+	AutoBalance(SwerveChassis* swerveChassis);
 
-  void Initialize() override;
+	void Initialize() override;
 
-  void Execute() override;
+	void Execute() override;
 
-  void End(bool interrupted) override;
+	void End(bool interrupted) override;
 
-  bool IsFinished() override;
+	bool IsFinished() override;
 
 private:
-  SwerveChassis* m_swerveChassis;
-  frc::PIDController xController{ .028, 0, 0 };
-  frc::PIDController rController{ .05, 0, 0 };
+	SwerveChassis* m_swerveChassis;
+	frc::PIDController xController{ .028, 0, 0 };
+	frc::PIDController rController{ .05, 0, 0 };
 };

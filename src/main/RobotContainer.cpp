@@ -26,11 +26,9 @@ void RobotContainer::ConfigureBindings() {
 
 	// Configure the button bindings
 	resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
-	// setConeLED.OnTrue(SetConeLED(&ledManager));
-	// setCubeLED.OnTrue(SetCubeLED(&ledManager));
-	// setLEDOff.OnTrue(SetLEDOff(&ledManager));
+	autoBalance.WhileTrue(AutoBalance(&chassis).ToPtr());
 
-	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -2_V));
+	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -3_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
 	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 4_V));
@@ -51,7 +49,7 @@ void RobotContainer::ConfigureBindings() {
 	loadingPosition.OnTrue(LoadingCommand(&superStructure));
 	loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
-	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 6_V));
+	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 7_V));
 	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 
 	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));

@@ -265,9 +265,9 @@ void SwerveChassis::updateOdometry() {
  * @brief Pendiente a describir
 */
 void SwerveChassis::shuffleboardPeriodic() {
-	frc::SmartDashboard::PutNumber("LinearX", linearX);
-	frc::SmartDashboard::PutNumber("LinearY", linearY);
-	frc::SmartDashboard::PutNumber("Angular", angular);
+	// frc::SmartDashboard::PutNumber("LinearX", linearX);
+	// frc::SmartDashboard::PutNumber("LinearY", linearY);
+	// frc::SmartDashboard::PutNumber("Angular", angular);
 
 	auto estimatedPos = getOdometry();
 	frc::SmartDashboard::PutNumber("OdometryX", estimatedPos.X().value());

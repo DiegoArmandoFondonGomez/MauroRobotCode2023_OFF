@@ -43,9 +43,7 @@ private:
 
 	// Driver commands
 	frc2::Trigger resetNavxButton{ [this] {return driver.GetBackButton();} };
-	// frc2::Trigger setConeLED{ [this] {return driver.GetLeftBumper();} };
-	// frc2::Trigger setCubeLED{ [this] {return driver.GetRightBumper();} };
-	// frc2::Trigger setLEDOff{ [this] {return driver.GetBButton();} };
+	frc2::Trigger autoBalance{ [this] {return driver.GetStartButton();} };
 	frc2::Trigger dropCube{ [this] {return driver.GetLeftTriggerAxis();} };
 	frc2::Trigger dropCone{ [this] {return driver.GetRightTriggerAxis();} };
 

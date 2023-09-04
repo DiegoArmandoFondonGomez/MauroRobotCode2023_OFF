@@ -7,7 +7,7 @@
 /**
  * @brief Construye un módulo de Swerve
 */
-SwerveModule::SwerveModule(int rotatorID, int wheelID, int canCoderID, double offset, std::string moduleName, std::string canBus): m_name(moduleName) {
+SwerveModule::SwerveModule(int rotatorID, int wheelID, int canCoderID, double offset, std::string moduleName, std::string canBus) : m_name(moduleName) {
 	m_driveMotor = new OverTalonFX(wheelID, ControllerNeutralMode::Brake, true, 1, canBus);
 	m_turningMotor = new OverTalonFX(rotatorID, ControllerNeutralMode::Coast, true, 1, canBus);
 	m_canCoder = new OverCANCoder(canCoderID, offset, canBus);
@@ -167,7 +167,7 @@ void SwerveModule::setVoltages() {
 }
 // This method will be called once per scheduler run
 void SwerveModule::Periodic() {
-	frc::SmartDashboard::PutNumber(m_name + "/Speed", getSpeed());
-	frc::SmartDashboard::PutNumber(m_name + "/Target", m_state.angle.Degrees().value());
-	frc::SmartDashboard::PutNumber(m_name + "/Angle", getAngle());
+	// frc::SmartDashboard::PutNumber(m_name + "/Speed", getSpeed());
+	// frc::SmartDashboard::PutNumber(m_name + "/Target", m_state.angle.Degrees().value());
+	// frc::SmartDashboard::PutNumber(m_name + "/Angle", getAngle());
 }

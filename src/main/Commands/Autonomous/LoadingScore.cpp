@@ -25,7 +25,7 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 		//LoadingFirstPiece
 		frc2::cmd::Parallel(
-			SwerveTrajectories(m_Chassis, loadingfirstpiece, { 1.8,0,0 }, { 0.3,0,0 }, { 1.27,0,0 }).AsProxy(),
+			SwerveTrajectories(m_Chassis, loadingfirstpiece, { 1.7,0,0 }, { -0.1,0,0 }, { 1.27,0,0 }).AsProxy(),
 
 			// Eat piece while moving
 			frc2::cmd::Sequence(
@@ -48,7 +48,7 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 		//LoadingSecondPiece
 		frc2::cmd::Parallel(
-			SwerveTrajectories(m_Chassis, loadingsecondpiece, { 1.2,0,0 }, { 1,0,0 }, { 1.27,0,0 }).AsProxy(),
+			SwerveTrajectories(m_Chassis, loadingsecondpiece, { 0,0,0 }, { 0,0,0 }, { 1.27,0,0 }).AsProxy(),
 
 			// Eat piece while moving
 			frc2::cmd::Sequence(

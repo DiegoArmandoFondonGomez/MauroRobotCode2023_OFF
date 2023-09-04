@@ -48,7 +48,7 @@ frc2::CommandPtr LoadingCommand(SuperStructure* m_SuperStructure) {
 
 frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
 	return frc2::cmd::Parallel(
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, -32.0 });}, { m_SuperStructure }),
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2, 0.0, -30 });}, { m_SuperStructure }),
 		frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 	);
 }

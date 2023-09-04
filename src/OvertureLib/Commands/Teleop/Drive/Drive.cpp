@@ -16,9 +16,9 @@ void Drive::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
 
-	if (joystick->GetAButton()) {
-		kMaxSpeed = 2.5;
-		kMaxAngularSpeed = 4.5;
+	if (joystick->GetRightBumper()) {
+		kMaxSpeed = 2;
+		kMaxAngularSpeed = 3.5;
 	} else {
 		kMaxSpeed = 5.0;
 		kMaxAngularSpeed = 9.0;
