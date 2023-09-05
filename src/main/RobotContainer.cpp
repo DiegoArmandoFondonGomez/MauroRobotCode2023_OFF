@@ -46,8 +46,8 @@ void RobotContainer::ConfigureBindings() {
 	upperPosition.OnTrue(UpperCommand(&superStructure));
 	upperPosition.OnFalse(ClosedCommand(&superStructure));
 
-	loadingPosition.OnTrue(LoadingCommand(&superStructure));
-	loadingPosition.OnFalse(ClosedCommand(&superStructure));
+	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
+	// loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
 	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 7_V));
 	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));

@@ -53,7 +53,7 @@ private:
 	frc2::Trigger lowerPosition{ [this] {return mechanisms.GetAButton();} };
 	frc2::Trigger middlePosition{ [this] {return mechanisms.GetBButton();} };
 	frc2::Trigger upperPosition{ [this] {return mechanisms.GetYButton();} };
-	frc2::Trigger loadingPosition{ [this] {return mechanisms.GetXButton();} };
+	// frc2::Trigger loadingPosition{ [this] {return mechanisms.GetXButton();} };
 	frc2::Trigger intakeCone{ [this] {return mechanisms.GetRightTriggerAxis();} };
 	frc2::Trigger intakeCube{ [this] {return mechanisms.GetLeftTriggerAxis();} };
 
