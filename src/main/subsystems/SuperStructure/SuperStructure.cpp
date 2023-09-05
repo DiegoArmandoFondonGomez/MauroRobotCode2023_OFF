@@ -87,6 +87,10 @@ double SuperStructure::upperAngleFFCalculation(double angle) {
 	return angleToLower + getLowerAngle();
 }
 
+void SuperStructure::zeroLowerMotors() {
+	m_lowerRight.setSensorPosition(-0.02222222);
+}
+
 // This method will be called once per scheduler run
 void SuperStructure::Periodic() {
 	setFalconTargetPos(m_TargetState);

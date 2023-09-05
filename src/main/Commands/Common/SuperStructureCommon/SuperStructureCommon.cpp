@@ -3,7 +3,7 @@
 frc2::CommandPtr ClosedCommand(SuperStructure* m_SuperStructure) {
 	return frc2::cmd::Sequence(
 		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 42.0, 0.0, 100 });}, { m_SuperStructure }),
-		frc2::cmd::Wait(0.8_s),
+		frc2::cmd::Wait(1_s),
 		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -6, 0.0, 100 });}, { m_SuperStructure })
 	);
 }
@@ -56,7 +56,7 @@ frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intak
 frc2::CommandPtr GroundIntakeFalseCommand(SuperStructure* m_SuperStructure, Intake* m_Intake) {
 	return frc2::cmd::Sequence(
 		frc2::InstantCommand([m_Intake] {m_Intake->setVoltage(0_V);}, { m_Intake }),
-		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2.5, 0.0, 100 });}, { m_SuperStructure })
+		frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -6, 0.0, 100 });}, { m_SuperStructure })
 	);
 }
 

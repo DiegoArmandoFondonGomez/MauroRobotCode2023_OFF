@@ -18,6 +18,7 @@ public:
 	double getUpperAngle();
 	double getElevatorDistance();
 	SuperStructureState getCurrentState();
+	void zeroLowerMotors();
 	void Periodic() override;
 
 private:

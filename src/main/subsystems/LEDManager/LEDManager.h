@@ -26,7 +26,7 @@ private:
 	void linearPulse(frc::Color color, units::second_t cycle);
 	void sinusoidalPulse(frc::Color color, units::second_t cycle);
 
-	static const int kLength = 200;
+	static const int kLength = 45;
 	int firstPixel = 0;
 	frc::AddressableLED m_led{ 0 };
 	std::array<frc::AddressableLED::LEDData, kLength> m_ledBuffer;
