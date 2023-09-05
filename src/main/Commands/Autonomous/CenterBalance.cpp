@@ -5,7 +5,7 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
 
 	//Get Trajectories
-	pathplanner::PathPlannerTrajectory CenterBalance = pathplanner::PathPlanner::loadPath("CenterBalance", { 3.5_mps, 3.5_mps_sq });
+	pathplanner::PathPlannerTrajectory CenterBalance = pathplanner::PathPlanner::loadPath("CenterBalance", { 2_mps, 2_mps_sq });
 
 	// Transform Trajectories for Alliance Color
 	CenterBalance = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(CenterBalance, allianceColor);
