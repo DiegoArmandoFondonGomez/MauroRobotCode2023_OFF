@@ -31,7 +31,7 @@ void RobotContainer::ConfigureBindings() {
 	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -3_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
-	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 4_V));
+	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 3_V));
 	dropCube.OnFalse(SetGamePieceFalseCommand(&intake));
 
 	closedPosition.OnTrue(ClosedCommand(&superStructure));

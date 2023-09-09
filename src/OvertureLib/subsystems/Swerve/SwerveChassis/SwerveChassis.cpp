@@ -270,6 +270,8 @@ void SwerveChassis::shuffleboardPeriodic() {
 	// frc::SmartDashboard::PutNumber("Angular", angular);
 
 	auto estimatedPos = getOdometry();
+	frc::SmartDashboard::PutNumber("Roll", getRoll());
+
 	frc::SmartDashboard::PutNumber("OdometryX", estimatedPos.X().value());
 	frc::SmartDashboard::PutNumber("OdometryY", estimatedPos.Y().value());
 	frc::SmartDashboard::PutNumber("AnglenaveX", estimatedPos.Rotation().Degrees().value());

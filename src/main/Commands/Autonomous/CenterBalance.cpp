@@ -5,7 +5,7 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
 
 	//Get Trajectories
-	pathplanner::PathPlannerTrajectory CenterBalance = pathplanner::PathPlanner::loadPath("CenterBalance", { 2_mps, 2_mps_sq });
+	pathplanner::PathPlannerTrajectory CenterBalance = pathplanner::PathPlanner::loadPath("CenterBalance", { 2.5_mps, 2.5_mps_sq });
 
 	// Transform Trajectories for Alliance Color
 	CenterBalance = pathplanner::PathPlannerTrajectory::transformTrajectoryForAlliance(CenterBalance, allianceColor);
@@ -16,7 +16,7 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 	return frc2::cmd::Sequence(
 
 		frc2::InstantCommand([m_Chassis, initialPose]() {m_Chassis->resetOdometry({ initialPose.X(), initialPose.Y(), 180_deg });}).ToPtr(),
-		UpperCommand(m_SuperStructure),
+		MiddleCommand(m_SuperStructure),
 		frc2::WaitCommand(0.5_s),
 		SetGamePieceTrueCommand(m_Intake, -6.0_V),
 		frc2::WaitCommand(0.3_s),
