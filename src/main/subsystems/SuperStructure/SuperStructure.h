@@ -17,6 +17,8 @@ public:
 	double getLowerAngle();
 	double getUpperAngle();
 	double getElevatorDistance();
+	std::string getPosition();
+	void setPosition(std::string pos);
 	SuperStructureState getCurrentState();
 	void zeroLowerMotors();
 	void Periodic() override;
@@ -28,7 +30,6 @@ private:
 	double upperAngleFFCalculation(double angle);
 
 	//constant
-
 	const double LOWER_GEAR_BOX_REDUCTION = 230.4;
 	const double ELEVATOR_GEAR_BOX_REDUCTION = 3;
 	const double UPPER_GEAR_BOX_REDUCTION = 51.84;
@@ -47,6 +48,7 @@ private:
 
 	// State
 	SuperStructureState m_TargetState{ getCurrentState() };
+	std::string position = "closed";
 
 	//Motion Magic Feed Forward
 	double lowerFF = 0.1;

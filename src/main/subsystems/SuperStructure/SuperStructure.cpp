@@ -32,14 +32,11 @@ SuperStructure::SuperStructure() {
 	m_lowerRight.setPIDValues(300.0, 0.0, 1.0, 0.0, 0.0);
 	m_lowerRight.configureMotionMagic(2000.0, 1800.0, 0.0);
 
-	// m_elevatorRight.setPIDValues(12, 1.0, 0, 0.0, 0.0);
-	// m_elevatorRight.configureMotionMagic(20.0, 20.0, 0);
+	m_elevatorRight.setPIDValues(12, 1.0, 0, 0.0, 0.0);
+	m_elevatorRight.configureMotionMagic(20.0, 20.0, 0);
 
-	m_elevatorRight.setPIDValues(0, 0, 0, 0.0, 0.0);
-	m_elevatorRight.configureMotionMagic(0.0, 0.0, 0);
-
-	m_upperMotor.setPIDValues(37, 0.0, 0.0, 0.0, 0.0);
-	m_upperMotor.configureMotionMagic(100.0, 150, 0.0);
+	// m_upperMotor.setPIDValues(37, 0.0, 0.0, 0.0, 0.0);
+	// m_upperMotor.configureMotionMagic(100.0, 150, 0.0);
 
 	setTargetCoord({ -8, 0, 100 });
 }
@@ -58,6 +55,14 @@ double SuperStructure::getUpperAngle() {
 
 double SuperStructure::getElevatorDistance() {
 	return m_elevatorRight.getPosition() * M_PI;
+}
+
+std::string SuperStructure::getPosition() {
+	return position;
+}
+
+void SuperStructure::setPosition(std::string pos) {
+	position = pos;
 }
 
 SuperStructureState SuperStructure::getCurrentState() {
