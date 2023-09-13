@@ -7,6 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 
 #include "SuperStructureState.h"
+#include "SuperStructurePosition.h"
 #include <OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h>
 #include <OvertureLib/MotorControllers/ControllerNeutralMode/ControllerNeutralMode.h>
 
@@ -17,10 +18,9 @@ public:
 	double getLowerAngle();
 	double getUpperAngle();
 	double getElevatorDistance();
-	std::string getPosition();
-	void setPosition(std::string pos);
+	SuperStructurePosition getPosition();
+	void setPosition(SuperStructurePosition pos);
 	SuperStructureState getCurrentState();
-	void zeroLowerMotors();
 	void Periodic() override;
 
 private:
@@ -48,7 +48,7 @@ private:
 
 	// State
 	SuperStructureState m_TargetState{ getCurrentState() };
-	std::string position = "closed";
+	SuperStructurePosition position = SuperStructurePosition::Closed;
 
 	//Motion Magic Feed Forward
 	double lowerFF = 0.1;

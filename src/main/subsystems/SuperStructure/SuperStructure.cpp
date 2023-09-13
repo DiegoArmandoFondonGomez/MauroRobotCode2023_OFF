@@ -57,11 +57,11 @@ double SuperStructure::getElevatorDistance() {
 	return m_elevatorRight.getPosition() * M_PI;
 }
 
-std::string SuperStructure::getPosition() {
+SuperStructurePosition SuperStructure::getPosition() {
 	return position;
 }
 
-void SuperStructure::setPosition(std::string pos) {
+void SuperStructure::setPosition(SuperStructurePosition pos) {
 	position = pos;
 }
 
@@ -95,10 +95,6 @@ double SuperStructure::upperAngleFFCalculation(double angle) {
 	return angleToLower + getLowerAngle();
 }
 
-void SuperStructure::zeroLowerMotors() {
-	m_lowerRight.setSensorPosition(-0.02222222);
-}
-
 // This method will be called once per scheduler run
 void SuperStructure::Periodic() {
 	setFalconTargetPos(m_TargetState);
@@ -112,4 +108,6 @@ void SuperStructure::Periodic() {
 	frc::SmartDashboard::PutNumber("Lower Angle", currentState.lowerAngle);
 	frc::SmartDashboard::PutNumber("Upper Angle", currentState.upperAngle);
 	frc::SmartDashboard::PutNumber("Elevator Distance", currentState.elevatorDistance);
+
+	frc::SmartDashboard::PutNumber("Position", position);
 }
