@@ -34,7 +34,7 @@ void RobotContainer::ConfigureBindings() {
 	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 3_V));
 	dropCube.OnFalse(SetGamePieceFalseCommand(&intake));
 
-	closedPosition.OnTrue(ClosedCommand(&superStructure));
+	closedPosition.OnTrue(ClosedCommand(&superStructure, &intake));
 	openLowerWrists.OnTrue(OpenLowerWristsCommand(&superStructure));
 
 	lowerPosition.OnTrue(LowerCommand(&superStructure));
@@ -48,10 +48,8 @@ void RobotContainer::ConfigureBindings() {
 	// loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
 	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 7_V));
-	intakeCone.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 
 	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
-	intakeCube.OnFalse(GroundIntakeFalseCommand(&superStructure, &intake));
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

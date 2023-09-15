@@ -21,7 +21,7 @@ frc2::CommandPtr BarrierScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 		SetGamePieceTrueCommand(m_Intake, -6.0_V),
 		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
-		ClosedCommand(m_SuperStructure),
+		ClosedCommand(m_SuperStructure, m_Intake),
 
 		//frc2::cmd::Parallel(
 		SwerveTrajectories(m_Chassis, barrierFirstPiece, { 1,0,0 }, { -1,0,0 }, { 1.27,0,0 }).AsProxy()

@@ -21,7 +21,7 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 		SetGamePieceTrueCommand(m_Intake, -6.0_V),
 		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
-		ClosedCommand(m_SuperStructure),
+		ClosedCommand(m_SuperStructure, m_Intake),
 
 		SwerveTrajectories(m_Chassis, CenterBalance, { 1,0,0 }, { 0,0,0 }, { 1.27,0,0 }).AsProxy(),
 		AutoBalance(m_Chassis)

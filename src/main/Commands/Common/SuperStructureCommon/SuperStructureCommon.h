@@ -11,7 +11,7 @@
 #include "main/Commands/Common/SetSuperStructure/SetSuperStructure.h"
 #include "main/subsystems/Intake/Intake.h"
 
-frc2::CommandPtr ClosedCommand(SuperStructure* m_superStructure);
+frc2::CommandPtr ClosedCommand(SuperStructure* m_superStructure, Intake* m_Intake);
 frc2::CommandPtr OpenLowerWristsCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr LowerCommand(SuperStructure* m_superStructure);
 frc2::CommandPtr LowerCommandClosed(SuperStructure* m_superStructure);

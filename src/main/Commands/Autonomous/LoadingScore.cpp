@@ -21,7 +21,7 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 		SetGamePieceTrueCommand(m_Intake, 4.0_V),
 		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
-		ClosedCommand(m_SuperStructure),
+		ClosedCommand(m_SuperStructure, m_Intake),
 
 		//LoadingFirstPiece
 		// frc2::cmd::Parallel(
