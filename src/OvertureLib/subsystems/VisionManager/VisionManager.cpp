@@ -24,8 +24,8 @@ void VisionManager::setAlliancesColor() {
 	poseEstimatorSet = true;
 	poseEstimator = new photonlib::PhotonPoseEstimator{
 		*m_TagLayout,
-		photonlib::PoseStrategy::LOWEST_AMBIGUITY,
-		std::move(photonlib::PhotonCamera{ "IMX219" }),
+		photonlib::PoseStrategy::MULTI_TAG_PNP,
+		std::move(photonlib::PhotonCamera{ "Arducam_OV9281_USB_Camera" }),
 		*m_CameraToRobot
 	};
 }
@@ -63,7 +63,7 @@ void VisionManager::addMeasurementToChassis() {
 //Update odometry with vision
 
 void VisionManager::updateOdometry() {
-	if (checkTagDistance(1, 4.00) || checkTagDistance(2, 6.00)) {
+	if (checkTagDistance(1, 3.60) || checkTagDistance(2, 7.00)) {
 		addMeasurementToChassis();
 	}
 }
