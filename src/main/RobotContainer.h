@@ -62,6 +62,7 @@ private:
 	frc::SendableChooser<frc2::Command*> pathChooser;
 	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis, &vision);
 	frc2::CommandPtr centerBalance = CenterBalance(&superStructure, &intake, &chassis, &vision);
+	frc2::CommandPtr centerTwoPiece = CenterTwoPiece(&superStructure, &intake, &chassis, &vision);
 	frc2::CommandPtr barrierScore = BarrierScore(&superStructure, &intake, &chassis, &vision);
 
 };
