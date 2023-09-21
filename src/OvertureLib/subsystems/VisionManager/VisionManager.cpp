@@ -63,7 +63,7 @@ void VisionManager::addMeasurementToChassis() {
 //Update odometry with vision
 
 void VisionManager::updateOdometry() {
-	if (checkTagDistance(1, 3.60) || checkTagDistance(2, 7.00)) {
+	if (checkTagDistance(1, 5.00) || checkTagDistance(2, 7.00) || checkTagDistance(3, 8.00)) {
 		addMeasurementToChassis();
 	}
 }

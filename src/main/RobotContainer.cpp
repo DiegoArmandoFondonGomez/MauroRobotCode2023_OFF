@@ -28,7 +28,7 @@ void RobotContainer::ConfigureBindings() {
 	resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
 	autoBalance.WhileTrue(AutoBalance(&chassis).ToPtr());
 
-	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -3_V));
+	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -1.5_V));
 	dropCone.OnFalse(SetGamePieceFalseCommand(&intake));
 
 	dropCube.OnTrue(SetGamePieceTrueCommand(&intake, 3_V));
