@@ -29,7 +29,6 @@ frc2::CommandPtr LoadingScore(SuperStructure* m_SuperStructure, Intake* m_Intake
 
 			// Eat piece while moving
 			frc2::cmd::Sequence(
-
 				frc2::WaitCommand(1.1_s),
 				GroundIntakeTrueCommand(m_SuperStructure, m_Intake, -4.0_V),
 				frc2::WaitCommand(1.2_s),
