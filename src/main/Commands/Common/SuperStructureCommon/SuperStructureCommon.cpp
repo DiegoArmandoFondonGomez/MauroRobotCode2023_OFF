@@ -43,7 +43,7 @@ frc2::CommandPtr LowerCommand(SuperStructure* m_SuperStructure) {
 		[m_SuperStructure] { return m_SuperStructure->getPosition(); },
 		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::Lower);}, { m_SuperStructure }),
-			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -6.0, 0.0, 26.0 });}, { m_SuperStructure }).ToPtr()
+			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 4.0, 0.0, 26.0 });}, { m_SuperStructure }).ToPtr()
 		) });
 }
 
@@ -126,11 +126,17 @@ frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intak
 				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2, 0.0, -31 });}, { m_SuperStructure }),
 				frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 			)
-		) },
-		std::pair{ SuperStructurePosition::IntakeOpen, frc2::cmd::Sequence(
+		) });
+}
+
+frc2::CommandPtr ConeIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake* m_Intake, units::volt_t voltage) {
+	return frc2::cmd::Select<SuperStructurePosition>(
+		[m_SuperStructure] { return m_SuperStructure->getPosition(); },
+
+		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::IntakeOpen);}, { m_SuperStructure }),
 			frc2::cmd::Parallel(
-				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2, 0.0, -31 });}, { m_SuperStructure }),
+				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 4.0, 0.0, 26.0 });}, { m_SuperStructure }),
 				frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 			)
 		) });

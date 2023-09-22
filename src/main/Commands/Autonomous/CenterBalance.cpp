@@ -17,15 +17,12 @@ frc2::CommandPtr CenterBalance(SuperStructure* m_SuperStructure, Intake* m_Intak
 
 		frc2::InstantCommand([m_Chassis, initialPose]() {m_Chassis->resetOdometry({ initialPose.X(), initialPose.Y(), 180_deg });}).ToPtr(),
 		UpperCommand(m_SuperStructure),
-		SetGamePieceTrueCommand(m_Intake, 4.0_V),
 		frc2::WaitCommand(0.5_s),
+		SetGamePieceTrueCommand(m_Intake, -4.0_V),
+		frc2::WaitCommand(0.3_s),
 		SetGamePieceFalseCommand(m_Intake),
 		ClosedCommand(m_SuperStructure, m_Intake),
 
-		SwerveTrajectories(m_Chassis, CenterBalance, { 1,0,0 }, { 0,0,0 }, { 1.27,0,0 }).AsProxy(),
-		frc2::WaitCommand(2_s),
-		AutoBalance(m_Chassis),
-		frc2::WaitCommand(1.5_s),
-		AutoBalance(m_Chassis)
+		SwerveTrajectories(m_Chassis, CenterBalance, { 1,0,0 }, { 0,0,0 }, { 1.27,0,0 }).AsProxy()
 	);
 };

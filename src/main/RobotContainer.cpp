@@ -48,7 +48,7 @@ void RobotContainer::ConfigureBindings() {
 	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
 	// loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
-	intakeCone.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, 7_V));
+	intakeCone.OnTrue(ConeIntakeTrueCommand(&superStructure, &intake, 7_V));
 
 	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
 }
