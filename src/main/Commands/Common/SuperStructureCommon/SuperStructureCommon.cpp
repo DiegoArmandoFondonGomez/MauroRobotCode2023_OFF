@@ -136,7 +136,7 @@ frc2::CommandPtr ConeIntakeTrueCommand(SuperStructure* m_SuperStructure, Intake*
 		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::IntakeOpen);}, { m_SuperStructure }),
 			frc2::cmd::Parallel(
-				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 4.0, 0.0, 26.0 });}, { m_SuperStructure }),
+				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 4.0, 0.0, 32.0 });}, { m_SuperStructure }),
 				frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake })
 			)
 		) });
