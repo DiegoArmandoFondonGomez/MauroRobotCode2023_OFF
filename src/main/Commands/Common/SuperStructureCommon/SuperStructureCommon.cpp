@@ -43,7 +43,7 @@ frc2::CommandPtr LowerCommand(SuperStructure* m_SuperStructure) {
 		[m_SuperStructure] { return m_SuperStructure->getPosition(); },
 		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::Lower);}, { m_SuperStructure }),
-			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ 4.0, 0.0, 26.0 });}, { m_SuperStructure }).ToPtr()
+			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -6.0, 0.0, 26.0 });}, { m_SuperStructure }).ToPtr()
 		) });
 }
 
