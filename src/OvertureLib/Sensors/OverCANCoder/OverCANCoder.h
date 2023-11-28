@@ -12,13 +12,11 @@ using namespace ctre::phoenix6::hardware;
 using namespace ctre::phoenix6::configs;
 using namespace ctre::phoenix6::signals;
 
-class OverCANCoder {
+class OverCANCoder : public CANcoder {
 public:
-  OverCANCoder(int _id, double offset, std::string _bus);
-  double getAbsolutePosition();
-  CANcoder* getCanCoder() { return canCoder; }
+	OverCANCoder(int _id, double offset, std::string _bus);
+	double getSensorAbsolutePosition();
 
 private:
-  CANcoder* canCoder;
-  CANcoderConfiguration canCoderConfiguration;
+	CANcoderConfiguration canCoderConfiguration;
 };

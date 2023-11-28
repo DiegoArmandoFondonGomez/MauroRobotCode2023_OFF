@@ -9,12 +9,12 @@
 #include "OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h"
 #include "OvertureLib/MotorControllers/ControllerNeutralMode/ControllerNeutralMode.h"
 
-class Intake: public frc2::SubsystemBase {
+class Intake : public frc2::SubsystemBase {
 public:
 	Intake();
 	void setVoltage(units::volt_t voltage);
 	void Periodic() override;
 
 private:
-	OverTalonFX intakeMotor{ 25, ControllerNeutralMode::Brake, false, 0, "rio" };
+	OverTalonFX intakeMotor{ 25, ControllerNeutralMode::Brake, false, "rio" };
 };

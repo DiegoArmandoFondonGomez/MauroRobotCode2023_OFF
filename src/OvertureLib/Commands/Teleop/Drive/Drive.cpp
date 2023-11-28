@@ -21,7 +21,7 @@ void Drive::Execute() {
 		kMaxAngularSpeed = 3.5;
 	} else {
 		kMaxSpeed = 5.0;
-		kMaxAngularSpeed = 9.0;
+		kMaxAngularSpeed = 7.0;
 	}
 
 	units::meters_per_second_t xInput{ Utils::ApplyAxisFilter(-joystick->GetLeftY()) * kMaxSpeed };

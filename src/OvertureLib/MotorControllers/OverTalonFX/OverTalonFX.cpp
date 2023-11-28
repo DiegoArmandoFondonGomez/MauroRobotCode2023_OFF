@@ -4,313 +4,334 @@
 
 #include "OverTalonFX.h"
 
-OverTalonFX::OverTalonFX(int _id, ControllerNeutralMode _neutralMode, bool _inverted, double _gearRatio, std::string _bus) :
-	OverController(new TalonFX(_id, _bus), _neutralMode, _inverted, _gearRatio) {
-	init();
-}
-
 /**
- * @brief configurar el TalonFX inicialmente
+ * @brief Constructor for OverTalonFX
+ *
+ * @param id          The ID of the TalonFX
+ * @param inverted    Whether or not the TalonFX is inverted
+ * @param neutralMode The neutral mode of the TalonFX
+ * @param bus         The bus of the TalonFX
  */
-void OverTalonFX::init() {
+
+OverTalonFX::OverTalonFX(int id, ControllerNeutralMode neutralMode, bool inverted, std::string bus) : TalonFX(id, bus) {
 	// Configuracion en modo neutral
 	setNeutralMode(neutralMode);
 
-	talonFXConfiguration.Voltage.PeakForwardVoltage = 12;
-	talonFXConfiguration.Voltage.PeakReverseVoltage = -12;
+	config.Voltage.PeakForwardVoltage = 12;
+	config.Voltage.PeakReverseVoltage = -12;
 
 	// Configuracion modo inverso
 	if (inverted) {
-		talonFXConfiguration.MotorOutput.Inverted = 1;
+		config.MotorOutput.Inverted = 1;
 	} else {
-		talonFXConfiguration.MotorOutput.Inverted = 0;
+		config.MotorOutput.Inverted = 0;
 	}
 
 	// Aplicar la configuracion
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
-
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Resetear el TalonFX
+ * Sets the neutral mode of the TalonFX
+ *
+ * @param neutralMode The neutral mode of the TalonFX
  */
-void OverTalonFX::reset() {}
-
-/**
- * @brief Cambiar el modo neutral del TalonFX
- * @param _neutralMode Modo neutral del TalonFX
- */
-void OverTalonFX::setNeutralMode(ControllerNeutralMode _neutralMode) {
+void OverTalonFX::setNeutralMode(ControllerNeutralMode neutralMode) {
 	// Cambiar el modo neutral
-	if (_neutralMode == ControllerNeutralMode::Coast) {
-		talonFXConfiguration.MotorOutput.NeutralMode = 0;
+	if (neutralMode == ControllerNeutralMode::Coast) {
+		config.MotorOutput.NeutralMode = 0;
 	} else {
-		talonFXConfiguration.MotorOutput.NeutralMode = 1;
+		config.MotorOutput.NeutralMode = 1;
 	}
+
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se establece la relacion de engranajes con el mecanismo del TalonFX
- * @param _gearRatio Relacion de engranajes del TalonFX
- * @note Se debe utilizar cuando se utiliza el sensor integrado del TalonFX
+ * @brief Sets the sensor to mechanism ratio of the TalonFX
+ *
+ * @param gearRatio The gear ratio of the TalonFX
  */
-void OverTalonFX::setSensorToMechanism(double _gearRatio) {
-	talonFXConfiguration.Feedback.SensorToMechanismRatio = _gearRatio;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
-	gearRatio = _gearRatio;
+void OverTalonFX::setSensorToMechanism(double gearRatio) {
+	config.Feedback.SensorToMechanismRatio = gearRatio;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se establece la relacion de engranajes con el mecanismo del TalonFX
- * @param _gearRatio Relacion de engranajes del TalonFX
- * @note Se debe utilizar cuando se utiliza el sensor integrado del TalonFX
+ * @brief Sets the rotor to sensor ratio of the TalonFX
+ *
+ * @param gearRatio The gear ratio of the TalonFX
+*/
+void OverTalonFX::setRotorToSensorRatio(double gearRatio) {
+	config.Feedback.RotorToSensorRatio = gearRatio;
+	GetConfigurator().Apply(config);
+}
+
+/**
+ * @brief Sets the remote CANCoder of the TalonFX
+ *
+ * @param deviceID The device ID of the remote CANCoder
  */
-void OverTalonFX::setRotorToSensorRatio(double _gearRatio) {
-	talonFXConfiguration.Feedback.RotorToSensorRatio = _gearRatio;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
-	gearRatio = _gearRatio;
+void OverTalonFX::setRemoteCANCoder(int id) {
+	config.Feedback.FeedbackRemoteSensorID = id;
+	config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue::RemoteCANcoder;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se conecta con un cancoder remoto
- * @param _id id del cancoder remoto
+ * @brief Sets the fused CANCoder of the TalonFX
+ *
+ * @param deviceID The device ID of the fused CANCoder
  */
-void OverTalonFX::setRemoteCANCoder(int _id) {
-	talonFXConfiguration.Feedback.FeedbackRemoteSensorID = _id;
-	talonFXConfiguration.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue::RemoteCANcoder;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setFusedCANCoder(int id) {
+	config.Feedback.FeedbackRemoteSensorID = id;
+	config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue::FusedCANcoder;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se conecta con un cancoder remoto
- * @param _id id del cancoder remoto
+ * @brief Sets the closed loop voltage ramp rate of the TalonFX
+ *
+ * @param ramp The closed loop voltage ramp rate of the TalonFX
  */
-void OverTalonFX::setFusedCANCoder(int _id) {
-	talonFXConfiguration.Feedback.FeedbackRemoteSensorID = _id;
-	talonFXConfiguration.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue::FusedCANcoder;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setClosedLoopVoltageRamp(double ramp) {
+	config.ClosedLoopRamps.VoltageClosedLoopRampPeriod = ramp;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se establece la rampa de voltaje del TalonFX
- * @param _ramp Rampa de voltaje del TalonFX
+ * @brief Sets the closed loop torque ramp rate of the TalonFX
+ *
+ * @param ramp The closed loop torque ramp rate of the TalonFX
  */
-void OverTalonFX::setClosedLoopVoltageRamp(double _ramp) {
-	talonFXConfiguration.ClosedLoopRamps.VoltageClosedLoopRampPeriod = _ramp;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setClosedLoopTorqueRamp(double ramp) {
+	config.ClosedLoopRamps.TorqueClosedLoopRampPeriod = ramp;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se establece la rampa de torque del TalonFX
- * @param _ramp Rampa de torque del TalonFX
+ * @brief Sets the supply current limit of the TalonFX
+ *
+ * @param enable                  Whether or not the supply current limit is enabled
+ * @param currentLimit            The supply current limit of the TalonFX
+ * @param triggerThresholdCurrent The trigger threshold current of the TalonFX
+ * @param triggerThresholdTime    The trigger threshold time of the TalonFX
  */
-void OverTalonFX::setClosedLoopTorqueRamp(double _ramp) {
-	talonFXConfiguration.ClosedLoopRamps.TorqueClosedLoopRampPeriod = _ramp;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setSupplyCurrentLimit(bool enable, double currentLimit, double triggerThresholdCurrent, double triggerThresholdTime) {
+	config.CurrentLimits.SupplyCurrentLimitEnable = enable;
+	config.CurrentLimits.SupplyCurrentLimit = currentLimit;
+	config.CurrentLimits.SupplyCurrentThreshold = triggerThresholdCurrent;
+	config.CurrentLimits.SupplyTimeThreshold = triggerThresholdTime;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se configura el limite de corriente del TalonFX
- * @param _currentLimite Limite de corriente del TalonFX
- * @param _enable Se activa el TalonFX
- * @param _triggerThresholdCurrent pendiente...
- * @param _triggerThresholdTime pendiente...
+ * @brief Sets the torque current limit of the TalonFX
+ *
+ * @param peakForwardVoltage The peak forward voltage of the TalonFX
+ * @param peakReverseVoltage The peak reverse voltage of the TalonFX
+ * @param deadband           The deadband of the TalonFX
  */
-void OverTalonFX::setSupplyCurrentLimit(bool _enable, double _currentLimit, double _triggerThresholdCurrent, double _triggerThresholdTime) {
-	talonFXConfiguration.CurrentLimits.SupplyCurrentLimit = _currentLimit;
-	talonFXConfiguration.CurrentLimits.SupplyCurrentThreshold = _triggerThresholdCurrent;
-	talonFXConfiguration.CurrentLimits.SupplyTimeThreshold = _triggerThresholdTime;
-	talonFXConfiguration.CurrentLimits.SupplyCurrentLimitEnable = _enable;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setTorqueCurrentLimit(double peakForward, double peakBackward, double deadband) {
+	config.TorqueCurrent.PeakForwardTorqueCurrent = peakForward;
+	config.TorqueCurrent.PeakReverseTorqueCurrent = peakBackward;
+	config.TorqueCurrent.TorqueNeutralDeadband = deadband;
+	GetConfigurator().Apply(config);
 }
 
 /**
- * @brief Se configura el limite de torque del TalonFX
- * @param _peakForward Limite de torque del TalonFX(enfrente)
- * @param _peakBackward Limite de torque del TalonFX(atras)
- * @param _deadband Evitar movimientos accidentales y "drift" en controles
+ * @brief Sets the TalonFX to follow another TalonFX
+ *
+ * @param masterID The ID of the TalonFX to follow
+ * @param inverted Whether or not the TalonFX is inverted
  */
-void OverTalonFX::setTorqueCurrentLimit(double _peakForward, double _peakBackward, double _deadband) {
-	talonFXConfiguration.TorqueCurrent.PeakForwardTorqueCurrent = _peakForward;
-	talonFXConfiguration.TorqueCurrent.PeakReverseTorqueCurrent = _peakBackward;
-	talonFXConfiguration.TorqueCurrent.TorqueNeutralDeadband = _deadband;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
+void OverTalonFX::setFollow(int masterID, bool inverted) {
+	SetControl(Follower{ masterID, inverted });
 }
 
 /**
- * @brief Se configura a cual motor seguir
- * @param _id Id del motor
- * @param _inverted invertimos el robot
- */
-void OverTalonFX::setFollow(int _id, bool _inverted) {
-	motorController->SetControl(Follower{ _id, _inverted });
-}
-
-/**
- * @brief Posicion del motor se pone en zero
+ * @brief Sets the TalonFX position to zero
  */
 void OverTalonFX::zeroPosition() {
-	motorController->SetPosition(0_tr);
+	SetPosition(0_tr);
 }
 
 /**
- * @brief Pendiente...
+ * @brief Sets the TalonFX position
+ *
+ * @param position The position to set the TalonFX to
  */
-void OverTalonFX::setSensorPosition(double _position) {
-	motorController->SetPosition(units::turn_t{ _position });
+void OverTalonFX::setSensorPosition(double position) {
+	SetPosition(units::turn_t{ position });
 }
 
 
 /**
- * @brief Se obtiene las revoluciones en metros del TalonFX
- * @param _wheelDiameter Se obtiene el diametro de las llantas
- * @return Revoluciones en metros del TalonFX
+ * @brief Gets the TalonFX position in meters
+ *
+ * @param wheelDiameter The diameter of the wheel
+ * @param gearRatio     The gear ratio of the TalonFX
+ * @return The TalonFX position in meters
  */
-double OverTalonFX::getDistance(double _wheelDiameter) {
-	double sensorPosition = motorController->GetRotorPosition().GetValue().value();
-	return(sensorPosition * _wheelDiameter * M_PI) / gearRatio;
+double OverTalonFX::getDistance(double wheelDiameter, double gearRatio) {
+	double sensorPosition = GetRotorPosition().GetValue().value();
+	return(sensorPosition * wheelDiameter * M_PI) / gearRatio;
 }
 
 /**
- * @brief Se obtiene las revoluciones en metros del TalonFX
- * @param _wheelDiameter Se obtiene el diametro de las llantas
- * @return Revoluciones en metros/segundo del TalonFX
+ * @brief Gets the TalonFX position in meters
+ *
+ * @param wheelDiameter The diameter of the wheel
+ * @return The TalonFX position in meters
  */
-double OverTalonFX::getVelocity(double _wheelDiameter) {
-	double sensorVelocity = motorController->GetRotorVelocity().GetValue().value();
+double OverTalonFX::getDistance(double wheelDiameter) {
+	double sensorPosition = GetRotorPosition().GetValue().value();
+	return(sensorPosition * wheelDiameter * M_PI);
+}
+
+/**
+ * @brief Gets the TalonFX velocity in meters per second
+ *
+ * @param wheelDiameter The diameter of the wheel
+ * @param gearRatio     The gear ratio of the TalonFX
+ */
+double OverTalonFX::getVelocity(double _wheelDiameter, double gearRatio) {
+	double sensorVelocity = GetRotorVelocity().GetValue().value();
 	return(sensorVelocity * _wheelDiameter * M_PI) / gearRatio;
 }
 
 /**
- * @brief Se obtiene la posicion absoluta del TalonFX
- * @return Posicion del TalonFX
+ * @brief Gets the TalonFX velocity in meters per second
+ *
+ * @param wheelDiameter The diameter of the wheel
+ */
+double OverTalonFX::getVelocity(double _wheelDiameter) {
+	double sensorVelocity = GetRotorVelocity().GetValue().value();
+	return(sensorVelocity * _wheelDiameter * M_PI);
+}
+
+/**
+ * @brief Gets the TalonFX absolute position
+ *
+ * @return The TalonFX absolute position
  */
 double OverTalonFX::getPosition() {
-	return motorController->GetPosition().GetValue().value();
+	return GetPosition().GetValue().value();
 }
 
 /**
- * @brief Se obtiene la posicion absoluta del TalonFX
- * @return Posicion del TalonFX
+ * @brief Sets the TalonFX voltage
+ *
+ * @param voltage   The voltage to set the TalonFX to
+ * @param enableFOC Whether or not to enable FOC
  */
-double OverTalonFX::getRotorPosition() {
-	return motorController->GetRotorPosition().GetValue().value();
-}
-
-/**
- * @brief Se le da voltaje al TalonFX
- * @param _voltage Voltaje que se le da al TalonFX
- * @param enableFOC Activar o desactivar la potencia extra del TalonFX
- */
-void OverTalonFX::setVoltage(units::volt_t _voltage, bool enableFOC) {
+void OverTalonFX::setVoltage(units::volt_t voltage, bool enableFOC) {
 	VoltageOut voltageOut{ 0_V };
 	voltageOut.EnableFOC = enableFOC;
-	motorController->SetControl(voltageOut.WithOutput(_voltage));
+	SetControl(voltageOut.WithOutput(voltage));
 }
 
 /**
- * @brief Se obtiene la velocidad mediante el voltaje dado
- * @param _velocity Velocidad que se le da al TalonFX
- * @param enableFOC Activar o desactivar la potencia extra del TalonFX
+ * @brief Sets the TalonFX Velocity using Voltage
+ *
+ * @param velocity  The velocity to set the TalonFX to
+ * @param enableFOC Whether or not to enable FOC
  */
-void OverTalonFX::setVelocityVoltage(double _velocity, bool enableFOC) {
+void OverTalonFX::setVelocityVoltage(double velocity, bool enableFOC) {
 	VelocityVoltage velocityOut{ 0_tps };
 	velocityOut.EnableFOC = enableFOC;
-	motorController->SetControl(velocityOut.WithVelocity(units::turns_per_second_t{ _velocity }));
+	SetControl(velocityOut.WithVelocity(units::turns_per_second_t{ velocity }));
 }
 
 /**
- * @brief Se le da el voltaje al TalonFX
- * @param _dutyCycle pendiente....
- * @param enableFOC Activar o desactivar la potencia extra del TalonFX
+ * @brief Sets the TalonFX Duty Cycle
+ *
+ * @param dutyCycle The duty cycle to set the TalonFX to
+ * @param enableFOC Whether or not to enable FOC
  */
-void OverTalonFX::setDutyCycle(double _dutyCycle, bool enableFOC) {
+void OverTalonFX::setDutyCycle(double dutyCycle, bool enableFOC) {
 	DutyCycleOut dutyCycleOut{ 0 };
 	dutyCycleOut.EnableFOC = enableFOC;
-	motorController->SetControl(dutyCycleOut.WithOutput(_dutyCycle));
+	SetControl(dutyCycleOut.WithOutput(dutyCycle));
 }
 
 /**
- * @brief Se le da una posicion para que el robot llegue(no importa el medio)
- * @param _position La posicion  del robot
- * @param enableFOC Activar o desactivar la potencia extra del TalonFX
+ * @brief Sets the TalonFX Position using Voltage
+ *
+ * @param position  The position to set the TalonFX to
+ * @param enableFOC Whether or not to enable FOC
  */
-void OverTalonFX::setPositionVoltage(double _position, bool enableFOC) {
+void OverTalonFX::setPositionVoltage(double position, bool enableFOC) {
 	PositionVoltage positionVoltage = PositionVoltage{ 0_tr }.WithSlot(0);
 	positionVoltage.EnableFOC = enableFOC;
-	motorController->SetControl(positionVoltage.WithPosition(units::turn_t{ _position }));
+	SetControl(positionVoltage.WithPosition(units::turn_t{ position }));
 }
 
 /**
- * @brief Se le da una posicion para que el robot llegue(mas delicada y con calculos matematicos)
- * @param _position La posicion del robot
- * @param enableFOC Activar o desactivar la potencia extra del TalonFX
+ * @brief Sets the TalonFX Motion Magic Position using Voltage
+ *
+ * @param position    The position to set the TalonFX to
+ * @param feedForward The feed forward to set the TalonFX to
+ * @param enableFOC   Whether or not to enable FOC
  */
-void OverTalonFX::setMotionMagicPosition(double _position, double feedForward, bool enableFOC) {
+void OverTalonFX::setMotionMagicPosition(double position, double feedForward, bool enableFOC) {
 	MotionMagicVoltage motionMagicVoltage = MotionMagicVoltage{ 0_tr }.WithSlot(0);
 	motionMagicVoltage.FeedForward = units::volt_t{ feedForward };
 	motionMagicVoltage.EnableFOC = enableFOC;
-	motorController->SetControl(motionMagicVoltage.WithPosition(units::turn_t{ _position }));
+	SetControl(motionMagicVoltage.WithPosition(units::turn_t{ position }));
 }
 
 /**
- * @brief
- * @param _velocity Obtener la velocidady
+ * @brief Sets the TalonFX Velocity using Torque FOC
+ *
+ * @param velocity The velocity to set the TalonFX to
  */
-void OverTalonFX::setVelocityTorqueCurrentFOC(double _velocity) {
+void OverTalonFX::setVelocityTorqueCurrentFOC(double velocity) {
 	VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = VelocityTorqueCurrentFOC{ 0_tps }.WithSlot(0);
-	motorController->SetControl(velocityTorqueCurrentFOC.WithVelocity(units::turns_per_second_t{ _velocity }));
+	SetControl(velocityTorqueCurrentFOC.WithVelocity(units::turns_per_second_t{ velocity }));
 }
 
 /**
- * @brief Se define los valores de PIDValues del TalonFX
- * @param _kP Constante P
- * @param _kI Constante I
- * @param _kD Constante D
- * @param _kS Constante S
- * @param _kV Constante V
+ * @brief Sets the TalonFX PID values
+ *
+ * @param kP The P value of the TalonFX
+ * @param kI The I value of the TalonFX
+ * @param kD The D value of the TalonFX
+ * @param kS The S value of the TalonFX
+ * @param kV The V value of the TalonFX
  */
-void OverTalonFX::setPIDValues(double _kP, double _kI, double _kD, double _kS, double _kV) {
+void OverTalonFX::setPIDValues(double kP, double kI, double kD, double kS, double kV) {
 	Slot0Configs slot0Configs{};
-	slot0Configs.kP = _kP;
-	slot0Configs.kI = _kI;
-	slot0Configs.kD = _kD;
-	slot0Configs.kS = _kS;
-	slot0Configs.kV = _kV;
+	slot0Configs.kP = kP;
+	slot0Configs.kI = kI;
+	slot0Configs.kD = kD;
+	slot0Configs.kS = kS;
+	slot0Configs.kV = kV;
 
-	motorController->GetConfigurator().Apply(slot0Configs);
+	GetConfigurator().Apply(slot0Configs);
 }
 
 /**
- * @brief Se configura el Motion Magic(suavizar el recorrido del robot) del TalonFX
- * @param _cruiseVelocity Velocidad del crucero
- * @param _acceleration Acceleracion
- * @param _jerk Inercia
+ * @brief Sets the TalonFX Motion Magic values
+ *
+ * @param cruiseVelocity The cruise velocity of the TalonFX
+ * @param acceleration   The acceleration of the TalonFX
+ * @param jerk           The jerk of the TalonFX
  */
-void OverTalonFX::configureMotionMagic(double _cruiseVelocity, double _acceleration, double _jerk) {
+void OverTalonFX::configureMotionMagic(double cruiseVelocity, double acceleration, double jerk) {
 	MotionMagicConfigs motionMagicConfigs{};
-	motionMagicConfigs.MotionMagicCruiseVelocity = _cruiseVelocity;
-	motionMagicConfigs.MotionMagicAcceleration = _acceleration;
-	motionMagicConfigs.MotionMagicJerk = _jerk;
+	motionMagicConfigs.MotionMagicCruiseVelocity = cruiseVelocity;
+	motionMagicConfigs.MotionMagicAcceleration = acceleration;
+	motionMagicConfigs.MotionMagicJerk = jerk;
 
-	motorController->GetConfigurator().Apply(motionMagicConfigs);
+	GetConfigurator().Apply(motionMagicConfigs);
 }
 
 /**
- * @brief Se configura el Continuos Wrap del TalonFX
- * @note Revisa la documentacion de phoenix6
+ * @brief Sets the TalonFX continuous wrap
  */
 void OverTalonFX::setContinuousWrap() {
-	talonFXConfiguration.ClosedLoopGeneral.ContinuousWrap = true;
-	motorController->GetConfigurator().Apply(talonFXConfiguration);
-}
-
-/**
- * @brief Se obtiene el motor Controller del TalonFX
- * @return Motor Controller del TalonFX
- * @note  Se utiliza para poder utilizar las funciones de la libreria de CTRE
- */
-TalonFX* OverTalonFX::getMotorController() {
-	return(TalonFX*)motorController;
+	config.ClosedLoopGeneral.ContinuousWrap = true;
+	GetConfigurator().Apply(config);
 }
 

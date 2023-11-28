@@ -5,8 +5,8 @@
 #include "SwerveChassis.h"
 
 /**
-* @brief Construye un nuevo objeto de swerve chassis
-*/
+ * @brief Creates a new SwerveChassis.
+ */
 SwerveChassis::SwerveChassis() {
 	navx.Calibrate();
 
@@ -24,12 +24,22 @@ SwerveChassis::SwerveChassis() {
 	navx.ZeroYaw();
 }
 
+/**
+ * @brief Sets the swerve module positions for the kinematics and odometry.
+ *
+ * @param positions The positions of the modules relative to the center of the robot.
+ */
 void SwerveChassis::setModulePositions(std::array<frc::Translation2d, 4>* positions) {
-	this->modulePos = positions;
-
-	kinematics = new frc::SwerveDriveKinematics<4>{ *modulePos };
+	kinematics = new frc::SwerveDriveKinematics<4>{ *positions };
 };
 
+/**
+* @brief Sets the swerve modules ratios
+*
+* @param turnRatio The ratio between the turn motor and the wheel
+* @param driveRatio The ratio between the drive motor and the wheel
+* @param wheelDiameter The diameter of the wheel
+*/
 void SwerveChassis::setModulesRatios(double turnRatio, double driveRatio, double wheelDiameter) {
 	frontRightModule->setGearRatio(turnRatio, driveRatio);
 	frontLeftModule->setGearRatio(turnRatio, driveRatio);
@@ -42,6 +52,14 @@ void SwerveChassis::setModulesRatios(double turnRatio, double driveRatio, double
 	backLeftModule->setWheelDiameter(wheelDiameter);
 }
 
+/**
+ * @brief Sets the swerve modules
+ *
+ * @param frontLeft The front left module
+ * @param frontRight The front right module
+ * @param backLeft The back left module
+ * @param backRight The back right module
+ */
 void SwerveChassis::setModules(SwerveModule* frontLeft, SwerveModule* frontRight, SwerveModule* backLeft, SwerveModule* backRight) {
 	this->frontLeftModule = frontLeft;
 	this->frontRightModule = frontRight;
@@ -65,7 +83,11 @@ void SwerveChassis::setModules(SwerveModule* frontLeft, SwerveModule* frontRight
 }
 
 /**
- * @brief Pendiente descripcion
+ * @brief Sets each module rotator PID values
+ *
+ * @param kP The proportional value
+ * @param kI The integral value
+ * @param kD The derivative value
  */
 void SwerveChassis::setRotatorPID(double kP, double kI, double kD) {
 	backRightModule->setRotatorPIDValues(kP, kI, kD);
@@ -75,7 +97,11 @@ void SwerveChassis::setRotatorPID(double kP, double kI, double kD) {
 }
 
 /**
- * @brief Pendiente descripcion
+ * @brief Sets each module drive PID values
+ *
+ * @param kP The proportional value
+ * @param kI The integral value
+ * @param kD The derivative value
  */
 void SwerveChassis::setDrivePID(double kP, double kI, double kD) {
 	backRightModule->setDrivePIDValues(kP, kI, kD);
@@ -85,7 +111,11 @@ void SwerveChassis::setDrivePID(double kP, double kI, double kD) {
 }
 
 /**
- * @brief Pendiente descripcion
+ * @brief Sets the modules feedforward values
+ *
+ * @param kS The static value
+ * @param kV The velocity value
+ * @param kA The acceleration value
  */
 void SwerveChassis::setFeedForward(units::volt_t kS, units::volt_t kV, units::volt_t kA) {
 	backRightModule->setFFConstants(kS, kV, kA);
@@ -95,27 +125,9 @@ void SwerveChassis::setFeedForward(units::volt_t kS, units::volt_t kV, units::vo
 }
 
 /**
- * @brief Establece si se usa voltaje bruto para caracterizacion o teleoperado
- * @param set true para usar voltaje bruto
- */
-void SwerveChassis::setUseRawVoltageSpeed(bool set) {
-	frontLeftModule->setUseRawVoltageSpeed(set);
-	frontRightModule->setUseRawVoltageSpeed(set);
-	backLeftModule->setUseRawVoltageSpeed(set);
-	backRightModule->setUseRawVoltageSpeed(set);
-}
-
-/**
- * @brief Establece el angulo objetivo del robot
- * @param targetAngle angulo objetivo
- */
-void SwerveChassis::setTargetAngle(double targetAngle) {
-	this->targetAngle = targetAngle;
-}
-
-/**
- * @brief Establece la velocidad del robot para teleoperado
- * @param speeds velocidad del robot
+ * @brief Sets the robot target speed
+ *
+ * @param speeds ChassisSpeeds object
  */
 void SwerveChassis::setSpeed(frc::ChassisSpeeds speeds) {
 	this->linearX = speeds.vx.value();
@@ -128,59 +140,44 @@ void SwerveChassis::setSpeed(frc::ChassisSpeeds speeds) {
 }
 
 /**
- * @brief Establece el voltaje de las ruedas para caracterizacion
- * @param voltage voltaje de las ruedas
- */
-void SwerveChassis::setWheelVoltage(double voltage) {
-	frontLeftModule->setWheelVoltage(voltage);
-	frontRightModule->setWheelVoltage(voltage);
-	backLeftModule->setWheelVoltage(voltage);
-	backRightModule->setWheelVoltage(voltage);
-}
-
-/**
- * @brief Regresa la odometria del robot
- * @return odometria del robot
+ * @brief Returns the robot odometry
+ *
+ * @return Pose2d object
  */
 frc::Pose2d SwerveChassis::getOdometry() {
 	return odometry->GetEstimatedPosition();
 }
 
 /**
- * @brief resetea la odometria del robot
- * @param pose2d odometria a la que se reseteara
-*/
+ * @brief Resets the robot odometry
+ *
+ * @param initPose Pose2d object
+ */
 void SwerveChassis::resetOdometry(frc::Pose2d initPose) {
 	odometry->ResetPosition(frc::Rotation2d{ units::degree_t{-navx.GetAngle()} }, getModulePosition(), initPose);
 }
 
 /**
- * @brief Obtiene el cambio de direccion del robot
- * @return cambio de direccion del robot
-*/
-double SwerveChassis::getHeadingRate() {
-	return -navx.GetRate();
-}
-
-/**
- * @brief Obtiene la kinematica del robot
- * @return kinematica del robot
+ * @brief Return the robot kinematics
+ *
+ * @return SwerveDriveKinematics object
  */
 const frc::SwerveDriveKinematics<4>& SwerveChassis::getKinematics() {
 	return *kinematics;
 }
 
 /**
- * @brief Se actualiza la odometrua con datos de la vision
+ * @brief Updates odometry using vision
  */
 void SwerveChassis::addVisionMeasurement(frc::Pose2d pose, units::second_t timestamp) {
 	odometry->AddVisionMeasurement(pose, timestamp);
 }
 
 /**
- * @brief Se actualiza la navx
- * @param angle angulo a actualizar
-*/
+ * @brief Sets the navx to desired angle
+ *
+ * @param angle Desired angle
+ */
 void SwerveChassis::resetNavx(double angle) {
 	frc::Pose2d actualOdometry = getOdometry();
 	frc::Pose2d newOdometry{ actualOdometry.X(), actualOdometry.Y(), units::degree_t(angle) };
@@ -188,8 +185,10 @@ void SwerveChassis::resetNavx(double angle) {
 }
 
 /**
- * @brief Se actualizan las posiciones de los modulos
-*/
+ * @brief Updates module states
+ *
+ * @param desiredStates SwerveModuleState array
+ */
 void SwerveChassis::setModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates) {
 	frontLeftModule->setState(desiredStates[0]);
 	frontRightModule->setState(desiredStates[1]);
@@ -203,9 +202,10 @@ void SwerveChassis::setModuleStates(wpi::array<frc::SwerveModuleState, 4> desire
 }
 
 /**
- * @brief Se obtienen los estados de los modulos
- * @return Arreglo de SwerveModuleStates con las posiciones de los modulos
-*/
+ * @brief Returns the module states
+ *
+ * @return SwerveModuleState array
+ */
 wpi::array<frc::SwerveModuleState, 4> SwerveChassis::getModuleStates() {
 	wpi::array<frc::SwerveModuleState, 4> modulePositions{
 		frontLeftModule->getState(),
@@ -217,9 +217,10 @@ wpi::array<frc::SwerveModuleState, 4> SwerveChassis::getModuleStates() {
 }
 
 /**
- * @brief Se obtienen las posiciones de los modulos
- * @return Arreglo de SwerveModulePosition con las posiciones de los modulos
-*/
+ * @brief Returns the module positions
+ *
+ * @return SwerveModulePosition array
+ */
 wpi::array<frc::SwerveModulePosition, 4> SwerveChassis::getModulePosition() {
 	wpi::array<frc::SwerveModulePosition, 4> modulePositions{
 		frontLeftModule->getPosition(),
@@ -231,39 +232,39 @@ wpi::array<frc::SwerveModulePosition, 4> SwerveChassis::getModulePosition() {
 }
 
 /**
- * @brief Se obtienen el pitch del robot
- * @return pitch del robot
-*/
+ * @brief Returns the robot pitch
+ *
+ * @return double
+ */
 double SwerveChassis::getPitch() {
 	return navx.GetPitch();
 }
 
 /**
- * @brief Se obtienen el yaw del robot
- * @return yaw del robot
-*/
+ * @brief Returns the robot yaw
+ *
+ * @return double
+ */
 double SwerveChassis::getYaw() {
 	return getOdometry().Rotation().Degrees().value();
 }
 
 /**
- * @brief Se obtienen el roll del robot
- * @return roll del robot
-*/
+ * @brief Returns the robot roll
+ *
+ * @return double
+ */
 double SwerveChassis::getRoll() {
 	return navx.GetRoll();
 }
 
 /**
- * @brief Se actuliza la odometria del robot
-*/
+ * @brief Updates the robot odometry
+ */
 void SwerveChassis::updateOdometry() {
 	odometry->Update(frc::Rotation2d(units::degree_t(-navx.GetAngle())), getModulePosition());
 }
 
-/**
- * @brief Pendiente a describir
-*/
 void SwerveChassis::shuffleboardPeriodic() {
 	// frc::SmartDashboard::PutNumber("LinearX", linearX);
 	// frc::SmartDashboard::PutNumber("LinearY", linearY);

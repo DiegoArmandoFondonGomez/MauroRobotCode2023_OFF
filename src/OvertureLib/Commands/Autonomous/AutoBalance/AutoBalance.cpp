@@ -21,9 +21,9 @@ void AutoBalance::Initialize() {
 void AutoBalance::Execute() {
 
 	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) };
-	// units::radians_per_second_t rOutput{ rController.Calculate(m_swerveChassis->getYaw(), 0) };
+	units::radians_per_second_t rOutput{ rController.Calculate(m_swerveChassis->getYaw(), 180) };
 
-	m_swerveChassis->setSpeed(frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOutput, 0_mps, 0_rad_per_s, m_swerveChassis->getOdometry().Rotation()));
+	m_swerveChassis->setSpeed(frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOutput, 0_mps, rOutput, m_swerveChassis->getOdometry().Rotation()));
 
 }
 // Called once the command ends or is interrupted.

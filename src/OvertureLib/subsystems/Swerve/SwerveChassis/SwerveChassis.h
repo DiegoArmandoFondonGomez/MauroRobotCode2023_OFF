@@ -16,7 +16,7 @@
 
 #include "OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h"
 
-class SwerveChassis: public frc2::SubsystemBase {
+class SwerveChassis : public frc2::SubsystemBase {
 public:
 	SwerveChassis();
 	void setModulePositions(std::array<frc::Translation2d, 4>* positions);
@@ -25,15 +25,11 @@ public:
 	void setRotatorPID(double kP, double kI, double kD);
 	void setDrivePID(double kP, double kI, double kD);
 	void setFeedForward(units::volt_t kS, units::volt_t kV, units::volt_t kA);
-	void setUseRawVoltageSpeed(bool set);
 
-	void setTargetAngle(double targetAngle);
 	void setSpeed(frc::ChassisSpeeds speeds);
-	void setWheelVoltage(double voltage);
 
 	frc::Pose2d getOdometry();
 	void resetOdometry(frc::Pose2d initPose);
-	double getHeadingRate();
 	const frc::SwerveDriveKinematics<4>& getKinematics();
 	void addVisionMeasurement(frc::Pose2d pose, units::second_t Latency);
 	void resetNavx(double angle = 0);
@@ -64,8 +60,6 @@ private:
 
 	double wheelVoltage;
 	double targetAngle;
-
-	std::array<frc::Translation2d, 4>* modulePos;
 
 	frc::SwerveDriveKinematics<4>* kinematics;
 

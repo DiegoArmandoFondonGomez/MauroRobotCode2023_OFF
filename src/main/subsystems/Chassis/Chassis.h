@@ -10,7 +10,7 @@
 #include <OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h>
 #include <OvertureLib/Commands/Teleop/Drive/Drive.h>
 
-class Chassis: public SwerveChassis {
+class Chassis : public SwerveChassis {
 public:
 	Chassis();
 
