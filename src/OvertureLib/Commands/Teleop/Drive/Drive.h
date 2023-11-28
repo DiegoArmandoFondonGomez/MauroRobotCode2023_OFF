@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
+#include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/XboxController.h>
 #include <frc/kinematics/ChassisSpeeds.h>
@@ -16,7 +16,7 @@
 #include "OvertureLib/math/Utils.h"
 
 class Drive
-	: public frc2::CommandHelper<frc2::CommandBase, Drive> {
+	: public frc2::CommandHelper<frc2::Command, Drive> {
 public:
 	Drive(SwerveChassis* swerveChassis, frc::XboxController* controller);
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
+#include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/controller/PIDController.h>
 #include <frc/kinematics/ChassisSpeeds.h>
@@ -19,7 +19,7 @@
  * Command will *not* work!
  */
 class AutoBalance
-	: public frc2::CommandHelper<frc2::CommandBase, AutoBalance> {
+	: public frc2::CommandHelper<frc2::Command, AutoBalance> {
 public:
 	AutoBalance(SwerveChassis* swerveChassis);
 

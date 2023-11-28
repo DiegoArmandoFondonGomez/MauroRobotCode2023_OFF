@@ -28,11 +28,11 @@ void Drive::Execute() {
 	units::meters_per_second_t yInput{ Utils::ApplyAxisFilter(-joystick->GetLeftX()) * kMaxSpeed };
 	units::radians_per_second_t rInput{ Utils::ApplyAxisFilter(-joystick->GetRightX()) * kMaxAngularSpeed };
 
-	frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(
+	frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::Discretize(frc::ChassisSpeeds::FromFieldRelativeSpeeds(
 		xLimiter.Calculate(xInput),
 		yLimiter.Calculate(yInput),
 		rLimiter.Calculate(rInput),
-		m_swerveChassis->getOdometry().Rotation());
+		m_swerveChassis->getOdometry().Rotation()), 0.2_s);
 
 	m_swerveChassis->setSpeed(chassisSpeeds);
 }

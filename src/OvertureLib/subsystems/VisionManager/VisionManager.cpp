@@ -13,7 +13,11 @@ void VisionManager::setCameraAndLayout(photonlib::PhotonCamera* camera, frc::Apr
 
 //Set alliance color for the poseEstimator
 void VisionManager::setAlliancesColor() {
-	frc::DriverStation::Alliance allianceColor = frc::DriverStation::GetAlliance();
+	std::optional<frc::DriverStation::Alliance> allianceColor = frc::DriverStation::GetAlliance();
+
+	if (!allianceColor.has_value()) {
+		return;
+	}
 
 	if (allianceColor == frc::DriverStation::Alliance::kBlue) {
 		m_TagLayout->SetOrigin(frc::AprilTagFieldLayout::OriginPosition::kBlueAllianceWallRightSide);
@@ -24,7 +28,7 @@ void VisionManager::setAlliancesColor() {
 	poseEstimatorSet = true;
 	poseEstimator = new photonlib::PhotonPoseEstimator{
 		*m_TagLayout,
-		photonlib::PoseStrategy::MULTI_TAG_PNP,
+		photonlib::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
 		std::move(photonlib::PhotonCamera{ "Arducam_OV9281_USB_Camera" }),
 		*m_CameraToRobot
 	};

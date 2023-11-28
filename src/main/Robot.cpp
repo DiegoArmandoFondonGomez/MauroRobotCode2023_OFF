@@ -5,7 +5,6 @@
 #include "Robot.h"
 
 #include <frc2/command/CommandScheduler.h>
-#include <OvertureLib/Characterization/SwerveCharacterization.h>
 
 void Robot::RobotInit() {
 	m_container.setAllianceColor();

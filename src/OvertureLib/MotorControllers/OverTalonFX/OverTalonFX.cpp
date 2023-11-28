@@ -150,14 +150,14 @@ void OverTalonFX::setFollow(int _id, bool _inverted) {
  * @brief Posicion del motor se pone en zero
  */
 void OverTalonFX::zeroPosition() {
-	motorController->SetRotorPosition(0_tr);
+	motorController->SetPosition(0_tr);
 }
 
 /**
  * @brief Pendiente...
  */
 void OverTalonFX::setSensorPosition(double _position) {
-	motorController->SetRotorPosition(units::turn_t{ _position });
+	motorController->SetPosition(units::turn_t{ _position });
 }
 
 
