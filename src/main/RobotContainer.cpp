@@ -7,12 +7,6 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
-	pathChooser.SetDefaultOption("Null-None", nullptr);
-	pathChooser.AddOption("LoadingScore", loadingScore.get());
-	pathChooser.AddOption("CenterBalance", centerBalance.get());
-	pathChooser.AddOption("CenterTwoPiece", centerTwoPiece.get());
-	pathChooser.AddOption("BarrierScore", barrierScore.get());
-	frc::SmartDashboard::PutData("Auto Chooser", &pathChooser);
 	ConfigureBindings();
 }
 
@@ -54,5 +48,5 @@ void RobotContainer::ConfigureBindings() {
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-	return pathChooser.GetSelected();
+	return nullptr;
 }

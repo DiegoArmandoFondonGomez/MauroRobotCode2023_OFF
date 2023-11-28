@@ -17,9 +17,9 @@
 #include "subsystems/LEDManager/LEDManager.h"
 
 #include "OvertureLib/Commands/Teleop/Drive/Drive.h"
+#include "OvertureLib/Commands/Autonomous/AutoBalance/AutoBalance.h"
 #include "Commands/Common/SuperStructureCommon/SuperStructureCommon.h"
 #include "Commands/Teleop/LEDCommands/LEDCommands.h"
-#include "Commands/Autonomous/Autonomous.h"
 
 class RobotContainer {
 public:
@@ -57,12 +57,5 @@ private:
 	frc2::Trigger intakeCone{ [this] {return mechanisms.GetRightTriggerAxis();} };
 	frc2::Trigger intakeCube{ [this] {return mechanisms.GetLeftTriggerAxis();} };
 
-
-	// Auto
-	frc::SendableChooser<frc2::Command*> pathChooser;
-	frc2::CommandPtr loadingScore = LoadingScore(&superStructure, &intake, &chassis, &vision);
-	frc2::CommandPtr centerBalance = CenterBalance(&superStructure, &intake, &chassis, &vision);
-	frc2::CommandPtr centerTwoPiece = CenterTwoPiece(&superStructure, &intake, &chassis, &vision);
-	frc2::CommandPtr barrierScore = BarrierScore(&superStructure, &intake, &chassis, &vision);
 
 };
