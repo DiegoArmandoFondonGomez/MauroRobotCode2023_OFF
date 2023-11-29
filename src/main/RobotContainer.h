@@ -7,8 +7,8 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/XboxController.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
 
 #include "subsystems/Chassis/Chassis.h"
 #include "subsystems/Vision/Vision.h"
@@ -53,9 +53,9 @@ private:
 	frc2::Trigger lowerPosition{ [this] {return mechanisms.GetAButton();} };
 	frc2::Trigger middlePosition{ [this] {return mechanisms.GetBButton();} };
 	frc2::Trigger upperPosition{ [this] {return mechanisms.GetYButton();} };
-	// frc2::Trigger loadingPosition{ [this] {return mechanisms.GetXButton();} };
 	frc2::Trigger intakeCone{ [this] {return mechanisms.GetRightTriggerAxis();} };
 	frc2::Trigger intakeCube{ [this] {return mechanisms.GetLeftTriggerAxis();} };
 
-
+	// Auto Chooser
+	frc::SendableChooser<std::string> autoChooser;
 };

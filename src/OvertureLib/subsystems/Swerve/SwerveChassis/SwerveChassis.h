@@ -13,8 +13,14 @@
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc2/command/SubsystemBase.h>
+#include <pathplanner/lib/auto/AutoBuilder.h>
+#include <pathplanner/lib/util/HolonomicPathFollowerConfig.h>
+#include <pathplanner/lib/util/PIDConstants.h>
+#include <pathplanner/lib/util/ReplanningConfig.h>
 
 #include "OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h"
+
+using namespace pathplanner;
 
 class SwerveChassis : public frc2::SubsystemBase {
 public:
@@ -26,7 +32,9 @@ public:
 	void setDrivePID(double kP, double kI, double kD);
 	void setFeedForward(units::volt_t kS, units::volt_t kV, units::volt_t kA);
 
-	void setSpeed(frc::ChassisSpeeds speeds);
+	void driveRobotRelative(frc::ChassisSpeeds speeds);
+	void driveFieldRelative(frc::ChassisSpeeds speeds);
+	frc::ChassisSpeeds getRobotRelativeSpeeds();
 
 	frc::Pose2d getOdometry();
 	void resetOdometry(frc::Pose2d initPose);

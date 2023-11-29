@@ -22,6 +22,21 @@ SwerveChassis::SwerveChassis() {
 	}
 
 	navx.ZeroYaw();
+
+	AutoBuilder::configureHolonomic(
+		[this]() { return getOdometry(); },
+		[this](frc::Pose2d pose) { resetOdometry(pose); },
+		[this]() { return getRobotRelativeSpeeds(); },
+		[this](frc::ChassisSpeeds speeds) { driveRobotRelative(speeds); },
+		HolonomicPathFollowerConfig(
+			PIDConstants(5.0, 0.0, 0.0),
+			PIDConstants(5.0, 0.0, 0.0),
+			5_mps,
+			0.37211_m,
+			ReplanningConfig()
+		),
+		this
+	);
 }
 
 /**
@@ -125,18 +140,40 @@ void SwerveChassis::setFeedForward(units::volt_t kS, units::volt_t kV, units::vo
 }
 
 /**
- * @brief Sets the robot target speed
+ * @brief Sets the robot target speed in robot relative
  *
  * @param speeds ChassisSpeeds object
  */
-void SwerveChassis::setSpeed(frc::ChassisSpeeds speeds) {
+void SwerveChassis::driveRobotRelative(frc::ChassisSpeeds speeds) {
 	this->linearX = speeds.vx.value();
 	this->linearY = speeds.vy.value();
 	this->angular = speeds.omega.value();
 
 	wpi::array<frc::SwerveModuleState, 4> desiredStates = kinematics->ToSwerveModuleStates(speeds);
 
+	kinematics->DesaturateWheelSpeeds(&desiredStates, 5_mps);
+
 	setModuleStates(desiredStates);
+}
+
+/**
+ * @brief Sets the robot target speed in field relative
+ *
+ * @param speeds ChassisSpeeds object
+ */
+void SwerveChassis::driveFieldRelative(frc::ChassisSpeeds speeds) {
+	frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::Discretize(frc::ChassisSpeeds::FromFieldRelativeSpeeds(speeds, getOdometry().Rotation()), 0.2_s);
+
+	driveRobotRelative(chassisSpeeds);
+}
+
+/**
+ * @brief Returns the robot relative speeds
+ *
+ * @return ChassisSpeeds object
+ */
+frc::ChassisSpeeds SwerveChassis::getRobotRelativeSpeeds() {
+	return kinematics->ToChassisSpeeds(getModuleStates());
 }
 
 /**

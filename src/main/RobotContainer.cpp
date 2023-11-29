@@ -7,6 +7,11 @@
 #include <frc2/command/Commands.h>
 
 RobotContainer::RobotContainer() {
+	pathplanner::NamedCommands::registerCommand("AutoBalance", AutoBalance(&chassis).ToPtr());
+
+	autoChooser.AddOption("CenterBalance", "CenterBalance");
+
+	frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 	ConfigureBindings();
 }
 
@@ -38,9 +43,6 @@ void RobotContainer::ConfigureBindings() {
 	middlePosition.OnTrue(MiddleCommand(&superStructure));
 
 	upperPosition.OnTrue(UpperCommand(&superStructure));
-
-	// loadingPosition.OnTrue(LoadingCommand(&superStructure));
-	// loadingPosition.OnFalse(ClosedCommand(&superStructure));
 
 	intakeCone.OnTrue(ConeIntakeTrueCommand(&superStructure, &intake, 7_V));
 

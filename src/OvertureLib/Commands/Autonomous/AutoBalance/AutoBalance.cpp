@@ -23,16 +23,20 @@ void AutoBalance::Execute() {
 	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) };
 	units::radians_per_second_t rOutput{ rController.Calculate(m_swerveChassis->getYaw(), 180) };
 
-	m_swerveChassis->setSpeed(frc::ChassisSpeeds::FromFieldRelativeSpeeds(xOutput, 0_mps, rOutput, m_swerveChassis->getOdometry().Rotation()));
+	if (m_swerveChassis->getYaw() > 180) {
+		rOutput = -rOutput;
+	}
+
+	m_swerveChassis->driveFieldRelative({ xOutput, 0_mps, rOutput });
 
 }
 // Called once the command ends or is interrupted.
 void AutoBalance::End(bool interrupted) {
-	m_swerveChassis->setSpeed(frc::ChassisSpeeds::FromFieldRelativeSpeeds(0_mps, 0_mps, 0_rad_per_s, m_swerveChassis->getOdometry().Rotation()));
+	m_swerveChassis->driveFieldRelative({ 0_mps, 0_mps, 0_rad_per_s });
 
 }
 
 // Returns true when the command should end.
 bool AutoBalance::IsFinished() {
-	return xController.AtSetpoint();
+	return xController.AtSetpoint() && rController.AtSetpoint();
 }
