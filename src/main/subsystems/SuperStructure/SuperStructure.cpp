@@ -99,15 +99,15 @@ double SuperStructure::upperAngleFFCalculation(double angle) {
 void SuperStructure::Periodic() {
 	setFalconTargetPos(m_TargetState);
 
-	frc::SmartDashboard::PutNumber("Target Lower Angle", m_TargetState.lowerAngle);
-	frc::SmartDashboard::PutNumber("Target Upper Angle", m_TargetState.upperAngle);
-	frc::SmartDashboard::PutNumber("Target Elevator Distance", m_TargetState.elevatorDistance);
+	// frc::SmartDashboard::PutNumber("Target Lower Angle", m_TargetState.lowerAngle);
+	// frc::SmartDashboard::PutNumber("Target Upper Angle", m_TargetState.upperAngle);
+	// frc::SmartDashboard::PutNumber("Target Elevator Distance", m_TargetState.elevatorDistance);
 
-	// Debugging
-	SuperStructureState currentState = getCurrentState();
-	frc::SmartDashboard::PutNumber("Lower Angle", currentState.lowerAngle);
-	frc::SmartDashboard::PutNumber("Upper Angle", currentState.upperAngle);
-	frc::SmartDashboard::PutNumber("Elevator Distance", currentState.elevatorDistance);
+	// // Debugging
+	// SuperStructureState currentState = getCurrentState();
+	// frc::SmartDashboard::PutNumber("Lower Angle", currentState.lowerAngle);
+	// frc::SmartDashboard::PutNumber("Upper Angle", currentState.upperAngle);
+	// frc::SmartDashboard::PutNumber("Elevator Distance", currentState.elevatorDistance);
 
-	frc::SmartDashboard::PutNumber("Position", position);
+	// frc::SmartDashboard::PutNumber("Position", position);
 }
