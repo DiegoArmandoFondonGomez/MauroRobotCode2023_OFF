@@ -9,6 +9,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/XboxController.h>
 #include <pathplanner/lib/auto/NamedCommands.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 #include "subsystems/Chassis/Chassis.h"
 #include "subsystems/Vision/Vision.h"

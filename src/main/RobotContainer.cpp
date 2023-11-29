@@ -4,8 +4,6 @@
 
 #include "RobotContainer.h"
 
-#include <frc2/command/Commands.h>
-
 RobotContainer::RobotContainer() {
 	pathplanner::NamedCommands::registerCommand("AutoBalance", AutoBalance(&chassis).ToPtr());
 
@@ -50,5 +48,6 @@ void RobotContainer::ConfigureBindings() {
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-	return nullptr;
+	frc2::Command* selectedAuto = new pathplanner::PathPlannerAuto(autoChooser.GetSelected());
+	return selectedAuto;
 }
