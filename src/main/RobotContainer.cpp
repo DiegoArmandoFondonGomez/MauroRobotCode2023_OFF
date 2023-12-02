@@ -7,6 +7,7 @@
 RobotContainer::RobotContainer() {
 	pathplanner::NamedCommands::registerCommand("AutoBalance", AutoBalance(&chassis).ToPtr());
 
+	autoChooser.SetDefaultOption("None, null, nada", "None");
 	autoChooser.AddOption("CenterBalance", "CenterBalance");
 
 	frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
@@ -47,7 +48,10 @@ void RobotContainer::ConfigureBindings() {
 	intakeCube.OnTrue(GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
 }
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
-	frc2::Command* selectedAuto = new pathplanner::PathPlannerAuto(autoChooser.GetSelected());
-	return selectedAuto;
+frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
+	std::string autoName = autoChooser.GetSelected();
+	if (autoName == "None") {
+		return frc2::CommandPtr(nullptr);
+	}
+	return pathplanner::PathPlannerAuto(autoName).ToPtr();
 }

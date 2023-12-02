@@ -26,7 +26,7 @@ class RobotContainer {
 public:
 	RobotContainer();
 	void setAllianceColor();
-	frc2::Command* GetAutonomousCommand();
+	frc2::CommandPtr GetAutonomousCommand();
 
 private:
 	void ConfigureBindings();
