@@ -8,7 +8,6 @@
  * @brief Creates a new SwerveChassis.
  */
 SwerveChassis::SwerveChassis() {
-	navx.Calibrate();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	double startTime = frc::Timer::GetFPGATimestamp().value();
@@ -211,11 +210,11 @@ void SwerveChassis::addVisionMeasurement(frc::Pose2d pose, units::second_t times
 }
 
 /**
- * @brief Sets the navx to desired angle
+ * @brief Sets the odometry to desired angle
  *
  * @param angle Desired angle
  */
-void SwerveChassis::resetNavx(double angle) {
+void SwerveChassis::resetAngle(double angle) {
 	frc::Pose2d actualOdometry = getOdometry();
 	frc::Pose2d newOdometry{ actualOdometry.X(), actualOdometry.Y(), units::degree_t(angle) };
 	resetOdometry(newOdometry);

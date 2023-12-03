@@ -43,7 +43,7 @@ private:
 	frc::XboxController mechanisms{ 1 };
 
 	// Driver commands
-	frc2::Trigger resetNavxButton{ [this] {return driver.GetBackButton();} };
+	frc2::Trigger resetAngleButton{ [this] {return driver.GetBackButton();} };
 	frc2::Trigger autoBalance{ [this] {return driver.GetStartButton();} };
 	frc2::Trigger dropCube{ [this] {return driver.GetLeftTriggerAxis();} };
 	frc2::Trigger dropCone{ [this] {return driver.GetRightTriggerAxis();} };

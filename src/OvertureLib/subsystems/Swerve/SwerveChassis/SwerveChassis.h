@@ -5,6 +5,7 @@
 #pragma once
 
 #include <AHRS.h>
+#include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Translation2d.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
@@ -40,7 +41,7 @@ public:
 	void resetOdometry(frc::Pose2d initPose);
 	const frc::SwerveDriveKinematics<4>& getKinematics();
 	void addVisionMeasurement(frc::Pose2d pose, units::second_t Latency);
-	void resetNavx(double angle = 0);
+	void resetAngle(double angle = 0);
 
 	void setModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates);
 	wpi::array<frc::SwerveModuleState, 4> getModuleStates();

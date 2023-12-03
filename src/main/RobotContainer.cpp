@@ -24,7 +24,7 @@ void RobotContainer::ConfigureBindings() {
 
 
 	// Configure the button bindings
-	resetNavxButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetNavx();} }.ToPtr());
+	resetAngleButton.OnTrue(frc2::InstantCommand{ [this]() {chassis.resetAngle();} }.ToPtr());
 	autoBalance.WhileTrue(AutoBalance(&chassis).ToPtr());
 
 	dropCone.OnTrue(SetGamePieceTrueCommand(&intake, -4_V));
