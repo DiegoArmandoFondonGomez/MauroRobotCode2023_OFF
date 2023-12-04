@@ -38,7 +38,7 @@ void Robot::AutonomousExit() {}
 void Robot::TeleopInit() {
 	m_container.setAllianceColor();
 	if (m_autonomousCommand) {
-		m_autonomousCommand->Cancel();
+		m_autonomousCommand.reset();
 	}
 }
 

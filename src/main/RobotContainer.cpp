@@ -51,7 +51,7 @@ void RobotContainer::ConfigureBindings() {
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
 	std::string autoName = autoChooser.GetSelected();
 	if (autoName == "None") {
-		return frc2::CommandPtr(nullptr);
+		return  frc2::cmd::None();
 	}
 	return pathplanner::PathPlannerAuto(autoName).ToPtr();
 }
