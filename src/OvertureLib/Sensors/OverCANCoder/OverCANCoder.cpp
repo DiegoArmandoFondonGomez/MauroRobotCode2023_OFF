@@ -4,14 +4,13 @@
 
 #include "OverCANCoder.h"
 
-OverCANCoder::OverCANCoder(int _id, double offset, std::string _bus) {
-	canCoder = new CANcoder(_id, _bus);
+OverCANCoder::OverCANCoder(int _id, double offset, std::string _bus) : CANcoder(_id, _bus) {
 	canCoderConfiguration.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue::Signed_PlusMinusHalf;
 	canCoderConfiguration.MagnetSensor.SensorDirection = SensorDirectionValue::CounterClockwise_Positive;
 	canCoderConfiguration.MagnetSensor.MagnetOffset = offset / 360;
-	canCoder->GetConfigurator().Apply(canCoderConfiguration);
+	GetConfigurator().Apply(canCoderConfiguration);
 }
 
-double OverCANCoder::getAbsolutePosition() {
-	return canCoder->GetAbsolutePosition().Refresh().GetValue().value();
+double OverCANCoder::getSensorAbsolutePosition() {
+	return GetAbsolutePosition().Refresh().GetValue().value();
 }
