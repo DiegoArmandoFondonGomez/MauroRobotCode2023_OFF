@@ -28,8 +28,8 @@ SwerveChassis::SwerveChassis() {
 		[this]() { return getRobotRelativeSpeeds(); },
 		[this](frc::ChassisSpeeds speeds) { driveRobotRelative(speeds); },
 		HolonomicPathFollowerConfig(
-			PIDConstants(5.0, 0.0, 0.0),
-			PIDConstants(5.0, 0.0, 0.0),
+			PIDConstants(1.0, 0.0, 0.0),
+			PIDConstants(1.0, 0.0, 0.0),
 			5_mps,
 			0.37211_m,
 			ReplanningConfig()
@@ -306,10 +306,10 @@ void SwerveChassis::shuffleboardPeriodic() {
 	// frc::SmartDashboard::PutNumber("LinearY", linearY);
 	// frc::SmartDashboard::PutNumber("Angular", angular);
 
-	// auto estimatedPos = getOdometry();
-	// frc::SmartDashboard::PutNumber("Roll", getRoll());
+	auto estimatedPos = getOdometry();
+	frc::SmartDashboard::PutNumber("Roll", getRoll());
 
-	// frc::SmartDashboard::PutNumber("OdometryX", estimatedPos.X().value());
-	// frc::SmartDashboard::PutNumber("OdometryY", estimatedPos.Y().value());
-	// frc::SmartDashboard::PutNumber("AnglenaveX", estimatedPos.Rotation().Degrees().value());
+	frc::SmartDashboard::PutNumber("OdometryX", estimatedPos.X().value());
+	frc::SmartDashboard::PutNumber("OdometryY", estimatedPos.Y().value());
+	frc::SmartDashboard::PutNumber("AnglenaveX", estimatedPos.Rotation().Degrees().value());
 }

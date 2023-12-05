@@ -34,5 +34,5 @@ public:
 private:
 	SwerveChassis* m_swerveChassis;
 	frc::PIDController xController{ 0.02, 0, 0 };
-	frc::PIDController rController{ .05, 0, 0 };
+	int sign = 1;
 };

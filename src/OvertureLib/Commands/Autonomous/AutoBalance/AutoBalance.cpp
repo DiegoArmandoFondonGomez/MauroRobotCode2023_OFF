@@ -14,20 +14,20 @@ AutoBalance::AutoBalance(SwerveChassis* swerveChassis) : m_swerveChassis(swerveC
 // Called when the command is initially scheduled.
 void AutoBalance::Initialize() {
 	xController.SetTolerance(7);
-	// rController.SetTolerance(5);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoBalance::Execute() {
 
-	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) };
-	units::radians_per_second_t rOutput{ rController.Calculate(m_swerveChassis->getYaw(), 180) };
-
-	if (m_swerveChassis->getYaw() > 180) {
-		rOutput = -rOutput;
+	if (std::abs(m_swerveChassis->getOdometry().Rotation().Degrees().value()) > 90) {
+		sign = 1;
+	} else {
+		sign = -1;
 	}
 
-	m_swerveChassis->driveFieldRelative({ xOutput, 0_mps, rOutput });
+	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) };
+
+	m_swerveChassis->driveFieldRelative({ sign * xOutput, 0_mps, 0_rad_per_s });
 
 }
 // Called once the command ends or is interrupted.
@@ -38,5 +38,5 @@ void AutoBalance::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool AutoBalance::IsFinished() {
-	return xController.AtSetpoint() && rController.AtSetpoint();
+	return xController.AtSetpoint();
 }

@@ -16,6 +16,24 @@
           "data": {
             "pathName": "Balance"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoBalance"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoBalance"
+          }
         }
       ]
     }
