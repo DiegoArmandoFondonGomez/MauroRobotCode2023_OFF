@@ -18,12 +18,12 @@
 class VisionManager : public frc2::SubsystemBase {
 public:
 	VisionManager();
+	void initPoseEstimator();
 	void setCameraAndLayout(photonlib::PhotonCamera* camera, frc::AprilTagFieldLayout* tagLayout, frc::Transform3d* cameraToRobot);
 	void setAlliancesColor();
 	bool checkTagDistance(size_t numberOfTags, double distance);
 	void addMeasurementToChassis();
 	void updateOdometry();
-	std::optional<photonlib::EstimatedRobotPose> update(frc::Pose2d estimatedPose);
 	std::optional<photonlib::PhotonPipelineResult> getCameraResult();
 	bool isPoseEstimatorSet();
 	void setPoseEstimator(bool set);

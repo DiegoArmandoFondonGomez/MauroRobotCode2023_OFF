@@ -13,7 +13,7 @@
 #include "OvertureLib/MotorControllers/OverTalonFX/OverTalonFX.h"
 #include "OvertureLib/Sensors/OverCANCoder/OverCANCoder.h"
 
-class SwerveModule: public frc2::SubsystemBase {
+class SwerveModule : public frc2::SubsystemBase {
 public:
   SwerveModule(int rotatorID, int wheelID, int canCoderID, double offSet, std::string moduleName, std::string canBus);
   void setRotatorPIDValues(double kP, double kI, double kD);
@@ -31,8 +31,6 @@ public:
   void setState(frc::SwerveModuleState state);
   frc::SwerveModulePosition getPosition();
 
-  void setWheelVoltage(double wheelVoltage);
-  void setUseRawVoltageSpeed(bool set);
   void setVoltages();
 
   void Periodic() override;
