@@ -5,6 +5,7 @@
 #pragma once
 
 #include <AHRS.h>
+#include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Translation2d.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
@@ -13,10 +14,16 @@
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
 #include <frc2/command/SubsystemBase.h>
+#include <pathplanner/lib/auto/AutoBuilder.h>
+#include <pathplanner/lib/util/HolonomicPathFollowerConfig.h>
+#include <pathplanner/lib/util/PIDConstants.h>
+#include <pathplanner/lib/util/ReplanningConfig.h>
 
 #include "OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h"
 
-class SwerveChassis: public frc2::SubsystemBase {
+using namespace pathplanner;
+
+class SwerveChassis : public frc2::SubsystemBase {
 public:
 	SwerveChassis();
 	void setModulePositions(std::array<frc::Translation2d, 4>* positions);
@@ -25,18 +32,16 @@ public:
 	void setRotatorPID(double kP, double kI, double kD);
 	void setDrivePID(double kP, double kI, double kD);
 	void setFeedForward(units::volt_t kS, units::volt_t kV, units::volt_t kA);
-	void setUseRawVoltageSpeed(bool set);
 
-	void setTargetAngle(double targetAngle);
-	void setSpeed(frc::ChassisSpeeds speeds);
-	void setWheelVoltage(double voltage);
+	void driveRobotRelative(frc::ChassisSpeeds speeds);
+	void driveFieldRelative(frc::ChassisSpeeds speeds);
+	frc::ChassisSpeeds getRobotRelativeSpeeds();
 
 	frc::Pose2d getOdometry();
 	void resetOdometry(frc::Pose2d initPose);
-	double getHeadingRate();
 	const frc::SwerveDriveKinematics<4>& getKinematics();
 	void addVisionMeasurement(frc::Pose2d pose, units::second_t Latency);
-	void resetNavx(double angle = 0);
+	void resetAngle(double angle = 0);
 
 	void setModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates);
 	wpi::array<frc::SwerveModuleState, 4> getModuleStates();
@@ -64,8 +69,6 @@ private:
 
 	double wheelVoltage;
 	double targetAngle;
-
-	std::array<frc::Translation2d, 4>* modulePos;
 
 	frc::SwerveDriveKinematics<4>* kinematics;
 

@@ -8,7 +8,7 @@
 * @brief Construye un nuevo objeto de swerve chassis
 */
 SwerveChassis::SwerveChassis() {
-	navx.Calibrate();
+	;
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	double startTime = frc::Timer::GetFPGATimestamp().value();
@@ -22,11 +22,24 @@ SwerveChassis::SwerveChassis() {
 	}
 
 	navx.ZeroYaw();
+
+	AutoBuilder::configureHolonomic(
+		[this]() { return getOdometry(); },
+		[this](frc::Pose2d pose) { resetOdometry(pose); },
+		[this]() { return getRobotRelativeSpeeds(); },
+		[this](frc::ChassisSpeeds speeds) { driveRobotRelative(speeds); },
+		HolonomicPathFollowerConfig(
+			PIDConstants(1.0, 0.0, 0.0),
+			PIDConstants(1.0, 0.0, 0.0),
+			5_mps,
+			0.37211_m,
+			ReplanningConfig()
+		),
+		this
+	);
 }
 
 void SwerveChassis::setModulePositions(std::array<frc::Translation2d, 4>* positions) {
-	this->modulePos = positions;
-
 	kinematics = new frc::SwerveDriveKinematics<4>{ *modulePos };
 };
 
@@ -94,17 +107,21 @@ void SwerveChassis::setFeedForward(units::volt_t kS, units::volt_t kV, units::vo
 	frontLeftModule->setFFConstants(kS, kV, kA);
 }
 
-/**
- * @brief Establece si se usa voltaje bruto para caracterizacion o teleoperado
- * @param set true para usar voltaje bruto
- */
-void SwerveChassis::setUseRawVoltageSpeed(bool set) {
-	frontLeftModule->setUseRawVoltageSpeed(set);
-	frontRightModule->setUseRawVoltageSpeed(set);
-	backLeftModule->setUseRawVoltageSpeed(set);
-	backRightModule->setUseRawVoltageSpeed(set);
+void SwerveChassis::driveRobotRelative(frc::ChassisSpeeds speeds) {
+	this->linearX = speeds.vx.value();
+	this->linearY = speeds.vy.value();
+	this->angular = speeds.omega.value();
+
+	wpi::array<frc::SwerveModuleState, 4> desiredStates = kinematics->ToSwerveModuleStates(speeds);
+
+	kinematics->DesaturateWheelSpeeds(&desiredStates, 5_mps);
+
+	setModuleStates(desiredStates);
 }
 
+void SwerveChassis::driveFieldRelative(frc::ChassisSpeeds speeds) {
+	frc::ChassisSpeeds chassisSpeeds = frc:
+}
 /**
  * @brief Establece el angulo objetivo del robot
  * @param targetAngle angulo objetivo
@@ -123,6 +140,8 @@ void SwerveChassis::setSpeed(frc::ChassisSpeeds speeds) {
 	this->angular = speeds.omega.value();
 
 	wpi::array<frc::SwerveModuleState, 4> desiredStates = kinematics->ToSwerveModuleStates(speeds);
+
+	kinematics->DesaturateWheelSpeeds(&desiredStates, 5_mps);
 
 	setModuleStates(desiredStates);
 }
