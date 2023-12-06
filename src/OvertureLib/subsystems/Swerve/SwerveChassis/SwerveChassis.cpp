@@ -29,7 +29,7 @@ SwerveChassis::SwerveChassis() {
 		[this](frc::ChassisSpeeds speeds) { driveRobotRelative(speeds); },
 		HolonomicPathFollowerConfig(
 			PIDConstants(1.0, 0.0, 0.0),
-			PIDConstants(1.0, 0.0, 0.0),
+			PIDConstants(2.0, 0.0, 0.0),
 			5_mps,
 			0.3732276_m,
 			ReplanningConfig()
@@ -302,9 +302,10 @@ void SwerveChassis::updateOdometry() {
 }
 
 void SwerveChassis::shuffleboardPeriodic() {
-	// frc::SmartDashboard::PutNumber("LinearX", linearX);
-	// frc::SmartDashboard::PutNumber("LinearY", linearY);
-	// frc::SmartDashboard::PutNumber("Angular", angular);
+	frc::ChassisSpeeds sped = getRobotRelativeSpeeds();
+	frc::SmartDashboard::PutNumber("LinearX", sped.vx.value());
+	frc::SmartDashboard::PutNumber("LinearY", sped.vy.value());
+	frc::SmartDashboard::PutNumber("Angular", sped.omega.value());
 
 	auto estimatedPos = getOdometry();
 	frc::SmartDashboard::PutNumber("Roll", getRoll());

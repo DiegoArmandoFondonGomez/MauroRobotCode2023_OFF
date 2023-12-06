@@ -3,9 +3,17 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
+#include <wpi/MemoryBuffer.h>
+#include <frc/Filesystem.h>
 
 RobotContainer::RobotContainer() {
 	pathplanner::NamedCommands::registerCommand("AutoBalance", AutoBalance(&chassis).ToPtr());
+	pathplanner::NamedCommands::registerCommand("IntakeCube", GroundIntakeTrueCommand(&superStructure, &intake, -4_V));
+	pathplanner::NamedCommands::registerCommand("Close", ClosedCommand(&superStructure, &intake));
+	pathplanner::NamedCommands::registerCommand("SetCube", SetGamePieceTrueCommand(&intake, 5_V));
+	pathplanner::NamedCommands::registerCommand("StopIntake", SetGamePieceFalseCommand(&intake));
+	pathplanner::NamedCommands::registerCommand("LowerPosition", LowerCommand(&superStructure));
+	pathplanner::NamedCommands::registerCommand("CloseLower", LowerCommandClosed(&superStructure));
 
 	autoChooser.SetDefaultOption("None, null, nada", "None");
 	autoChooser.AddOption("CenterBalance", "CenterBalance");
@@ -53,5 +61,15 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
 	if (autoName == "None") {
 		return  frc2::cmd::None();
 	}
-	return pathplanner::PathPlannerAuto(autoName).ToPtr();
+	const std::string filePath = frc::filesystem::GetDeployDirectory() + "/pathplanner/autos/" + autoChooser.GetSelected() + ".auto";
+
+	std::error_code error_code;
+	std::unique_ptr<wpi::MemoryBuffer> fileBuffer = wpi::MemoryBuffer::GetFile(filePath, error_code);
+
+	if (fileBuffer == nullptr || error_code) {
+		throw std::runtime_error("Cannot open file: " + filePath);
+	}
+
+	wpi::json json = wpi::json::parse(fileBuffer->GetCharBuffer());
+	return pathplanner::AutoBuilder::getAutoCommandFromJson(json);
 }
