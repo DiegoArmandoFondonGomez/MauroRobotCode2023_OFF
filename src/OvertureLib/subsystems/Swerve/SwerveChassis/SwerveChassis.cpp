@@ -31,7 +31,7 @@ SwerveChassis::SwerveChassis() {
 			PIDConstants(1.0, 0.0, 0.0),
 			PIDConstants(1.0, 0.0, 0.0),
 			5_mps,
-			0.37211_m,
+			0.3732276_m,
 			ReplanningConfig()
 		),
 		this

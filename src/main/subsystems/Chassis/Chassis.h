@@ -23,10 +23,10 @@ private:
 	SwerveModule frontRightModule{ 2, 1, 11, 17.314453125, "FrontRightModule", "OverCANivore" };
 
 	std::array<frc::Translation2d, 4> modulePos{
-	 frc::Translation2d(10.36_in, 10.36_in),   //Front Left
-		 frc::Translation2d(10.36_in, -10.36_in),   //Front Right
-		 frc::Translation2d(-10.36_in, -10.36_in),   //Back Right
-		 frc::Translation2d(-10.36_in, 10.36_in),   //Back Left
+	 frc::Translation2d(10.39_in, 10.39_in),   //Front Left
+		 frc::Translation2d(10.39_in, -10.39_in),   //Front Right
+		 frc::Translation2d(-10.39_in, -10.39_in),   //Back Right
+		 frc::Translation2d(-10.39_in, 10.39_in),   //Back Left
 	};
 
 	double turnRatio = 150 / 7;
