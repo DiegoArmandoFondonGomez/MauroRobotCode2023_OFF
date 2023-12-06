@@ -21,20 +21,17 @@ void Drive::Execute() {
 		kMaxAngularSpeed = 3.5;
 	} else {
 		kMaxSpeed = 5.0;
-		kMaxAngularSpeed = 9.0;
+		kMaxAngularSpeed = 7.0;
 	}
 
 	units::meters_per_second_t xInput{ Utils::ApplyAxisFilter(-joystick->GetLeftY()) * kMaxSpeed };
 	units::meters_per_second_t yInput{ Utils::ApplyAxisFilter(-joystick->GetLeftX()) * kMaxSpeed };
 	units::radians_per_second_t rInput{ Utils::ApplyAxisFilter(-joystick->GetRightX()) * kMaxAngularSpeed };
 
-	frc::ChassisSpeeds chassisSpeeds = frc::ChassisSpeeds::FromFieldRelativeSpeeds(
+	m_swerveChassis->driveFieldRelative({
 		xLimiter.Calculate(xInput),
 		yLimiter.Calculate(yInput),
-		rLimiter.Calculate(rInput),
-		m_swerveChassis->getOdometry().Rotation());
-
-	m_swerveChassis->setSpeed(chassisSpeeds);
+		rLimiter.Calculate(rInput) });
 }
 
 // Called once the command ends or is interrupted.
@@ -43,4 +40,4 @@ void Drive::End(bool interrupted) {}
 // Returns true when the command should end.
 bool Drive::IsFinished() {
 	return false;
-}
+};
