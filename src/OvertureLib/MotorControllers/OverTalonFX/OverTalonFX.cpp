@@ -185,7 +185,7 @@ double OverTalonFX::getDistance(double wheelDiameter, double gearRatio) {
  * @return The TalonFX position in meters
  */
 double OverTalonFX::getDistance(double wheelDiameter) {
-	double sensorPosition = GetRotorPosition().GetValue().value();
+	double sensorPosition = GetPosition().GetValue().value();
 	return(sensorPosition * wheelDiameter * M_PI);
 }
 
@@ -206,7 +206,7 @@ double OverTalonFX::getVelocity(double _wheelDiameter, double gearRatio) {
  * @param wheelDiameter The diameter of the wheel
  */
 double OverTalonFX::getVelocity(double _wheelDiameter) {
-	double sensorVelocity = GetRotorVelocity().GetValue().value();
+	double sensorVelocity = GetVelocity().GetValue().value();
 	return(sensorVelocity * _wheelDiameter * M_PI);
 }
 
