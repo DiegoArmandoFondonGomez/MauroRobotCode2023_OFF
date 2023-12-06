@@ -7,8 +7,9 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/XboxController.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 #include "subsystems/Chassis/Chassis.h"
 #include "subsystems/Vision/Vision.h"
@@ -25,14 +26,14 @@ class RobotContainer {
 public:
 	RobotContainer();
 	void setAllianceColor();
-	frc2::Command* GetAutonomousCommand();
+	frc2::CommandPtr GetAutonomousCommand();
 
 private:
 	void ConfigureBindings();
 
 	// Subsystems
 	Chassis chassis;
-	Vision vision{ &chassis };
+	//Vision vision{ &chassis };
 	SuperStructure superStructure;
 	Intake intake;
 	LEDManager ledManager;
@@ -42,7 +43,7 @@ private:
 	frc::XboxController mechanisms{ 1 };
 
 	// Driver commands
-	frc2::Trigger resetNavxButton{ [this] {return driver.GetBackButton();} };
+	frc2::Trigger resetAngleButton{ [this] {return driver.GetBackButton();} };
 	frc2::Trigger autoBalance{ [this] {return driver.GetStartButton();} };
 	frc2::Trigger dropCube{ [this] {return driver.GetLeftTriggerAxis();} };
 	frc2::Trigger dropCone{ [this] {return driver.GetRightTriggerAxis();} };
@@ -53,9 +54,9 @@ private:
 	frc2::Trigger lowerPosition{ [this] {return mechanisms.GetAButton();} };
 	frc2::Trigger middlePosition{ [this] {return mechanisms.GetBButton();} };
 	frc2::Trigger upperPosition{ [this] {return mechanisms.GetYButton();} };
-	// frc2::Trigger loadingPosition{ [this] {return mechanisms.GetXButton();} };
 	frc2::Trigger intakeCone{ [this] {return mechanisms.GetRightTriggerAxis();} };
 	frc2::Trigger intakeCube{ [this] {return mechanisms.GetLeftTriggerAxis();} };
 
-
+	// Auto Chooser
+	frc::SendableChooser<std::string> autoChooser;
 };
