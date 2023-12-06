@@ -5,7 +5,6 @@
 #include "Robot.h"
 
 #include <frc2/command/CommandScheduler.h>
-#include <OvertureLib/Characterization/SwerveCharacterization.h>
 
 void Robot::RobotInit() {
 	m_container.setAllianceColor();
@@ -27,7 +26,7 @@ void Robot::AutonomousInit() {
 	m_container.setAllianceColor();
 	m_autonomousCommand = m_container.GetAutonomousCommand();
 
-	if (m_autonomousCommand != nullptr) {
+	if (m_autonomousCommand) {
 		m_autonomousCommand->Schedule();
 	}
 }
@@ -38,9 +37,8 @@ void Robot::AutonomousExit() {}
 
 void Robot::TeleopInit() {
 	m_container.setAllianceColor();
-	if (m_autonomousCommand != nullptr) {
-		m_autonomousCommand->Cancel();
-		m_autonomousCommand = nullptr;
+	if (m_autonomousCommand) {
+		m_autonomousCommand.reset();
 	}
 }
 
