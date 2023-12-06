@@ -11,7 +11,7 @@
 
 #include "RobotContainer.h"
 
-class Robot: public frc::TimedRobot {
+class Robot : public frc::TimedRobot {
 public:
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -29,6 +29,6 @@ public:
   void TestExit() override;
 
 private:
-  frc2::Command* m_autonomousCommand;
+  std::optional<frc2::CommandPtr> m_autonomousCommand;
   RobotContainer m_container;
 };
