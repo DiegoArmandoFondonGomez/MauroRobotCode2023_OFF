@@ -14,7 +14,7 @@ SuperStructure::SuperStructure() {
 
 	m_lowerLeft.setSupplyCurrentLimit(true, 20, 30, 0.5);
 	m_lowerLeft.setSensorToMechanism(LOWER_GEAR_BOX_REDUCTION);
-	m_lowerLeft.setFollow(m_lowerRight.getMotorController()->GetDeviceID(), true);
+	m_lowerLeft.setFollow(m_lowerRight.GetDeviceID(), true);
 
 	m_elevatorRight.setSupplyCurrentLimit(true, 20, 30, 0.5);
 	m_elevatorRight.zeroPosition();
@@ -22,7 +22,7 @@ SuperStructure::SuperStructure() {
 
 	m_elevatorLeft.setSupplyCurrentLimit(true, 20, 30, 0.5);
 	m_elevatorLeft.setSensorToMechanism(ELEVATOR_GEAR_BOX_REDUCTION);
-	m_elevatorLeft.setFollow(m_elevatorRight.getMotorController()->GetDeviceID(), true);
+	m_elevatorLeft.setFollow(m_elevatorRight.GetDeviceID(), true);
 
 	m_upperMotor.setSupplyCurrentLimit(true, 20, 30, 0.5);
 	m_upperMotor.setSensorPosition(14.4);
@@ -99,15 +99,15 @@ double SuperStructure::upperAngleFFCalculation(double angle) {
 void SuperStructure::Periodic() {
 	setFalconTargetPos(m_TargetState);
 
-	frc::SmartDashboard::PutNumber("Target Lower Angle", m_TargetState.lowerAngle);
-	frc::SmartDashboard::PutNumber("Target Upper Angle", m_TargetState.upperAngle);
-	frc::SmartDashboard::PutNumber("Target Elevator Distance", m_TargetState.elevatorDistance);
+	// frc::SmartDashboard::PutNumber("Target /Lower Angle", m_TargetState.lowerAngle);
+	// frc::SmartDashboard::PutNumber("Target /Upper Angle", m_TargetState.upperAngle);
+	// frc::SmartDashboard::PutNumber("Target /Elevator Distance", m_TargetState.elevatorDistance);
 
-	// Debugging
-	SuperStructureState currentState = getCurrentState();
-	frc::SmartDashboard::PutNumber("Lower Angle", currentState.lowerAngle);
-	frc::SmartDashboard::PutNumber("Upper Angle", currentState.upperAngle);
-	frc::SmartDashboard::PutNumber("Elevator Distance", currentState.elevatorDistance);
+	// // Debugging
+	// SuperStructureState currentState = getCurrentState();
+	// frc::SmartDashboard::PutNumber("Current /Lower Angle", currentState.lowerAngle);
+	// frc::SmartDashboard::PutNumber("Current /Upper Angle", currentState.upperAngle);
+	// frc::SmartDashboard::PutNumber("Current /Elevator Distance", currentState.elevatorDistance);
 
-	frc::SmartDashboard::PutNumber("Position", position);
+	// frc::SmartDashboard::PutNumber("Position", position);
 }

@@ -36,15 +36,15 @@ private:
 
 
 	// LowerMotors
-	OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Brake, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
-	OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Brake, true, LOWER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_lowerRight{ 20, ControllerNeutralMode::Brake, true, "rio" };
+	OverTalonFX m_lowerLeft{ 21, ControllerNeutralMode::Brake, true, "rio" };
 
 	// Elevator Motors
-	OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, true, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
-	OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, true, ELEVATOR_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_elevatorRight{ 22, ControllerNeutralMode::Brake, true, "rio" };
+	OverTalonFX m_elevatorLeft{ 23, ControllerNeutralMode::Brake, true, "rio" };
 
 	// Upper Motors
-	OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Brake, false, UPPER_GEAR_BOX_REDUCTION, "rio" };
+	OverTalonFX m_upperMotor{ 24, ControllerNeutralMode::Brake, false, "rio" };
 
 	// State
 	SuperStructureState m_TargetState{ getCurrentState() };
@@ -54,6 +54,4 @@ private:
 	double lowerFF = 0.1;
 	double elevatorFF = 1.3;
 	double upperFF = 0.27;
-
-
 };
