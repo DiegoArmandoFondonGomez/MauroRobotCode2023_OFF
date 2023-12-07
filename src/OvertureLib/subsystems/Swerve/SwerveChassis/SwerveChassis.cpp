@@ -5,7 +5,7 @@
 #include "SwerveChassis.h"
 
 /**
-* @brief Construye un nuevo objeto de swerve chassis
+* @brief Builds an object of swerve chassis
 */
 SwerveChassis::SwerveChassis() {
 	;
