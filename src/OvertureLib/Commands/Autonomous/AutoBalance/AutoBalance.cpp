@@ -25,11 +25,12 @@ void AutoBalance::Execute() {
 		sign = -1;
 	}
 
-	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) }
+	units::meters_per_second_t xOutput{ xController.Calculate(m_swerveChassis->getRoll(), 0) };
 
 	m_swerveChassis->driveFieldRelative({ sign * xOutput, 0_mps, 0_rad_per_s });
 
 }
+
 // Called once the command ends or is interrupted.
 void AutoBalance::End(bool interrupted) {
 	m_swerveChassis->driveFieldRelative({ 0_mps, 0_mps, 0_rad_per_s });

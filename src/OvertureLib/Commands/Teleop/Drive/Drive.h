@@ -46,4 +46,4 @@ private:
 
 	/* Controller */
 	frc::XboxController* joystick;
-}
+};

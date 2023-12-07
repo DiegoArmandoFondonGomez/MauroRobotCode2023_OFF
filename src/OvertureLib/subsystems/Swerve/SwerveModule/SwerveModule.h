@@ -15,44 +15,44 @@
 
 class SwerveModule : public frc2::SubsystemBase {
 public:
-  SwerveModule(int rotatorID, int wheelID, int canCoderID, double offSet, std::string moduleName, std::string canBus);
-  void setRotatorPIDValues(double kP, double kI, double kD);
-  void setDrivePIDValues(double kP, double kI, double kD);
-  void setFFConstants(units::volt_t ks, units::volt_t kv, units::volt_t ka);
-  void setGearRatio(double _turn, double _wheel);
-  void setWheelDiameter(double _wheelDiameter);
+	SwerveModule(int rotatorID, int wheelID, int canCoderID, double offSet, std::string moduleName, std::string canBus);
+	void setRotatorPIDValues(double kP, double kI, double kD);
+	void setDrivePIDValues(double kP, double kI, double kD);
+	void setFFConstants(units::volt_t ks, units::volt_t kv, units::volt_t ka);
+	void setGearRatio(double _turn, double _wheel);
+	void setWheelDiameter(double _wheelDiameter);
 
-  double getSpeed();
-  double setSpeed(double speed);
-  double getDistance();
-  double getAngle();
+	double getSpeed();
+	double setSpeed(double speed);
+	double getDistance();
+	double getAngle();
 
-  frc::SwerveModuleState getState();
-  void setState(frc::SwerveModuleState state);
-  frc::SwerveModulePosition getPosition();
+	frc::SwerveModuleState getState();
+	void setState(frc::SwerveModuleState state);
+	frc::SwerveModulePosition getPosition();
 
-  void setVoltages();
+	void setVoltages();
 
-  void Periodic() override;
+	void Periodic() override;
 
 private:
-  //Declaration of motor controllers
-  OverTalonFX* m_driveMotor;
-  OverTalonFX* m_turningMotor;
-  units::volt_t wheelVoltage = 0_V;
+	//Declaration of motor controllers
+	OverTalonFX* m_driveMotor;
+	OverTalonFX* m_turningMotor;
+	units::volt_t wheelVoltage = 0_V;
 
-  //Declaration of sensors
-  OverCANCoder* m_canCoder;
+	//Declaration of sensors
+	OverCANCoder* m_canCoder;
 
-  //FeedForward
-  frc::SimpleMotorFeedforward<units::meters> m_feedForward;
+	//FeedForward
+	frc::SimpleMotorFeedforward<units::meters> m_feedForward;
 
-  //State
-  frc::SwerveModuleState m_state;
+	//State
+	frc::SwerveModuleState m_state;
 
-  //Gear and Wheel
-  double m_wheelDiameter = 1;
+	//Gear and Wheel
+	double m_wheelDiameter = 1;
 
-  std::string m_name;
-  bool useRawVoltageSpeed = false;
+	std::string m_name;
+	bool useRawVoltageSpeed = false;
 };

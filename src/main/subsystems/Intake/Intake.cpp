@@ -5,11 +5,11 @@
 #include "Intake.h"
 
 Intake::Intake() {
-    intakeMotor.setSupplyCurrentLimit(true, 20, 30, 0.5);
+	intakeMotor.setSupplyCurrentLimit(true, 20, 30, 0.5);
 }
 
 void Intake::setVoltage(units::volt_t voltage) {
-    intakeMotor.setVoltage(voltage, false);
+	intakeMotor.setVoltage(voltage, false);
 }
 
 // This method will be called once per scheduler run

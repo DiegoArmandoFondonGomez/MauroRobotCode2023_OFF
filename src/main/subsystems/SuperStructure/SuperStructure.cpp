@@ -4,7 +4,6 @@
 
 #include "SuperStructure.h"
 #include <frc/MathUtil.h>
-#include <frc/DriverStation.h>
 
 SuperStructure::SuperStructure() {
 	// Configure Motors
