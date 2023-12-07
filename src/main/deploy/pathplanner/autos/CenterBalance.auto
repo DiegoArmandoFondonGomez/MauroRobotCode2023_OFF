@@ -1,0 +1,36 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.8,
+      "y": 2.2
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "IntakeSecondPiece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "DropSecondPiece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BalanceAfterSecondPiece"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null
+}
