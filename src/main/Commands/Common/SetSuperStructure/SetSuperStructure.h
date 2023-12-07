@@ -18,22 +18,22 @@
  * Command will *not* work!
  */
 class SetSuperStructure
-  : public frc2::CommandHelper<frc2::CommandBase, SetSuperStructure> {
+	: public frc2::CommandHelper<frc2::CommandBase, SetSuperStructure> {
 public:
-  SetSuperStructure(SuperStructure* superStructure, SuperStructureState targetState);
+	SetSuperStructure(SuperStructure* superStructure, SuperStructureState targetState);
 
-  void Initialize() override;
+	void Initialize() override;
 
-  void Execute() override;
+	void Execute() override;
 
-  void End(bool interrupted) override;
+	void End(bool interrupted) override;
 
-  bool IsFinished() override;
+	bool IsFinished() override;
 
 private:
-  // Subsystem
-  SuperStructure* m_SuperStructure;
+	// Subsystem
+	SuperStructure* m_SuperStructure;
 
-  // State
-  SuperStructureState m_targetState;
+	// State
+	SuperStructureState m_targetState;
 };
