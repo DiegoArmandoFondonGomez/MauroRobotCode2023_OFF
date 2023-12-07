@@ -30,9 +30,9 @@ SwerveChassis::SwerveChassis() {
 		[this](frc::ChassisSpeeds speeds) { driveRobotRelative(speeds); },
 		HolonomicPathFollowerConfig(
 			PIDConstants(1.0, 0.0, 0.0),
-			PIDConstants(1.0, 0.0, 0.0),
+			PIDConstants(2.0, 0.0, 0.0),
 			5_mps,
-			0.37211_m,
+			0.3732276_m,
 			ReplanningConfig()
 		),
 		this
@@ -218,6 +218,7 @@ void SwerveChassis::addVisionMeasurement(frc::Pose2d pose, units::second_t times
 void SwerveChassis::resetAngle(double angle) {
 	frc::Pose2d actualOdometry = getOdometry();
 	frc::Pose2d newOdometry{ actualOdometry.X(), actualOdometry.Y(), units::degree_t(angle) };
+	resetOdometry(newOdometry);
 }
 
 /**
