@@ -5,6 +5,6 @@
 #include "Vision.h"
 
 Vision::Vision(Chassis* chassis) {
-    this->swerveChassis = chassis;
-    setCameraAndLayout(&camera, &tagLayout, &cameraToRobot);
+	this->swerveChassis = chassis;
+	setCameraAndLayout(&camera, &tagLayout, &cameraToRobot);
 }

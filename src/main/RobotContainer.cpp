@@ -24,7 +24,7 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::setAllianceColor() {
 	ledManager.setLEDAllianceColor();
-	//vision.setAlliancesColor();
+	// vision.setAlliancesColor();
 }
 
 void RobotContainer::ConfigureBindings() {
