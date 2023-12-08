@@ -17,6 +17,7 @@ RobotContainer::RobotContainer() {
 
 	autoChooser.SetDefaultOption("None, null, nada", "None");
 	autoChooser.AddOption("CenterBalance", "CenterBalance");
+	autoChooser.AddOption("Tests", "Tests");
 
 	frc::SmartDashboard::PutData("Auto Chooser", &autoChooser);
 	ConfigureBindings();
