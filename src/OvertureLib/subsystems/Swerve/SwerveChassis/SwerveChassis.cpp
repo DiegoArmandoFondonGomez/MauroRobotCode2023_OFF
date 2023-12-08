@@ -302,10 +302,9 @@ void SwerveChassis::updateOdometry() {
 }
 
 void SwerveChassis::shuffleboardPeriodic() {
-	// frc::ChassisSpeeds sped = getRobotRelativeSpeeds();
-	// frc::SmartDashboard::PutNumber("LinearX", sped.vx.value());
-	// frc::SmartDashboard::PutNumber("LinearY", sped.vy.value());
-	// frc::SmartDashboard::PutNumber("Angular", sped.omega.value());
+	// frc::SmartDashboard::PutNumber("LinearX", linearX);
+	// frc::SmartDashboard::PutNumber("LinearY", linearY);
+	// frc::SmartDashboard::PutNumber("Angular", angular);
 
 	// auto estimatedPos = getOdometry();
 	// frc::SmartDashboard::PutNumber("Roll", getRoll());
