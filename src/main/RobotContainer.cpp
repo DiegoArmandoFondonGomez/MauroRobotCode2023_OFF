@@ -62,15 +62,6 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
 	if (autoName == "None") {
 		return  frc2::cmd::None();
 	}
-	const std::string filePath = frc::filesystem::GetDeployDirectory() + "/pathplanner/autos/" + autoChooser.GetSelected() + ".auto";
 
-	std::error_code error_code;
-	std::unique_ptr<wpi::MemoryBuffer> fileBuffer = wpi::MemoryBuffer::GetFile(filePath, error_code);
-
-	if (fileBuffer == nullptr || error_code) {
-		throw std::runtime_error("Cannot open file: " + filePath);
-	}
-
-	wpi::json json = wpi::json::parse(fileBuffer->GetCharBuffer());
-	return pathplanner::AutoBuilder::getAutoCommandFromJson(json);
+	return pathplanner::AutoBuilder::buildAuto(autoName);
 }
