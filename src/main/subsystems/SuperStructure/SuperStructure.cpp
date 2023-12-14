@@ -74,7 +74,7 @@ SuperStructureState SuperStructure::getCurrentState() {
 
 void SuperStructure::setFalconTargetPos(SuperStructureState targetState) {
 	m_lowerRight.setMotionMagicPosition(convertAngleToFalconPos(targetState.lowerAngle), lowerFF * cos(targetState.lowerAngle), false);
-	m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF * cos(targetState.lowerAngle), false);
+	// m_elevatorRight.setMotionMagicPosition(convertDistanceToFalconPos(targetState.elevatorDistance), elevatorFF * cos(targetState.lowerAngle), false);
 	m_upperMotor.setMotionMagicPosition(convertAngleToFalconPos(targetState.upperAngle), upperFF * cos(upperAngleFFCalculation(targetState.upperAngle)), false);
 }
 

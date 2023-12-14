@@ -122,7 +122,7 @@ frc2::CommandPtr GroundIntakeTrueCommand(SuperStructure* m_SuperStructure, Intak
 		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::IntakeOpen);}, { m_SuperStructure }).ToPtr(),
 			frc2::cmd::Parallel(
-				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2, 0.0, -31 });}, { m_SuperStructure }).ToPtr(),
+				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({ -2, 0.0, -16 });}, { m_SuperStructure }).ToPtr(),
 				frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake }).ToPtr()
 			)
 		) });
@@ -164,7 +164,7 @@ frc2::CommandPtr GroundIntakeAuto(SuperStructure* m_SuperStructure, Intake* m_In
 		std::pair{ SuperStructurePosition::Closed, frc2::cmd::Sequence(
 			frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setPosition(SuperStructurePosition::IntakeOpen);}, { m_SuperStructure }).ToPtr(),
 			frc2::cmd::Parallel(
-				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({-2.5, 0.0, -22.0  });}, { m_SuperStructure }).ToPtr(),
+				frc2::InstantCommand([m_SuperStructure] {m_SuperStructure->setTargetCoord({-2.5, 0.0, -16.0  });}, { m_SuperStructure }).ToPtr(),
 				frc2::InstantCommand([m_Intake, voltage] {m_Intake->setVoltage(voltage);}, { m_Intake }).ToPtr()
 			)
 		) });
