@@ -11,7 +11,8 @@
         "x": 1.86,
         "y": 2.2
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -26,7 +27,8 @@
         "x": 4.947653430256931,
         "y": 3.018960902401119
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -38,7 +40,8 @@
         "y": 2.2
       },
       "nextControl": null,
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -47,14 +50,16 @@
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,
-    "maxAngularVelocity": 90.0,
-    "maxAngularAcceleration": 90.0
+    "maxAngularVelocity": 150.0,
+    "maxAngularAcceleration": 150.0
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": 180.0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,
-  "previewStartingState": null
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }
