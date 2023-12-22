@@ -8,7 +8,6 @@
 #include <frc2/command/Commands.h>
 
 #include "main/subsystems/SuperStructure/SuperStructure.h"
-#include "main/Commands/Common/SetSuperStructure/SetSuperStructure.h"
 #include "main/subsystems/Intake/Intake.h"
 
 frc2::CommandPtr ClosedCommand(SuperStructure* m_SuperStructure, Intake* m_Intake);

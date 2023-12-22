@@ -17,10 +17,10 @@
 #include "subsystems/Intake/Intake.h"
 #include "subsystems/LEDManager/LEDManager.h"
 
-#include "OvertureLib/Commands/Teleop/Drive/Drive.h"
-#include "OvertureLib/Commands/Autonomous/AutoBalance/AutoBalance.h"
-#include "Commands/Common/SuperStructureCommon/SuperStructureCommon.h"
-#include "Commands/Teleop/LEDCommands/LEDCommands.h"
+#include "OvertureLib/Commands/Drive/Drive.h"
+#include "OvertureLib/Commands/AutoBalance/AutoBalance.h"
+#include "Commands/SuperStructureCommon/SuperStructureCommon.h"
+#include "Commands/LEDCommands/LEDCommands.h"
 
 class RobotContainer {
 public:

@@ -8,7 +8,6 @@
 
 #include <OvertureLib/subsystems/Swerve/SwerveChassis/SwerveChassis.h>
 #include <OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h>
-#include <OvertureLib/Commands/Teleop/Drive/Drive.h>
 
 class Chassis : public SwerveChassis {
 public:
