@@ -39,7 +39,6 @@ private:
 	//Declaration of motor controllers
 	OverTalonFX* m_driveMotor;
 	OverTalonFX* m_turningMotor;
-	units::volt_t wheelVoltage = 0_V;
 
 	//Declaration of sensors
 	OverCANCoder* m_canCoder;

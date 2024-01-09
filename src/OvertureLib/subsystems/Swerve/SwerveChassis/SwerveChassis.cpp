@@ -8,19 +8,7 @@
 * @brief Builds an object of swerve chassis
 */
 SwerveChassis::SwerveChassis() {
-
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	double startTime = frc::Timer::GetFPGATimestamp().value();
-	while (navx.IsCalibrating()) {
-		double timePassed = frc::Timer::GetFPGATimestamp().value() - startTime;
-		if (timePassed > 10) {
-			break;
-		}
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	}
-
-	navx.ZeroYaw();
+	pigeon->Reset();
 
 	AutoBuilder::configureHolonomic(
 		[this]() { return getOdometry(); },
@@ -190,7 +178,7 @@ frc::Pose2d SwerveChassis::getOdometry() {
  * @param initPose Pose2d object
  */
 void SwerveChassis::resetOdometry(frc::Pose2d initPose) {
-	odometry->ResetPosition(frc::Rotation2d{ units::degree_t{-navx.GetAngle()} }, getModulePosition(), initPose);
+	odometry->ResetPosition(pigeon->GetRotation2d(), getModulePosition(), initPose);
 }
 
 /**
@@ -273,7 +261,7 @@ wpi::array<frc::SwerveModulePosition, 4> SwerveChassis::getModulePosition() {
  * @return double
  */
 double SwerveChassis::getPitch() {
-	return navx.GetPitch();
+	return pigeon->GetPitch().GetValue().value();
 }
 
 /**
@@ -282,7 +270,7 @@ double SwerveChassis::getPitch() {
  * @return double
  */
 double SwerveChassis::getYaw() {
-	return getOdometry().Rotation().Degrees().value();
+	return pigeon->GetYaw().GetValue().value();
 }
 
 /**
@@ -291,14 +279,14 @@ double SwerveChassis::getYaw() {
  * @return double
  */
 double SwerveChassis::getRoll() {
-	return navx.GetRoll();
+	return pigeon->GetRoll().GetValue().value();
 }
 
 /**
  * @brief Updates the robot odometry
  */
 void SwerveChassis::updateOdometry() {
-	odometry->Update(frc::Rotation2d(units::degree_t(-navx.GetAngle())), getModulePosition());
+	odometry->Update(pigeon->GetRotation2d(), getModulePosition());
 }
 
 void SwerveChassis::shuffleboardPeriodic() {

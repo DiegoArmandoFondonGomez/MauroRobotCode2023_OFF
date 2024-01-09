@@ -20,7 +20,7 @@ void Drive::Execute() {
 		kMaxSpeed = 2;
 		kMaxAngularSpeed = 3.5;
 	} else {
-		kMaxSpeed = 5.0;
+		kMaxSpeed = 5.75;
 		kMaxAngularSpeed = 7.0;
 	}
 

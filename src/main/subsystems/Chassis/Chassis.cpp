@@ -5,8 +5,9 @@
 #include "Chassis.h"
 
 Chassis::Chassis() {
+	pigeon = &chassisPigeon;
 	setModulePositions(&modulePos);
-	setModules(&frontLeftModule, &frontRightModule, &backLeftModule, &backRightModule);
+	setModules(&frontLeft, &frontRight, &backLeft, &backRight);
 	setModulesRatios(turnRatio, driveRatio, wheelDiameter);
 	setRotatorPID(53, 0, 0);
 	// setDrivePID(5, 0, 0);

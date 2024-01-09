@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <AHRS.h>
-#include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Translation2d.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
@@ -18,6 +16,7 @@
 #include <pathplanner/lib/util/HolonomicPathFollowerConfig.h>
 #include <pathplanner/lib/util/PIDConstants.h>
 #include <pathplanner/lib/util/ReplanningConfig.h>
+#include <ctre/phoenix6/Pigeon2.hpp>
 
 #include "OvertureLib/subsystems/Swerve/SwerveModule/SwerveModule.h"
 
@@ -59,16 +58,12 @@ protected:
 	double linearY;
 	double angular;
 
-private:
-	AHRS navx{ frc::SPI::Port::kMXP };
+	Pigeon2* pigeon;
 
 	SwerveModule* frontLeftModule;
 	SwerveModule* frontRightModule;
 	SwerveModule* backLeftModule;
 	SwerveModule* backRightModule;
-
-	double wheelVoltage;
-	double targetAngle;
 
 	frc::SwerveDriveKinematics<4>* kinematics;
 

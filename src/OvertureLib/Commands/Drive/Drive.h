@@ -32,7 +32,7 @@ private:
 	SwerveChassis* m_swerveChassis;
 
 	/* Speed Constants */
-	double kMaxSpeed{ 5.0 };
+	double kMaxSpeed{ 5.75 };
 	double kMaxAngularSpeed{ 9.0 };
 
 	/* Constant */

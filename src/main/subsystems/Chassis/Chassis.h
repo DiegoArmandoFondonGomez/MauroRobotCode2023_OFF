@@ -16,10 +16,10 @@ public:
 	void Periodic() override;
 
 private:
-	SwerveModule backRightModule{ 8, 7, 14, 44.208984375, "BackRightModule", "OverCANivore" };
-	SwerveModule backLeftModule{ 6, 5, 13, 113.90625, "BackLeftModule", "OverCANivore" };
-	SwerveModule frontLeftModule{ 4, 3, 12, 29.794921875, "FrontLeftModule", "OverCANivore" };
-	SwerveModule frontRightModule{ 2, 1, 11, 17.314453125, "FrontRightModule", "OverCANivore" };
+	SwerveModule backRight{ 5, 6, 13, 44.208984375, "BackRightModule", "OverCANivore" };
+	SwerveModule backLeft{ 7, 8, 12, 113.90625, "BackLeftModule", "OverCANivore" };
+	SwerveModule frontLeft{ 1, 2, 9, 29.794921875, "FrontLeftModule", "OverCANivore" };
+	SwerveModule frontRight{ 3, 4, 10, 17.314453125, "FrontRightModule", "OverCANivore" };
 
 	std::array<frc::Translation2d, 4> modulePos{
 	 frc::Translation2d(10.39_in, 10.39_in),   //Front Left
@@ -29,6 +29,8 @@ private:
 	};
 
 	double turnRatio = 150 / 7;
-	double driveRatio = 6.75;
-	double wheelDiameter = 0.10033;
+	double driveRatio = 5.9027777;
+	double wheelDiameter = 0.1016;
+
+	Pigeon2 chassisPigeon{ 13, "OverCANivore" };
 };

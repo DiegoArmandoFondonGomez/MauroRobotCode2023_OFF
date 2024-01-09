@@ -101,7 +101,6 @@ double SwerveModule::getSpeed() {
  */
 double SwerveModule::setSpeed(double speed) {
 	return ((speed / (m_wheelDiameter * M_PI)));
-	// return 2.4 * speed;
 }
 
 /**
